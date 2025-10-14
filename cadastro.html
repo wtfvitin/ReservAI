@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/padrão.css">
+    <link rel="stylesheet" href="src/css/cadastro.css">
+    <title>Cadastro - ReservAI</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="formulario">
+            <div class="logo">
+                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
+                <h1>ReservAI</h1>
+            </div>
+            <h2>Criar Conta</h2>
+            <form action="backend/cadastro.php" method="POST">
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="cpf" placeholder="CPF" required>
+                <input type="date" name="data_nasc" placeholder="Data de Nascimento" required min="1900-01-01" max="2006-12-31">
+                <input type="text" name="endereco" placeholder="Endereço" required>
+                <input type="text" name="cidade" placeholder="Cidade" required>
+                <input type="text" name="estado" placeholder="Estado" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+            </form>
+            <div class="fundo">
+                    <button type="submit" class="btnCadastrar">CADASTRAR</button>
+                    <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
+            </div>
+        </div>
+
+    </div>
+</body>

@@ -1,0 +1,175 @@
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    margin-top: 50px;
+    background-color: #FFF5EA;
+}
+
+.titulo-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo img {
+    width: 40px;
+    height: 40px;
+    margin-left: 11px;
+}
+
+h1 {
+    font-size: 40px;
+    color: #D76A03;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    background: transparent;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    background: transparent;
+    margin-bottom: 20px;
+}
+
+/* ==============================
+    GRID DE CARDS
+============================== */
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    justify-content: center;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.card {
+    width: 100%;
+    max-width: 450px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #fff;
+}
+
+.card-content {
+    padding: 16px;
+    background-color: #fff;
+}
+
+.card-content h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.card-content p {
+    margin: 0 0 16px;
+    color: #555;
+    font-size: 14px;
+}
+
+.card-content button {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #d87d25;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card-content button:hover {
+    background-color: #b0651f;
+}
+
+/* ===================== LOCALIZAÇÃO ===================== */
+.localizacao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    color: #333;
+    background: transparent;
+}
+
+.icone-localizacao {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.texto-localizacao {
+    font-size: 18px;
+    color: #000000;
+    background: transparent;
+    font-weight: 700;
+}
+
+/* ==============================
+    RESPONSIVIDADE
+============================== */
+
+/* 3 cards por linha (telas grandes) */
+@media (min-width: 1400px) {
+    .content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 2 cards por linha (tablets) */
+@media (max-width: 1024px) {
+    .content {
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: 10px;
+    }
+}
+
+/* 1 card por linha (celulares) */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+        margin-left: 25px;
+    }
+
+    .card {
+        max-width: 95%;
+        height: auto;
+    }
+}
+
+/* Ajusta o título e a localização em telas pequenas */
+@media (max-width: 600px) {
+    .titulo {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .localizacao {
+        font-size: 16px;
+    }
+}

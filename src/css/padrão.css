@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  background-color: #FFF5EA;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  scrollbar-color: #D76A03 transparent;
+  scrollbar-width: thin;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 1. ESTILOS PARA CHROME, EDGE, SAFARI (-webkit) */
+/* ---------------------------------------------------------------------- */
+
+/* Define a largura/altura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 4px;
+  /* Largura para barras verticais */
+  height: 10px;
+  /* Altura para barras horizontais */
+}
+
+/* Estiliza a FAiXA (o fundo da barra) */
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Cor de fundo (Track) - conforme solicitado */
+  border-radius: 10px;
+}
+
+/* Estiliza o POLEGAR (a barrinha que se move) */
+::-webkit-scrollbar-thumb {
+  background: #D76A03;
+  border-radius: 4px;
+}
+
+/* Opcional: Efeito ao passar o mouse (hover) */
+::-webkit-scrollbar-thumb:hover {
+  background: #E87A11;
+  /* Uma tonalidade um pouco mais clara ou escura */
+}
