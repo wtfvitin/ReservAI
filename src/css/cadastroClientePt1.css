@@ -34,7 +34,6 @@ img {
 
 h2 {
     color: #D76A03;
-    font-size: 32px;
     margin-top: 16px;
     margin-bottom: 20px;
     font-size: 24px;
@@ -42,21 +41,6 @@ h2 {
 }
 
 input {
-    width: 55%;
-    height: 64px;
-    padding: 12px 20px;
-    margin: 16px 0;
-    display: inline-block;
-    border: 1px solid #D76A03;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #FFF6EC;
-    box-shadow: 0 0 0 4px #F6C7A0;
-    font-size: 16px;
-    font-weight: 400;
-}
-
-select {
     width: 55%;
     height: 64px;
     padding: 12px 20px;
@@ -90,6 +74,8 @@ select {
 
 .btnCadastrar:hover {
     background-color: #c05d00;
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
 }
 
 .entrar {
@@ -125,7 +111,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 35px;
+    margin-top: 99px;
 }
 
 .fundo {
@@ -138,7 +124,7 @@ form {
     /* ocupa toda a largura */
     box-sizing: border-box;
     /* padding conta dentro da largura */
-    margin: 140px 0 0 0;
+    margin: 203px 0 0 0;
     /* só margem em cima */
 }
 

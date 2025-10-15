@@ -75,6 +75,8 @@ input {
 
 .btnCadastrar:hover {
     background-color: #c05d00;
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
 }
 
 .entrar {
@@ -110,7 +112,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 99px;
+    margin-top: 35px;
 }
 
 .fundo {
@@ -123,7 +125,7 @@ form {
     /* ocupa toda a largura */
     box-sizing: border-box;
     /* padding conta dentro da largura */
-    margin: 203px 0 0 0;
+    margin: 44px 0 0 0;
     /* só margem em cima */
 }
 

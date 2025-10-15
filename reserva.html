@@ -12,55 +12,79 @@
 </head>
 
 <body>
+    <!-- =============================== -->
+    <!-- TÍTULO DA PÁGINA -->
+    <!-- =============================== -->
     <div class="titulo">
-        <img src="img/Icone Voltar.png" alt="Voltar" onclick="history.back()">
+        <img src="img/Icone Voltar.png" alt="Voltar" id="voltar">
         <h1>Criar Reserva</h1>
     </div>
 
+    <!-- =============================== -->
+    <!-- CABEÇALHO -->
+    <!-- =============================== -->
     <div class="cabecalho">
         <img src="img/Logo Restaurante.png" alt="Logo do Restaurante" class="logo-restaurante">
         <div class="info-restaurante">
             <h2>JERONIMO</h2>
             <p>Rua das Paineiras, 398, Bairro Jardim, Santo André/SP</p>
         </div>
+    </div>
 
-        <div class="slideContainer">
-            <div class="slideshow">
-                <div class="textoNumerosSlide">1 / 3</div>
-                <img src="img/Jeronimo1.jpeg" alt="">
-                <div class="textoSlide">Legenda</div>
-            </div>
-            <div class="slideshow fade">
-                <div class="textoNumerosSlide">1 / 3</div>
-                <img src="img/Jeronimo2.jpg" alt="">
-                <div class="textoSlide">Legenda</div>
-            </div>
-            <div class="slideshow">
-                <div class="textoNumerosSlide">1 / 3</div>
-                <img src="img/Jeronimo3.jpg" alt="">
-                <div class="textoSlide">Legenda</div>
-            </div>
+    <!-- =============================== -->
+    <!-- APRESENTAÇÃO DE IMAGENS -->
+    <!-- =============================== -->
+    <div class="container-slideshow">
 
-            <a class="setaEsquerda" onclick="mudarSlide(-1)">&#10094;</a>
-            <a class="setaDireita" onclick="mudarSlide(1)">&#10095;</a>
+        <div class="slide fade">
+            <img src="img/Jeronimo1.jpeg">
         </div>
-        <br>
-        <div style="text-align:center">
-            <span class="pontoSlide" onclick="irParaSlide(1)"></span>
-            <span class="pontoSlide" onclick="irParaSlide(2)"></span>
-            <span class="pontoSlide" onclick="irParaSlide(3)"></span> 
 
+        <div class="slide fade">
+            <img src="img/Jeronimo2.jpg" >
+        </div>
 
+        <div class="slide fade">
+            <img src="img/Jeronimo3.jpg" >
+        </div>
 
+        <!-- Botões anterior / próximo -->
+        <a class="anterior" onclick="mudarSlide(-1)">&#10094;</a>
+        <a class="proximo" onclick="mudarSlide(1)">&#10095;</a>
+    </div>
 
+    <br>
 
+    <!-- Indicadores -->
+    <div style="text-align:center">
+        <span class="bolinha" onclick="slideAtual(1)"></span>
+        <span class="bolinha" onclick="slideAtual(2)"></span>
+        <span class="bolinha" onclick="slideAtual(3)"></span>
+    </div>
 
+    <!-- =============================== -->
+    <!-- SOBRE O RESTAURANTE -->
+    <!-- =============================== -->
+    <div class="infoRestaurante">
+        <h2>Sobre o Restaurante</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos molestias facere odit reprehenderit dolores
+            excepturi sunt nihil exercitationem voluptatem debitis. Beatae inventore a quaerat praesentium, commodi
+            provident pariatur mollitia officia deleniti dolorum, sapiente tempora unde molestiae quae maiores corrupti
+            optio voluptas voluptatem? Eveniet ipsa ipsam facere culpa, quae minus consequatur maiores eaque aut
+            pariatur magnam quaerat eius at, nemo nam recusandae sunt? Sit, distinctio repellendus earum molestiae
+            provident consequatur labore sequi qui neque quae eum, repellat aperiam commodi alias. Sapiente sint,
+            temporibus, similique aut iste aliquam veniam perspiciatis consequatur sunt dolorum dignissimos vero
+            voluptas quidem quam mollitia eaque culpa nisi?</p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-
-
-
-
-
+    <!-- =============================== -->
+    <!-- CARDÁPIO -->
+    <!-- =============================== -->
 
 
 
@@ -75,11 +99,8 @@
     <!-- ============================================================== 
     NAVBAR COMPLETA
     ============================================================== -->
-
-    <!-- Overlay escuro -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Barra de pesquisa -->
     <div class="search-container" id="searchBar">
         <form id="searchForm">
             <input type="search" id="searchInput" placeholder="Pesquisar...">
@@ -89,7 +110,6 @@
         </form>
     </div>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <a href="index.html" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
         <a href="#" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
@@ -103,130 +123,110 @@
                 alt="Configurações"></a>
         <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
     </nav>
+
+    <!-- ============================================================== 
+    SCRIPTS
+    ============================================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            /*  ============================================================== 
+            SCRIPT NAVBAR (mantido)
+            ==============================================================  */
+            const openSearch = document.getElementById("openSearch");
+            const searchBar = document.getElementById("searchBar");
+            const searchInput = document.getElementById("searchInput");
+            const searchForm = document.getElementById("searchForm");
+            const overlay = document.getElementById("overlay");
+
+            function abrirPesquisa() {
+                openSearch.classList.add("active");
+                searchBar.style.display = "block";
+                overlay.style.display = "block";
+                setTimeout(() => {
+                    overlay.style.opacity = "1";
+                    searchInput.focus();
+                }, 10);
+            }
+
+            function fecharPesquisa() {
+                openSearch.classList.remove("active");
+                searchBar.style.display = "none";
+                overlay.style.opacity = "0";
+                setTimeout(() => (overlay.style.display = "none"), 300);
+            }
+
+            openSearch.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (openSearch.classList.contains("active")) {
+                    fecharPesquisa();
+                } else {
+                    abrirPesquisa();
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (
+                    !searchBar.contains(e.target) &&
+                    !openSearch.contains(e.target) &&
+                    searchBar.style.display === "block"
+                ) {
+                    fecharPesquisa();
+                }
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && searchBar.style.display === "block") {
+                    fecharPesquisa();
+                }
+            });
+
+            overlay.addEventListener("click", fecharPesquisa);
+
+            /*  ============================================================== 
+            BOTÃO VOLTAR
+            ==============================================================  */
+            document.getElementById('voltar').addEventListener('click', function () {
+                history.back();
+            });
+
+            /*  ============================================================== 
+            SCRIPT DO CARROSSEL
+            ==============================================================  */
+            let indiceSlide = 1;
+            mostrarSlides(indiceSlide);
+
+            function mudarSlide(n) {
+                mostrarSlides(indiceSlide += n);
+            }
+
+            function slideAtual(n) {
+                mostrarSlides(indiceSlide = n);
+            }
+
+            function mostrarSlides(n) {
+                const slides = document.getElementsByClassName("slide");
+                const bolinhas = document.getElementsByClassName("bolinha");
+                if (slides.length === 0) return;
+
+                if (n > slides.length) { indiceSlide = 1 }
+                if (n < 1) { indiceSlide = slides.length }
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (let i = 0; i < bolinhas.length; i++) {
+                    bolinhas[i].className = bolinhas[i].className.replace(" ativo", "");
+                }
+                slides[indiceSlide - 1].style.display = "block";
+                bolinhas[indiceSlide - 1].className += " ativo";
+            }
+
+            // Torna funções acessíveis no HTML
+            window.mudarSlide = mudarSlide;
+            window.slideAtual = slideAtual;
+        });
+    </script>
+
 </body>
-<script>
-    /*  ==============================================================
-    SCRIPT NAVBAR
-    ==============================================================  */
-    const openSearch = document.getElementById("openSearch");
-    const searchBar = document.getElementById("searchBar");
-    const searchInput = document.getElementById("searchInput");
-    const searchForm = document.getElementById("searchForm");
-
-    // Cria overlay escuro (se ainda não existir)
-    let overlay = document.getElementById("overlay");
-    if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.id = "overlay";
-        overlay.style.position = "fixed";
-        overlay.style.inset = "0";
-        overlay.style.background = "rgba(0, 0, 0, 0.6)";
-        overlay.style.zIndex = "9";
-        overlay.style.display = "none";
-        overlay.style.opacity = "0";
-        overlay.style.transition = "opacity 0.3s ease";
-        document.body.appendChild(overlay);
-    }
-
-    // Função para abrir a pesquisa
-    function abrirPesquisa() {
-        openSearch.classList.add("active");
-        searchBar.style.display = "block";
-        overlay.style.display = "block";
-        setTimeout(() => {
-            overlay.style.opacity = "1";
-            searchInput.focus();
-        }, 10);
-    }
-
-    // Função para fechar a pesquisa
-    function fecharPesquisa() {
-        openSearch.classList.remove("active");
-        searchBar.style.display = "none";
-        overlay.style.opacity = "0";
-        setTimeout(() => (overlay.style.display = "none"), 300);
-    }
-
-    // Alterna visibilidade da barra
-    openSearch.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (openSearch.classList.contains("active")) {
-            fecharPesquisa();
-        } else {
-            abrirPesquisa();
-        }
-    });
-
-    // Fecha se clicar fora
-    document.addEventListener("click", (e) => {
-        if (
-            !searchBar.contains(e.target) &&
-            !openSearch.contains(e.target) &&
-            searchBar.style.display === "block"
-        ) {
-            fecharPesquisa();
-        }
-    });
-
-    // Fecha com ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && searchBar.style.display === "block") {
-            fecharPesquisa();
-        }
-    });
-
-    // Fecha ao clicar no overlay
-    overlay.addEventListener("click", fecharPesquisa);
-    /*  ==============================================================
-    FIM SCRIPT NAVBAR
-    ==============================================================  */
-
-
-
-
-
-    /*  ==============================================================
-    SCRIPT BOTÃO VOLTAR
-    ==============================================================  */
-    document.getElementById('voltar').addEventListener('click', function() {
-        history.back();
-    });
-    /*  ==============================================================
-    FIM SCRIPT BOTÃO VOLTAR
-    ==============================================================  */
-
-
-
-
-    /*  ==============================================================
-    SCRIPT SLIDESHOW
-    ==============================================================  */
-    var slideIndex = 1;
-    showSlides(slideIndex);
-
-    function mudarSlide(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function slideAtual(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("slideshow");
-        var pontos = document.getElementsByClassName("pontoSlide");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < pontos.length; i++) {
-            pontos[i].className = pontos[i].className.replace(" ativo", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        pontos[slideIndex - 1].className += "ativo";
-    } 
-</script>
 
 </html>

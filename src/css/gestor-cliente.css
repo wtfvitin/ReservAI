@@ -65,4 +65,20 @@ button {
 
 button:hover {
     background-color: #bf5c02;
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
+}
+
+.fundo {
+    background-color: #FFE5B1;
+    border-radius: 58px 58px 0 0;
+    /* só arredonda em cima */
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    /* ocupa toda a largura */
+    box-sizing: border-box;
+    /* padding conta dentro da largura */
+    margin: 196px 0 0 0;
+    /* só margem em cima */
 }
