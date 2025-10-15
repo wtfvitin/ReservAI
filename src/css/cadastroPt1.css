@@ -1,0 +1,142 @@
+img {
+    width: 200px;
+    margin-bottom: 1px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1px;
+    width: 200px;
+    height: auto;
+    transform: none !important;
+}
+
+/* zera margens do h1 e centraliza */
+.logo h1 {
+    color: #D76A03;
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+    transform: none !important;
+}
+
+h2 {
+    color: #D76A03;
+    font-size: 32px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+input {
+    width: 55%;
+    height: 64px;
+    padding: 12px 20px;
+    margin: 16px 0;
+    display: inline-block;
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF6EC;
+    box-shadow: 0 0 0 4px #F6C7A0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.btnCadastrar {
+    width: 45%;
+    height: 64px;
+    max-width: 700px;
+    height: 56px;
+    background-color: #D76A03;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.btnCadastrar:hover {
+    background-color: #c05d00;
+}
+
+.entrar {
+    color: #BF3100;
+    font-weight: bold;
+    font-size: 16px;
+    background: transparent;
+    text-decoration: none;
+}
+
+.entrar:hover {
+    text-decoration: underline;
+}
+
+p {
+    color: #D76A03;
+    background: transparent;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 99px;
+}
+
+.fundo {
+    background-color: #FFE5B1;
+    border-radius: 58px 58px 0 0;
+    /* só arredonda em cima */
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    /* ocupa toda a largura */
+    box-sizing: border-box;
+    /* padding conta dentro da largura */
+    margin: 203px 0 0 0;
+    /* só margem em cima */
+}
+
+
+@media (max-width: 400px) {
+    .fundo {
+        width: 100%;
+        border-radius: 40px 40px 0 0;
+        padding: 15px;
+    }
+
+    .input {
+        width: 100%;
+        max-width: 280px;
+    }
+}

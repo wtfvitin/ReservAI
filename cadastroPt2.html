@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/padrão.css">
+    <link rel="stylesheet" href="src/css/cadastroPt2.css">
+    <title>Cadastro - ReservAI</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="formulario">
+            <div class="logo">
+                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
+                <h1>Vamos personalizar sua experiência</h1>
+            </div>
+
+            <form action="backend/cadastro.php" method="POST">
+                <!-- Nome -->
+                <input type="text" name="nome" placeholder="Nome" required>
+                <!-- Sobrenome -->
+                <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+                <!-- CPF -->
+                <input type="text" name="cpf" placeholder="CPF" required>
+                <!-- Data de nascimento -->
+                <input type="date" id="data_nasc" name="data_nasc" placeholder="Data de Nascimento" required
+                    min="1900-01-01">
+                <!-- Telefone -->
+                <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="15" required>
+        </div>
+        <div class="fundo">
+            <a href="cadastroPt2.html"><button type="submit" class="btnCadastrar">PRÓXIMO</button></a>
+            <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
+        </div>
+        </form>
+
+    </div>
+    </div>
+
+    <script>
+        // Define limite de idade mínima (18 anos)
+        const inputData = document.getElementById("data_nasc");
+        const hoje = new Date();
+        const ano = hoje.getFullYear() - 18;
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        inputData.max = `${ano}-${mes}-${dia}`;
+
+        // Formatação automática do telefone
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.addEventListener('input', function (e) {
+            let valor = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
+
+            if (valor.length > 11) valor = valor.slice(0, 11); // limita a 11 dígitos
+
+            if (valor.length > 6) {
+                valor = valor.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+            } else if (valor.length > 2) {
+                valor = valor.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+            } else {
+                valor = valor.replace(/^(\d*)/, "($1");
+            }
+
+            e.target.value = valor;
+        });
+
+
+        // --- Antes de enviar o formulário, limpa o telefone
+        const form = document.getElementById("formCadastro");
+        form.addEventListener("submit", function () {
+            const telInput = document.getElementById("telefone");
+            telInput.value = telInput.value.replace(/\D/g, ""); // só números
+        });
+    </script>
+</body>
+
+</html>
