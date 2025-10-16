@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante</title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+
     <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/navbar.css">
     <link rel="stylesheet" href="src/css/reserva.css">
+
 </head>
+
+
 
 <body>
     <!-- =============================== -->
@@ -41,11 +46,11 @@
         </div>
 
         <div class="slide fade">
-            <img src="img/Jeronimo2.jpg" >
+            <img src="img/Jeronimo2.jpg">
         </div>
 
         <div class="slide fade">
-            <img src="img/Jeronimo3.jpg" >
+            <img src="img/Jeronimo3.jpg">
         </div>
 
         <!-- Botões anterior / próximo -->
@@ -76,15 +81,92 @@
             temporibus, similique aut iste aliquam veniam perspiciatis consequatur sunt dolorum dignissimos vero
             voluptas quidem quam mollitia eaque culpa nisi?</p>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 
     <!-- =============================== -->
     <!-- CARDÁPIO -->
     <!-- =============================== -->
+    <div class="container-carousel swiper">
+        <h2>Cardápio</h2>
+        <div class="card-wrapper">
+            <ul class="card-list swiper-wrapper">
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                        </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
 
@@ -127,6 +209,7 @@
     <!-- ============================================================== 
     SCRIPTS
     ============================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -224,6 +307,41 @@
             // Torna funções acessíveis no HTML
             window.mudarSlide = mudarSlide;
             window.slideAtual = slideAtual;
+        });
+
+
+            /*  ============================================================== 
+            CARDÁPIO
+            ==============================================================  */
+
+
+        new Swiper('.card-wrapper', {
+            loop: true,
+
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                }
+
+            }
         });
     </script>
 
