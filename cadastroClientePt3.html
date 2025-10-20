@@ -17,15 +17,12 @@
                 <h1>Vamos personalizar sua experiência</h1>
             </div>
 
-            <form id="formCadastro" action="cadastroPt2.html" method="POST">
-                <!-- CEP -->
-                <input type="text" id="cep" name="cep" placeholder="CEP" maxlength="9" required>
-
-                <!-- Endereço -->
+            <form action="backend/cadastro.php" method="POST">
+                <input type="text" id="cep" name="cep" placeholder="CEP" required>
                 <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
                 <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
-                <!-- Estado -->
-                <select id="estado" name="estado" required>
+            <select id="estado" name="estado" required>
+                <option value="" disabled selected>Estado</option>
                     <option value="" disabled selected>Estado</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
@@ -57,7 +54,7 @@
                 </select>
         </div>
         <div class="fundo">
-            <button type="submit" class="btnCadastrar">CADASTRAR</button>
+                <button type="submit" class="btnCadastrar">CADASTRAR</button>
             <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
         </div>
         </form>

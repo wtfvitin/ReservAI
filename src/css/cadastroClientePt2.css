@@ -42,7 +42,7 @@ h2 {
 }
 
 input {
-    width: 55%;
+     width: 55%;
     height: 64px;
     padding: 12px 20px;
     margin: 16px 0;
@@ -118,16 +118,16 @@ form {
 .fundo {
     background-color: #FFE5B1;
     border-radius: 58px 58px 0 0;
-    /* só arredonda em cima */
     padding: 20px;
     text-align: center;
     width: 100%;
-    /* ocupa toda a largura */
     box-sizing: border-box;
-    /* padding conta dentro da largura */
-    margin: 44px 0 0 0;
-    /* só margem em cima */
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
+
 
 
 @media (max-width: 400px) {

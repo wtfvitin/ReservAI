@@ -122,7 +122,7 @@ p {
 
 form {
     width: 100%;
-    max-width: 1000px;
+    max-width: 2000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,16 +133,16 @@ form {
 .fundo {
     background-color: #FFE5B1;
     border-radius: 58px 58px 0 0;
-    /* só arredonda em cima */
     padding: 20px;
     text-align: center;
     width: 100%;
-    /* ocupa toda a largura */
     box-sizing: border-box;
-    /* padding conta dentro da largura */
-    margin: 140px 0 0 0;
-    /* só margem em cima */
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
+
 
 
 @media (max-width: 400px) {

@@ -17,21 +17,15 @@
                 <h1>Vamos personalizar sua experiência</h1>
             </div>
 
-            <form action="backend/cadastro.php" method="POST">
-                <!-- Nome -->
+            <form action="backend/salvarEtapa2.php" method="POST">
                 <input type="text" name="nome" placeholder="Nome" required>
-                <!-- Sobrenome -->
                 <input type="text" name="sobrenome" placeholder="Sobrenome" required>
-                <!-- CPF -->
                 <input type="text" name="cpf" placeholder="CPF" required>
-                <!-- Data de nascimento -->
-                <input type="date" id="data_nasc" name="data_nasc" placeholder="Data de Nascimento" required
-                    min="1900-01-01">
-                <!-- Telefone -->
-                <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="15" required>
+                <input type="date" name="data_nasc" required>
+                <input type="text" name="telefone" placeholder="Telefone" required>
         </div>
         <div class="fundo">
-            <a href="cadastroPt2.html"><button type="submit" class="btnCadastrar">PRÓXIMO</button></a>
+            <button type="submit" class="btnCadastrar">PRÓXIMO</button>
             <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
         </div>
         </form>

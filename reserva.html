@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante</title>
+    <title>ReservAI</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
 
@@ -82,6 +82,12 @@
             voluptas quidem quam mollitia eaque culpa nisi?</p>
     </div>
 
+    <!-- ============================================================== 
+        BOTÃO RESERVAR MESA
+        ============================================================== -->
+    <div class="botao-reservar-mesa">
+        <a href="criarReserva.html"><button>Reservar Mesa<img src="img/Icone Agenda Branco.png"></button></a>
+    </div>
 
     <!-- =============================== -->
     <!-- CARDÁPIO -->
@@ -96,14 +102,6 @@
                         <h2 class="card-title">Nome do prato</h2>
                         <br>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                        </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
                     </div>
                 </li>
                 <li class="card-item swiper-slide">
@@ -132,7 +130,7 @@
                 </li>
                 <li class="card-item swiper-slide">
                     <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
                         <h2 class="card-title">Nome do prato</h2>
                         <br>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
@@ -140,7 +138,7 @@
                 </li>
                 <li class="card-item swiper-slide">
                     <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
                         <h2 class="card-title">Nome do prato</h2>
                         <br>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
@@ -148,7 +146,15 @@
                 </li>
                 <li class="card-item swiper-slide">
                     <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">    
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
+                        <h2 class="card-title">Nome do prato</h2>
+                        <br>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </li>
+                <li class="card-item swiper-slide">
+                    <div class="card-link">
+                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
                         <h2 class="card-title">Nome do prato</h2>
                         <br>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
@@ -163,19 +169,6 @@
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-
-
-
-
-
-
-
 
 
     <!-- ============================================================== 
@@ -206,145 +199,145 @@
         <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
     </nav>
 
-    <!-- ============================================================== 
+</body>
+
+<!-- ============================================================== 
     SCRIPTS
     ============================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-            /*  ============================================================== 
-            SCRIPT NAVBAR (mantido)
-            ==============================================================  */
-            const openSearch = document.getElementById("openSearch");
-            const searchBar = document.getElementById("searchBar");
-            const searchInput = document.getElementById("searchInput");
-            const searchForm = document.getElementById("searchForm");
-            const overlay = document.getElementById("overlay");
+        /*  ============================================================== 
+        SCRIPT NAVBAR
+        ==============================================================  */
+        const openSearch = document.getElementById("openSearch");
+        const searchBar = document.getElementById("searchBar");
+        const searchInput = document.getElementById("searchInput");
+        const searchForm = document.getElementById("searchForm");
+        const overlay = document.getElementById("overlay");
 
-            function abrirPesquisa() {
-                openSearch.classList.add("active");
-                searchBar.style.display = "block";
-                overlay.style.display = "block";
-                setTimeout(() => {
-                    overlay.style.opacity = "1";
-                    searchInput.focus();
-                }, 10);
-            }
+        function abrirPesquisa() {
+            openSearch.classList.add("active");
+            searchBar.style.display = "block";
+            overlay.style.display = "block";
+            setTimeout(() => {
+                overlay.style.opacity = "1";
+                searchInput.focus();
+            }, 10);
+        }
 
-            function fecharPesquisa() {
-                openSearch.classList.remove("active");
-                searchBar.style.display = "none";
-                overlay.style.opacity = "0";
-                setTimeout(() => (overlay.style.display = "none"), 300);
-            }
+        function fecharPesquisa() {
+            openSearch.classList.remove("active");
+            searchBar.style.display = "none";
+            overlay.style.opacity = "0";
+            setTimeout(() => (overlay.style.display = "none"), 300);
+        }
 
-            openSearch.addEventListener("click", (e) => {
-                e.preventDefault();
-                if (openSearch.classList.contains("active")) {
-                    fecharPesquisa();
-                } else {
-                    abrirPesquisa();
-                }
-            });
-
-            document.addEventListener("click", (e) => {
-                if (
-                    !searchBar.contains(e.target) &&
-                    !openSearch.contains(e.target) &&
-                    searchBar.style.display === "block"
-                ) {
-                    fecharPesquisa();
-                }
-            });
-
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" && searchBar.style.display === "block") {
-                    fecharPesquisa();
-                }
-            });
-
-            overlay.addEventListener("click", fecharPesquisa);
-
-            /*  ============================================================== 
-            BOTÃO VOLTAR
-            ==============================================================  */
-            document.getElementById('voltar').addEventListener('click', function () {
-                history.back();
-            });
-
-            /*  ============================================================== 
-            SCRIPT DO CARROSSEL
-            ==============================================================  */
-            let indiceSlide = 1;
-            mostrarSlides(indiceSlide);
-
-            function mudarSlide(n) {
-                mostrarSlides(indiceSlide += n);
-            }
-
-            function slideAtual(n) {
-                mostrarSlides(indiceSlide = n);
-            }
-
-            function mostrarSlides(n) {
-                const slides = document.getElementsByClassName("slide");
-                const bolinhas = document.getElementsByClassName("bolinha");
-                if (slides.length === 0) return;
-
-                if (n > slides.length) { indiceSlide = 1 }
-                if (n < 1) { indiceSlide = slides.length }
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                for (let i = 0; i < bolinhas.length; i++) {
-                    bolinhas[i].className = bolinhas[i].className.replace(" ativo", "");
-                }
-                slides[indiceSlide - 1].style.display = "block";
-                bolinhas[indiceSlide - 1].className += " ativo";
-            }
-
-            // Torna funções acessíveis no HTML
-            window.mudarSlide = mudarSlide;
-            window.slideAtual = slideAtual;
-        });
-
-
-            /*  ============================================================== 
-            CARDÁPIO
-            ==============================================================  */
-
-
-        new Swiper('.card-wrapper', {
-            loop: true,
-
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                }
-
+        openSearch.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (openSearch.classList.contains("active")) {
+                fecharPesquisa();
+            } else {
+                abrirPesquisa();
             }
         });
-    </script>
 
-</body>
+        document.addEventListener("click", (e) => {
+            if (
+                !searchBar.contains(e.target) &&
+                !openSearch.contains(e.target) &&
+                searchBar.style.display === "block"
+            ) {
+                fecharPesquisa();
+            }
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && searchBar.style.display === "block") {
+                fecharPesquisa();
+            }
+        });
+
+        overlay.addEventListener("click", fecharPesquisa);
+
+        /*  ============================================================== 
+        BOTÃO VOLTAR
+        ==============================================================  */
+        document.getElementById('voltar').addEventListener('click', function () {
+            history.back();
+        });
+
+        /*  ============================================================== 
+        SCRIPT DO CARROSSEL
+        ==============================================================  */
+        let indiceSlide = 1;
+        mostrarSlides(indiceSlide);
+
+        function mudarSlide(n) {
+            mostrarSlides(indiceSlide += n);
+        }
+
+        function slideAtual(n) {
+            mostrarSlides(indiceSlide = n);
+        }
+
+        function mostrarSlides(n) {
+            const slides = document.getElementsByClassName("slide");
+            const bolinhas = document.getElementsByClassName("bolinha");
+            if (slides.length === 0) return;
+
+            if (n > slides.length) { indiceSlide = 1 }
+            if (n < 1) { indiceSlide = slides.length }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < bolinhas.length; i++) {
+                bolinhas[i].className = bolinhas[i].className.replace(" ativo", "");
+            }
+            slides[indiceSlide - 1].style.display = "block";
+            bolinhas[indiceSlide - 1].className += " ativo";
+        }
+
+        // Torna funções acessíveis no HTML
+        window.mudarSlide = mudarSlide;
+        window.slideAtual = slideAtual;
+    });
+
+
+    /*  ============================================================== 
+    CARDÁPIO
+    ==============================================================  */
+
+
+    new Swiper('.card-wrapper', {
+        loop: true,
+
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+            }
+
+        }
+    });
+</script>
 
 </html>

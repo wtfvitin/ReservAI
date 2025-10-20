@@ -234,6 +234,11 @@
         font-size: 20px;
     }
 
+    .botao-reservar-mesa button {
+    width: 450px !important;
+    font-size: 24px !important;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -268,6 +273,11 @@
     .info-restaurante p {
         max-width: 100%;
         font-size: 14px;
+    }
+
+    .botao-reservar-mesa button {
+    width: 400px !important;
+    font-size: 24px !important;
     }
 
 }
@@ -394,4 +404,48 @@ p {
     background-image: none !important;
     box-shadow: none !important;
     border-radius: 12px;
+}
+
+/* ======================================== */
+/* BOTÃO RESERVAR MESA */
+/* ======================================== */
+.botao-reservar-mesa {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.botao-reservar-mesa button {
+    background-color: #D76A03;
+    color: white;
+    border: none;
+    padding: 25px 35px;
+    font-size: clamp(24px, 2vw, 28px);
+    font-weight: 500;
+    border-radius: 18px;
+    width: 600px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: #00000029 0px 3px 8px;
+}
+
+.botao-reservar-mesa button:hover {
+    background-color: #bf5c02;
+}
+
+.botao-reservar-mesa img {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+}
+
+.botao-reservar-mesa a {
+    text-decoration: none;
+    font-weight: 800;
 }

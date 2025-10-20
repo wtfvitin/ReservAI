@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/padrão.css">
-    <link rel="stylesheet" href="src/css/cadastroClientePt1.css">
+    <link rel="stylesheet" href="src/css/cadastroRestaurantePt1.css">
     <title>Cadastro - ReservAI</title>
 </head>
 
@@ -14,11 +14,10 @@
         <div class="formulario">
             <div class="logo">
                 <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
-                <h1>ReservAI</h1>
+                <h1>Vamos personalizar sua experiência</h1>
             </div>
-            <h2>Criar Conta</h2>
             <form action="backend/salvarEtapa1.php" method="POST">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="email" placeholder="Nome do Restaurante" required>
                 <input type="password" name="senha" placeholder="Senha" required>
                 <div class="fundo">
                     <button type="submit" class="btnCadastrar">PRÓXIMO</button>

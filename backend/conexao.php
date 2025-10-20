@@ -1,9 +1,8 @@
 <?php
-// backend/conexao.php
 $host = "localhost";
 $dbname = "reservai";
-$user = "root";  // ajuste conforme seu ambiente
-$pass = "";      // senha do banco (se tiver)
+$user = "root"; // ajuste conforme seu ambiente
+$pass = "";
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
