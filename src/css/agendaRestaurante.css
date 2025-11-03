@@ -1,0 +1,143 @@
+/* === Estilos gerais === */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #fff8f0;
+    color: #5a3e2b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === Cabeçalho === */
+.topbar {
+    width: 100%;
+    background-color: #fde9d9;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container-header {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container-header h1 {
+    font-size: 26px;
+    color: #d46a27;
+}
+
+.back-icon {
+    color: #d46a27;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* === Conteúdo principal === */
+.content {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0 100px;
+    gap: 30px;
+}
+
+/* === Cartões === */
+.card {
+    width: 100%;
+    max-width: 700px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 25px;
+    text-align: left;
+    border: 1px solid #f2cbb3;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.card-info {
+    border: 1px solid #e6b48d;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #fff9f5;
+    margin-bottom: 15px;
+}
+
+.card-info p {
+    margin: 6px 0;
+}
+
+.cancel-btn {
+    background-color: #b83e21;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #962f18;
+}
+
+/* === Rodapé === */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fde9d9;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.nav-bar i {
+    font-size: 22px;
+    color: #d46a27;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.3s;
+}
+
+.nav-bar i:hover {
+    transform: scale(1.1);
+    color: #b3541d;
+}
+
+.nav-bar .active {
+    color: #b83e21;
+}
+
+/* === Responsividade === */
+@media (max-width: 900px) {
+    .content {
+        width: 90%;
+    }
+    .container-header {
+        width: 90%;
+    }
+}

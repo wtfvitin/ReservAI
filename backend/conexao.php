@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $dbname = "reservai";
-$user = "root"; // ajuste conforme seu ambiente
+$user = "root";
 $pass = "";
 
 try {

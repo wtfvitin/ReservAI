@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Verifica se já existe e-mail
-    $check = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+    $check = $pdo->prepare("SELECT idcliente FROM clientes WHERE email_cli = ?");
     $check->execute([$email]);
     if ($check->rowCount() > 0) {
         echo "E-mail já cadastrado!";
@@ -32,12 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Insere o usuário
-    $sql = "INSERT INTO usuarios (nome, sobrenome, cpf, data_nasc, telefone, email, senha, cep, endereco, cidade, estado)
+    $sql = "INSERT INTO clientes 
+            (nome_cli, sobrenome_cli, cpf_cli, telefone_cli, email_cli, senha, dtNasc_cli, cep_cli, endereco_rua_cli, endereco_cidade_cli, endereco_estado_cli)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
 
-    if ($stmt->execute([$nome, $sobrenome, $cpf, $data_nasc, $telefone, $email, $senha, $cep, $endereco, $cidade, $estado])) {
-        // Limpa sessão temporária
+    if ($stmt->execute([$nome, $sobrenome, $cpf, $telefone, $email, $senha, $data_nasc, $cep, $endereco, $cidade, $estado])) {
         session_unset();
         session_destroy();
         header("Location: ../loginCliente.html?sucesso=1");

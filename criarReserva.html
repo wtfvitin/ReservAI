@@ -7,9 +7,61 @@
     <title>ReservAI</title>
     <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/navbar.css">
+    <link rel="stylesheet" href="src/css/criarReserva.css">
 </head>
 
 <body>
+
+    <!-- =============================== -->
+    <!-- TÍTULO DA PÁGINA -->
+    <!-- =============================== -->
+    <div class="titulo">
+        <img src="img/Icone Voltar.png" alt="Voltar" id="voltar">
+        <h1>Criar Reserva</h1>
+    </div>
+
+    <!-- =============================== -->
+    <!-- CABEÇALHO -->
+    <!-- =============================== -->
+    <div class="cabecalho">
+        <img src="img/Logo Restaurante.png" alt="Logo do Restaurante" class="logo-restaurante">
+        <div class="info-restaurante">
+            <h2>JERONIMO</h2>
+            <p>Rua das Paineiras, 398, Bairro Jardim, Santo André/SP</p>
+        </div>
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- FÓRMULÁRIO -->
+    <!-- =============================== -->
+
+    <div class="formulario-reserva">
+        <form action="#" method="post">
+            <label for="pessoas">Quantidade de Pessoas <span class="obrigatorio">*</span></label>
+
+            <select id="pessoas" name="pessoas" required>
+                <option value="" disabled selected>Quantidade de Pessoas</option>
+                <option value="1 Pessoa">1 Pessoa</option>
+                <option value="2 Pessoas">2 Pessoas</option>
+                <option value="3 Pessoas">3 Pessoas</option>
+                <option value="4 Pessoas">4 Pessoas</option>
+                <option value="5 Pessoas">5 Pessoas</option>
+                <option value="6 Pessoas">6 Pessoas</option>
+                <option value="7 Pessoas">7 Pessoas</option>
+                <option value="8 Pessoas">8 Pessoas</option>
+            </select>
+            <label for="data">Data <span class="obrigatorio">*</span></label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="horario">Horário <span class="obrigatorio">*</span></label>
+            <input type="time" id="horario" name="horario" min="18:00" max="21:00" step="1800" required>
+
+            <button type="submit" class="btnConfirmar">CONFIRMAR</button>
+            <button type="button" class="btnCancelar" onclick="window.history.back()">CANCELAR</button>
+
+        </form>
+    </div>
 
 
     <!-- ============================================================== 
@@ -41,64 +93,76 @@
     </nav>
 </body>
 <script>
-     /*  ============================================================== 
-        SCRIPT NAVBAR
-        ==============================================================  */
-        const openSearch = document.getElementById("openSearch");
-        const searchBar = document.getElementById("searchBar");
-        const searchInput = document.getElementById("searchInput");
-        const searchForm = document.getElementById("searchForm");
-        const overlay = document.getElementById("overlay");
+    /*  ============================================================== 
+    SCRIPT NAVBAR
+       ==============================================================  */
+    const openSearch = document.getElementById("openSearch");
+    const searchBar = document.getElementById("searchBar");
+    const searchInput = document.getElementById("searchInput");
+    const searchForm = document.getElementById("searchForm");
+    const overlay = document.getElementById("overlay");
 
-        function abrirPesquisa() {
-            openSearch.classList.add("active");
-            searchBar.style.display = "block";
-            overlay.style.display = "block";
-            setTimeout(() => {
-                overlay.style.opacity = "1";
-                searchInput.focus();
-            }, 10);
+    function abrirPesquisa() {
+        openSearch.classList.add("active");
+        searchBar.style.display = "block";
+        overlay.style.display = "block";
+        setTimeout(() => {
+            overlay.style.opacity = "1";
+            searchInput.focus();
+        }, 10);
+    }
+
+    function fecharPesquisa() {
+        openSearch.classList.remove("active");
+        searchBar.style.display = "none";
+        overlay.style.opacity = "0";
+        setTimeout(() => (overlay.style.display = "none"), 300);
+    }
+
+    openSearch.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (openSearch.classList.contains("active")) {
+            fecharPesquisa();
+        } else {
+            abrirPesquisa();
         }
+    });
 
-        function fecharPesquisa() {
-            openSearch.classList.remove("active");
-            searchBar.style.display = "none";
-            overlay.style.opacity = "0";
-            setTimeout(() => (overlay.style.display = "none"), 300);
+    document.addEventListener("click", (e) => {
+        if (
+            !searchBar.contains(e.target) &&
+            !openSearch.contains(e.target) &&
+            searchBar.style.display === "block"
+        ) {
+            fecharPesquisa();
         }
+    });
 
-        openSearch.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (openSearch.classList.contains("active")) {
-                fecharPesquisa();
-            } else {
-                abrirPesquisa();
-            }
-        });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && searchBar.style.display === "block") {
+            fecharPesquisa();
+        }
+    });
 
-        document.addEventListener("click", (e) => {
-            if (
-                !searchBar.contains(e.target) &&
-                !openSearch.contains(e.target) &&
-                searchBar.style.display === "block"
-            ) {
-                fecharPesquisa();
-            }
-        });
+    overlay.addEventListener("click", fecharPesquisa);
 
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && searchBar.style.display === "block") {
-                fecharPesquisa();
-            }
-        });
+    /*  ============================================================== 
+    BOTÃO VOLTAR
+    ==============================================================  */
+    document.getElementById('voltar').addEventListener('click', function () {
+        history.back();
+    });
 
-        overlay.addEventListener("click", fecharPesquisa);
-
-        /*  ============================================================== 
-        BOTÃO VOLTAR
-        ==============================================================  */
-        document.getElementById('voltar').addEventListener('click', function () {
-            history.back();
-        });
+    /*  ============================================================== 
+    DATA MINIMA
+    ==============================================================  */
+    const inputData = document.getElementById('data');
+    const hoje = new Date();
+    hoje.setDate(hoje.getDate() + 1); // Amanhã
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const minData = `${ano}-${mes}-${dia}`;
+    inputData.min = minData;
 
 </script>
