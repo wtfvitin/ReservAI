@@ -52,7 +52,10 @@ CREATE TABLE IF NOT EXISTS restaurantes (
   email_restaurante VARCHAR(100),
   horario_abertura TIME NOT NULL,
   horario_fechamento TIME NOT NULL,
-  endereco_idendereco INT NOT NULL,
+  cep_res VARCHAR(9) NOT NULL,
+  endereco_rua_res VARCHAR(100) NOT NULL,
+  endereco_cidade_res VARCHAR(100) NOT NULL,
+  endereco_estado_res CHAR(2) NOT NULL,
   PRIMARY KEY (idrestaurante),
   INDEX idx_restaurante_endereco (endereco_idendereco),
   CONSTRAINT fk_restaurante_endereco FOREIGN KEY (endereco_idendereco)
@@ -89,7 +92,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   cep_cli VARCHAR(9) NOT NULL,
   endereco_rua_cli VARCHAR(100) NOT NULL,
   endereco_cidade_cli VARCHAR(100) NOT NULL,
-  endereco_estado_cli VARCHAR(20) NOT NULL,
+  endereco_estado_cli CHAR(2) NOT NULL,
   PRIMARY KEY (idcliente),
   UNIQUE KEY cpf_usuario_UNIQUE (cpf_cli),
   UNIQUE KEY email_usuario_UNIQUE (email_cli)
@@ -218,4 +221,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+USE reservai;
 select*from clientes;
+
+ALTER TABLE clientes
+MODIFY endereco_estado_cli CHAR(2);
+

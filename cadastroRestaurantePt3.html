@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/padrão.css">
-    <link rel="stylesheet" href="src/css/cadastroClientePt3.css">
+    <link rel="stylesheet" href="src/css/cadastroRestaurantePt3.css">
     <title>Cadastro - ReservAI</title>
 </head>
 
@@ -17,9 +17,12 @@
                 <h1>Vamos personalizar sua experiência</h1>
             </div>
 
-            <form action="backend/cadastro.php" method="POST">
+            <form action="backend/cadastroRestaurante.php" method="POST">
+
                 <input type="text" id="cep" name="cep" placeholder="CEP" required>
                 <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
+                <input type="text" id="numero" name="numero" placeholder="Número" required>
+                <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
                 <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
                 <select id="estado" name="estado" required>
                     <option value="" disabled selected>Estado</option>
@@ -53,39 +56,48 @@
                 </select>
         </div>
         <div class="fundo">
-            <button type="submit" class="btnCadastrar">CADASTRAR</button>
-            <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
+            <button type="submit" class="btnCadastrar">PRÓXIMO</button>
+            <p>Já tem uma conta? <a class="entrar" href="loginCliente.html">Entrar</a></p>
         </div>
         </form>
     </div>
+    </div>
 
-    <script>
-        // Evento quando o usuário sair do campo CEP
-        document.getElementById('cep').addEventListener('blur', function () {
-            let cep = this.value.replace(/\D/g, ''); // remove tudo que não é número
 
-            if (cep.length !== 8) {
-                alert("CEP inválido!");
-                return;
-            }
-
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.erro) {
-                        alert("CEP não encontrado!");
-                        return;
-                    }
-                    // Preenche automaticamente os campos
-                    document.getElementById('endereco').value = data.logradouro;
-                    document.getElementById('cidade').value = data.localidade;
-                    document.getElementById('estado').value = data.uf;
-                })
-                .catch(error => {
-                    console.error("Erro ao buscar o CEP:", error);
-                });
-        });
-    </script>
 </body>
+<script>
+    const cep = document.getElementById('cep');
+    const endereco = document.getElementById('endereco');
+    const bairro = document.getElementById('bairro');
+    const cidade = document.getElementById('cidade');
+    const estado = document.getElementById('estado');
+
+    cep.addEventListener('input', async () => {
+        let cepLimpo = cep.value.replace(/\D/g, '');
+
+        if (cepLimpo.length === 8) {
+            const url = `https://viacep.com.br/ws/${cepLimpo}/json/`;
+
+            try {
+                const resposta = await fetch(url);
+                const dados = await resposta.json();
+
+                if (dados.erro) {
+                    alert("CEP não encontrado.");
+                    return;
+                }
+
+                endereco.value = dados.logradouro;
+                bairro.value = dados.bairro;
+                cidade.value = dados.localidade;
+
+                estado.value = dados.uf.toUpperCase();
+
+            } catch (error) {
+                console.error("Erro ao buscar CEP:", error);
+            }
+        }
+    });
+</script>
 
 </html>

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -128,7 +130,7 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="index.html" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
+    <a href="index.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
     <a href="#" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
     <a href="#" class="search-btn" id="openSearch">
@@ -137,8 +139,14 @@
     </a>
 
     <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
-    <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
+
+    <!-- Botão de perfil com redirecionamento dinâmico -->
+    <a href="<?php echo isset($_SESSION['cliente_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+      <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
+      </a>
+
   </nav>
+
 
   <!-- ==============================================================
     FIM NAVBAR

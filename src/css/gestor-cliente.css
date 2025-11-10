@@ -61,6 +61,7 @@ button {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0px 3px 6px 1px rgb(0 0 0 / 30%);
+    font-size: 19px;
 }
 
 button:hover {

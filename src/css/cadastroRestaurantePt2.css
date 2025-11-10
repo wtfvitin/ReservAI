@@ -34,29 +34,13 @@ img {
 
 h2 {
     color: #D76A03;
-    font-size: 32px;
     margin-top: 16px;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 700;
 }
-    
-input {
-     width: 55%;
-    height: 64px;
-    padding: 12px 20px;
-    margin: 16px 0;
-    display: inline-block;
-    border: 1px solid #D76A03;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #FFF6EC;
-    box-shadow: 0 0 0 4px #F6C7A0;
-    font-size: 16px;
-    font-weight: 400;
-}
 
-select {
+input {
     width: 55%;
     height: 64px;
     padding: 12px 20px;
@@ -127,7 +111,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 35px;
+    margin-top: 65px;
 }
 
 .fundo {

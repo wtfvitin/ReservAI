@@ -5,8 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/padrão.css">
-    <link rel="stylesheet" href="src/css/cadastroRestaurantePt1.css">
+    <link rel="stylesheet" href="src/css/cadastroRestaurantePt2.css">
     <title>Cadastro - ReservAI</title>
+
+    <style>
+        .time-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .time-wrapper input[type="time"] {
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
+            margin-left: 225px;
+            width: 55%;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        /* Placeholder artificial */
+        .time-wrapper::before {
+            content: attr(data-placeholder);
+            position: absolute;
+            left: 245px;
+            /* Ajusta posição horizontal */
+            top: 50%;
+            /* Centraliza vertical */
+            transform: translateY(-50%);
+            color: #7f7f7f;
+            /* Tom semelhante ao placeholder */
+            font-size: 16px;
+            /* Deixa igual aos outros inputs */
+            pointer-events: none;
+            transition: 0.2s ease;
+        }
+
+        /* Desaparece quando o campo tem valor */
+        .time-wrapper.filled::before {
+            opacity: 0;
+        }
+
+        .time-wrapper input::-webkit-datetime-edit-fields-wrapper {
+            opacity: 0.4;
+            /* deixa o "--:--" mais suave */
+        }
+
+        .time-wrapper.empty::before {
+            content: "Horário de abertura";
+        }
+
+        .time-wrapper.filled::before {
+            content: "";
+        }
+    </style>
 </head>
 
 <body>
@@ -16,14 +68,49 @@
                 <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
                 <h1>Vamos personalizar sua experiência</h1>
             </div>
-            <form action="backend/salvarEtapa1.php" method="POST">
-                <input type="text" name="email" placeholder="Nome do Restaurante" required>
-                <input type="password" name="senha" placeholder="Senha" required>
+
+            <form action="backend/salvarEtapa2Restaurante.php" method="POST">
+
+                <input type="text" name="nome_restaurante" placeholder="Nome do Restaurante" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+
+                <!-- Horário de abertura -->
+                <div class="time-wrapper" data-placeholder="Horário de Abertura">
+                    <input type="time" name="horario_a" required>
+                </div>
+
+                <!-- Horário de fechamento -->
+                <div class="time-wrapper" data-placeholder="Horário de Fechamento">
+                    <input type="time" name="horario_f" required>
+                </div>
+
                 <div class="fundo">
                     <button type="submit" class="btnCadastrar">PRÓXIMO</button>
                     <p>Já tem uma conta? <a class="entrar" href="loginCliente.html">Entrar</a></p>
                 </div>
             </form>
-
         </div>
+    </div>
+
+    <script>
+        document.querySelectorAll(".time-wrapper input").forEach(input => {
+            const wrapper = input.parentElement;
+
+            function atualizar() {
+                if (!input.value) {
+                    wrapper.classList.remove("filled");
+                } else {
+                    wrapper.classList.add("filled");
+                }
+            }
+
+            input.addEventListener("input", atualizar);
+            input.addEventListener("change", atualizar);
+            atualizar();
+        });
+    </script>
+
+
 </body>
+
+</html>

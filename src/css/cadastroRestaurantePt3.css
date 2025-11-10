@@ -34,15 +34,14 @@ img {
 
 h2 {
     color: #D76A03;
-    font-size: 32px;
     margin-top: 16px;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 700;
 }
-    
+
 input {
-     width: 55%;
+    width: 55%;
     height: 64px;
     padding: 12px 20px;
     margin: 16px 0;
@@ -127,7 +126,8 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 35px;
+    margin-top: 40px;
+    margin-bottom: 200px;
 }
 
 .fundo {
