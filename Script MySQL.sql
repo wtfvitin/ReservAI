@@ -54,6 +54,8 @@ CREATE TABLE IF NOT EXISTS restaurantes (
   horario_fechamento TIME NOT NULL,
   cep_res VARCHAR(9) NOT NULL,
   endereco_rua_res VARCHAR(100) NOT NULL,
+  endereco_num_res INT(4) NOT NULL,
+  endereco_bairro_res VARCHAR(100) NOT NULL,
   endereco_cidade_res VARCHAR(100) NOT NULL,
   endereco_estado_res CHAR(2) NOT NULL,
   PRIMARY KEY (idrestaurante),
@@ -83,9 +85,9 @@ CREATE TABLE IF NOT EXISTS clientes (
   idcliente INT NOT NULL AUTO_INCREMENT,
   nome_cli VARCHAR(45) NOT NULL,
   sobrenome_cli VARCHAR(90) NOT NULL,
-  cpf_cli CHAR(11) NOT NULL,
+  cpf_cli CHAR(11) NOT NULL UNIQUE,
   telefone_cli CHAR(11) NOT NULL,
-  email_cli VARCHAR(100) NOT NULL,
+  email_cli VARCHAR(100) NOT NULL UNIQUE,
   senha VARCHAR(255) NOT NULL,
   foto_perfil MEDIUMBLOB,
   dtNasc_cli DATE NOT NULL,
@@ -97,6 +99,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   UNIQUE KEY cpf_usuario_UNIQUE (cpf_cli),
   UNIQUE KEY email_usuario_UNIQUE (email_cli)
 ) ENGINE=InnoDB;
+
 
 -- Reservas
 CREATE TABLE IF NOT EXISTS reservas (
@@ -222,8 +225,13 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 USE reservai;
-select*from clientes;
+select*from clientes;		
 
-ALTER TABLE clientes
-MODIFY endereco_estado_cli CHAR(2);
+
+
+
+
+
+
+
 
