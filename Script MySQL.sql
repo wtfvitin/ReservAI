@@ -6,43 +6,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `reservai` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `reservai`;
 
--- Estados
-CREATE TABLE IF NOT EXISTS estado_restaurante (
-  idestado INT NOT NULL AUTO_INCREMENT,
-  nome_estado VARCHAR(60) NOT NULL,
-  sigla_estado CHAR(2) NOT NULL,
-  PRIMARY KEY (idestado),
-  UNIQUE KEY (sigla_estado)
-) ENGINE=InnoDB;
-
--- Cidades
-CREATE TABLE IF NOT EXISTS cidade_restaurante (
-  idcidade INT NOT NULL AUTO_INCREMENT,
-  nome_cid VARCHAR(100) NOT NULL,
-  estado_idestado INT NOT NULL,
-  PRIMARY KEY (idcidade),
-  INDEX idx_cidade_estado (estado_idestado),
-  CONSTRAINT fk_cidade_estado FOREIGN KEY (estado_idestado)
-    REFERENCES estado_restaurante (idestado)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
--- Endereços de restaurantes
-CREATE TABLE IF NOT EXISTS endereco_restaurante (
-  idendereco INT NOT NULL AUTO_INCREMENT,
-  nome_endereco VARCHAR(100),
-  rua_end VARCHAR(100) NOT NULL,
-  bairro_end VARCHAR(60) NOT NULL,
-  cep_end VARCHAR(9) NOT NULL,
-  cidade_idcidade INT NOT NULL,
-  PRIMARY KEY (idendereco),
-  INDEX idx_endereco_cidade (cidade_idcidade),
-  CONSTRAINT fk_endereco_cidade FOREIGN KEY (cidade_idcidade)
-    REFERENCES cidade_restaurante (idcidade)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE
-) ENGINE=InnoDB;
 
 -- Restaurantes
 CREATE TABLE IF NOT EXISTS restaurantes (
@@ -58,13 +21,10 @@ CREATE TABLE IF NOT EXISTS restaurantes (
   endereco_bairro_res VARCHAR(100) NOT NULL,
   endereco_cidade_res VARCHAR(100) NOT NULL,
   endereco_estado_res CHAR(2) NOT NULL,
-  PRIMARY KEY (idrestaurante),
-  INDEX idx_restaurante_endereco (endereco_idendereco),
-  CONSTRAINT fk_restaurante_endereco FOREIGN KEY (endereco_idendereco)
-    REFERENCES endereco_restaurante (idendereco)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE
-) ENGINE=InnoDB;
+
+  PRIMARY KEY (idrestaurante)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- Mesas
 CREATE TABLE IF NOT EXISTS mesas (
@@ -108,6 +68,7 @@ CREATE TABLE IF NOT EXISTS reservas (
   numero_clientes INT NOT NULL,
   mesa_id INT NULL,
   restaurante_id INT NULL,
+  foto_restaurante MEDIUMBLOB,
   data_reserva DATE NOT NULL,
   horario_inicio TIME NOT NULL,
   horario_fim TIME NOT NULL,
@@ -226,7 +187,10 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 USE reservai;
-select*from clientes;		
+select*from clientes;
+
+INSERT INTO reservas (cliente_id, numero_clientes, mesa_id, restaurante_id, data_reserva, horario_inicio, horario_fim)
+VALUES (1, 6, 1, 1, '2025-02-20', '19:00:00', '20:30:00');
 
 
 

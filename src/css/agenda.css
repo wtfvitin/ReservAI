@@ -21,3 +21,119 @@
     cursor: pointer;
     margin-right: 8px;
 }
+
+/* --- CONTAINER DO CARD --- */
+.card-agenda {
+    width: 500px;
+    background: #ffffff;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- CABEÇALHO DO CARD --- */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-header h2 {
+    font-size: 20px;
+    color: #653400;
+    font-weight: 600;
+}
+
+.card-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* --- INFORMAÇÕES DO CARD --- */
+.card-info {
+    border: 2px solid #E2A77C;
+    border-radius: 10px;
+    padding: 15px;
+    background: #FFF8F1;
+}
+
+.card-info p {
+    margin: 7px 0;
+    font-size: 16px;
+    color: #3f2100;
+    background: transparent;
+}
+
+/* --- BOTÃO CANCELAR --- */
+.btn-cancelar {
+    background: #C94920;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #a33c1a;
+}
+
+.card-info hr {
+    width: 100%;
+    margin: 0px;
+    border: none;
+    border-top: 1px solid #E2A77C;
+    margin: 10px 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.modal-botoes {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-sim, .btn-nao {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-sim {
+    background: #ff4444;
+    color: white;
+}
+
+.btn-nao {
+    background: #cccccc;
+}

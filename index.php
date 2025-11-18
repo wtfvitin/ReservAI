@@ -131,7 +131,7 @@
   <!-- Navbar -->
   <nav class="navbar">
     <a href="index.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-    <a href="agenda.html" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+    <a href="agenda.php" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
     <a href="#" class="search-btn" id="openSearch">
       <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
