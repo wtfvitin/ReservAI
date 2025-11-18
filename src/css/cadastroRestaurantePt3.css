@@ -143,6 +143,26 @@ form {
     left: 0;
 }
 
+.btnCliente {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #D76A03;
+    color: white;
+    padding: 17px 22px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+}
+
+.btnCliente:hover {
+    background-color: #c05d00;
+    transform: translateY(-2px);
+    transition: 0.2s;
+}
+
 
 
 @media (max-width: 400px) {

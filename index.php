@@ -141,7 +141,7 @@
     <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
 
     <!-- Botão de perfil com redirecionamento dinâmico -->
-    <a href="<?php echo isset($_SESSION['cliente_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+    <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
       <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
       </a>
 

@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <!-- BOTÃO SUPERIOR ESQUERDO -->
+    <a href="cadastroRestaurantePt1.html" class="btnGestor">SOU GESTOR</a>
+
     <div class="container">
         <div class="formulario">
             <div class="logo">
@@ -20,7 +23,7 @@
             <form action="backend/salvarEtapa2.php" id="formCadastro" method="POST">
                 <input type="text" name="nome" placeholder="Nome" required>
                 <input type="text" name="sobrenome" placeholder="Sobrenome" required>
-                <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+                <input type="text" id="cpf" name="cpf" placeholder="CPF" required maxlength="11" minlength="11">
                 <p id="cpfErro" style="color:#D76A03; display:none;">Este CPF já está cadastrado!</p>
                 <input type="date" name="data_nasc" id="data_nasc" required>
                 <input type="text" name="telefone" id="telefone" placeholder="Telefone" required>

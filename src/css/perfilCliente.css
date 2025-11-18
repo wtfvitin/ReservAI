@@ -1,32 +1,38 @@
-.titulo {
+.barra-topo {
     display: flex;
+    justify-content: space-between; /* Deixa esquerda e direita separadas */
     align-items: center;
     padding: 0 5vw;
     margin-top: 40px;
     background-color: #FFF5EA;
-    flex-wrap: wrap;
 }
 
-.titulo h1 {
+.esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.esquerda h1 {
     font-size: clamp(24px, 4vw, 40px);
     color: #D76A03;
+    margin: 0;
 }
 
-.titulo img {
+.icone-voltar {
     width: 28px;
     height: 28px;
     cursor: pointer;
-    margin-right: 8px;
 }
 
-.container-perfil {
+.direita {
     display: flex;
-    height: 80%;
-    width: 90%;
-    border-radius: 30px;
-    flex-direction: column;
     align-items: center;
-    padding: 20px 5vw;
-    background-color: #ffffff;
-    gap: 20px;
+}
+
+.icone-editar {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    cursor: pointer;
 }

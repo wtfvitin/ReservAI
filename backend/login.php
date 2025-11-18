@@ -13,39 +13,15 @@ if ($email === "" || $senha === "") {
     exit("Preencha todos os campos.");
 }
 
-/* ============================================
-   1) LOGIN COMO GESTOR
-   ============================================ */
-$stmt = $pdo->prepare("SELECT * FROM restaurantes WHERE email_restaurante = ?");
-$stmt->execute([$email]);
-
-if ($stmt->rowCount() === 1) {
-    $gestor = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($senha === $gestor["senha"]) {   // <--- sem hash
-
-        $_SESSION["usuario_id"]    = $gestor["idrestaurante"];
-        $_SESSION["usuario_nome"]  = $gestor["nome_restaurante"];
-        $_SESSION["usuario_email"] = $gestor["email_restaurante"];
-        $_SESSION["tipo"]          = "gestor";
-
-        header("Location: ../indexRestaurante.php");
-        exit;
-    }
-
-    exit("Email ou senha incorretos.");
-}
-
-/* ============================================
-   2) LOGIN COMO CLIENTE
-   ============================================ */
 $stmt = $pdo->prepare("SELECT * FROM clientes WHERE email_cli = ?");
 $stmt->execute([$email]);
 
 if ($stmt->rowCount() === 1) {
+
     $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($senha === $cliente["senha"]) {    // <--- sem hash
+    // Aqui usamos password_verify porque a senha está com hash no banco
+    if (password_verify($senha, $cliente["senha"])) {
 
         $_SESSION["usuario_id"]    = $cliente["idcliente"];
         $_SESSION["usuario_nome"]  = $cliente["nome_cli"];
@@ -59,5 +35,5 @@ if ($stmt->rowCount() === 1) {
     exit("Email ou senha incorretos.");
 }
 
-// Nenhum usuário encontrado
+// Email não existe
 exit("Email ou senha incorretos.");
