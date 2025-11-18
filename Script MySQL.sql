@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS clientes (
 CREATE TABLE IF NOT EXISTS reservas (
   idreserva INT NOT NULL AUTO_INCREMENT,
   cliente_id INT NOT NULL,
+  numero_clientes INT NOT NULL,
   mesa_id INT NULL,
   restaurante_id INT NULL,
   data_reserva DATE NOT NULL,
