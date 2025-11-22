@@ -1,55 +1,88 @@
+<?php
+// Inclui a conexão (ajuste o caminho se necessário)
+require_once 'backend/conexao.php';
+
+// Verifica se o ID do restaurante foi passado na URL (Query String)
+if (!isset($_GET['restaurante_id']) || !is_numeric($_GET['restaurante_id'])) {
+    die("Erro: ID do restaurante inválido ou não fornecido.");
+}
+
+$id_restaurante = (int)$_GET['restaurante_id'];
+$dados_restaurante = null;
+
+try {
+    // BUSCAR DADOS DO RESTAURANTE
+    $stmt_res = $pdo->prepare("SELECT 
+        nome_restaurante, 
+        logo_res, 
+        endereco_rua_res, 
+        endereco_num_res, 
+        endereco_bairro_res, 
+        endereco_cidade_res, 
+        endereco_estado_res
+        FROM restaurantes WHERE idrestaurante = ?");
+    $stmt_res->execute([$id_restaurante]);
+    $dados_restaurante = $stmt_res->fetch();
+
+    if (!$dados_restaurante) {
+        die("Restaurante não encontrado.");
+    }
+
+    // Constrói o endereço completo
+    $dados_restaurante['endereco_completo'] = $dados_restaurante['endereco_rua_res'] . ', '
+        . $dados_restaurante['endereco_num_res'] . ', '
+        . $dados_restaurante['endereco_bairro_res'] . ', '
+        . $dados_restaurante['endereco_cidade_res'] . '/'
+        . $dados_restaurante['endereco_estado_res'];
+} catch (PDOException $e) {
+    die("Erro ao carregar dados do restaurante: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReservAI</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
     <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/navbar.css">
     <link rel="stylesheet" href="src/css/criarReserva.css">
+    <title>Criar Reserva - <?php echo htmlspecialchars($dados_restaurante['nome_restaurante']); ?></title>
 </head>
 
 <body>
 
-    <!-- =============================== -->
-    <!-- TÍTULO DA PÁGINA -->
-    <!-- =============================== -->
     <div class="titulo">
         <img src="img/Icone Voltar.png" alt="Voltar" id="voltar">
         <h1>Criar Reserva</h1>
     </div>
 
-    <!-- =============================== -->
-    <!-- CABEÇALHO -->
-    <!-- =============================== -->
     <div class="cabecalho">
-        <img src="img/Logo Restaurante.png" alt="Logo do Restaurante" class="logo-restaurante">
+        <img src="backend/exibir_imagem.php?id=<?php echo $id_restaurante; ?>&tipo=logo" alt="Logo do Restaurante" class="logo-restaurante">
         <div class="info-restaurante">
-            <h2>JERONIMO</h2>
-            <p>Rua das Paineiras, 398, Bairro Jardim, Santo André/SP</p>
+            <h2><?php echo htmlspecialchars($dados_restaurante['nome_restaurante']); ?></h2>
+            <p><?php echo htmlspecialchars($dados_restaurante['endereco_completo']); ?></p>
         </div>
     </div>
 
 
-    <!-- =============================== -->
-    <!-- FÓRMULÁRIO. -->
-    <!-- =============================== -->
-
     <div class="formulario-reserva">
         <form action="backend/criarReserva.php" method="post">
+            <input type="hidden" name="restaurante_id" value="<?php echo $id_restaurante; ?>">
+
             <label for="pessoas">Quantidade de Pessoas <span class="obrigatorio">*</span></label>
 
             <select id="pessoas" name="pessoas" required>
                 <option value="" disabled selected>Quantidade de Pessoas</option>
-                <option value="1 Pessoa">1 Pessoa</option>
-                <option value="2 Pessoas">2 Pessoas</option>
-                <option value="3 Pessoas">3 Pessoas</option>
-                <option value="4 Pessoas">4 Pessoas</option>
-                <option value="5 Pessoas">5 Pessoas</option>
-                <option value="6 Pessoas">6 Pessoas</option>
-                <option value="7 Pessoas">7 Pessoas</option>
-                <option value="8 Pessoas">8 Pessoas</option>
+                <option value="1">1 Pessoa</option>
+                <option value="2">2 Pessoas</option>
+                <option value="3">3 Pessoas</option>
+                <option value="4">4 Pessoas</option>
+                <option value="5">5 Pessoas</option>
+                <option value="6">6 Pessoas</option>
+                <option value="7">7 Pessoas</option>
+                <option value="8">8 Pessoas</option>
             </select>
             <label for="data">Data <span class="obrigatorio">*</span></label>
             <input type="date" id="data" name="data" required>
@@ -64,9 +97,6 @@
     </div>
 
 
-    <!-- ============================================================== 
-    NAVBAR COMPLETA
-    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
     <div class="search-container" id="searchBar">
@@ -93,9 +123,9 @@
     </nav>
 </body>
 <script>
-    /*  ============================================================== 
+    /* ============================================================== 
     SCRIPT NAVBAR
-       ==============================================================  */
+        ==============================================================  */
     const openSearch = document.getElementById("openSearch");
     const searchBar = document.getElementById("searchBar");
     const searchInput = document.getElementById("searchInput");
@@ -146,14 +176,14 @@
 
     overlay.addEventListener("click", fecharPesquisa);
 
-    /*  ============================================================== 
+    /* ============================================================== 
     BOTÃO VOLTAR
     ==============================================================  */
-    document.getElementById('voltar').addEventListener('click', function () {
+    document.getElementById('voltar').addEventListener('click', function() {
         history.back();
     });
 
-    /*  ============================================================== 
+    /* ============================================================== 
     DATA MINIMA
     ==============================================================  */
     const inputData = document.getElementById('data');
@@ -164,5 +194,6 @@
     const dia = String(hoje.getDate()).padStart(2, '0');
     const minData = `${ano}-${mes}-${dia}`;
     inputData.min = minData;
-
 </script>
+
+</html>

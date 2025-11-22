@@ -1,0 +1,106 @@
+/* ======================================== */
+/* ESTILO GERAL DO BODY (Fundo Cremoso) */
+/* ======================================== */
+body {
+    /* Novo Fundo - Cor cremoso da Agenda */
+    background-color: #FFF5EA;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* Usa min-height para garantir que o container não seja esmagado pela navbar */
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    /* Garante que não haja margem extra */
+}
+
+/* ======================================== */
+/* CONTAINER PRINCIPAL (Centralizado) */
+/* ======================================== */
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+}
+
+h1 {
+    color: #d76a03;
+    margin-bottom: 10px;
+    background: transparent;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #3f2100;
+    background: transparent;
+}
+
+/* ======================================== */
+/* GRUPO DE BOTÕES */
+/* ======================================== */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    /* Padrão em coluna para mobile */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* --- ESTILO BASE DO BOTÃO --- */
+.btn {
+    background-color: #d76a03;
+    color: white;
+    padding: 12px 0px;
+    /* Ajustado para que o flexbox controle a largura */
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    /* Ocupa a largura total do button-group */
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #a85201;
+}
+
+/* --- IMAGEM DO COZINHEIRO --- */
+img {
+    width: 300px;
+    height: auto;
+    margin-top: 15px;
+    background: transparent;
+}
+
+/* ======================================== */
+/* RESPONSIVIDADE E AJUSTES DE BOTÕES */
+/* ======================================== */
+@media (min-width: 500px) {
+    .container {
+        max-width: 400px;
+        /* Aumenta a largura em telas maiores, se necessário */
+    }
+
+    .button-group {
+        flex-direction: row;
+        /* Botões lado a lado em telas maiores */
+        justify-content: space-between;
+    }
+
+    .btn {
+        padding: 12px 22px;
+        /* Adiciona padding lateral quando lado a lado */
+        flex-grow: 1;
+    }
+}

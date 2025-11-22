@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
     <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/navbar.css">
     <link rel="stylesheet" href="src/css/index.css">
-
+    
+    <title>Início Gestores- ReservAI</title>
 </head>
 
 <body>

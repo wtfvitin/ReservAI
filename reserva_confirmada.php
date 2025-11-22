@@ -6,75 +6,38 @@ $sucesso = isset($_GET["sucesso"]) && $_GET["sucesso"] == 1;
 <html lang="pt-br">
 
 <head>
+       
     <meta charset="UTF-8">
-    <title>Reserva Confirmada - ReservAI</title>
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reserva Confirmada - ReservAI</title>
+       
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
     <link rel="stylesheet" href="src/css/padrão.css">
+       
     <link rel="stylesheet" href="src/css/navbar.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.09);
-        }
-
-        h1 {
-            color: #e0a606ff;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 18px;
-            margin-bottom: 25px;
-        }
-
-        .btn {
-            background-color: #f39c12;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .btn:hover {
-            background-color: #d9830f;
-        }
-    </style>
+       
+    <link rel="stylesheet" href="src/css/reserva_confirmada.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <?php if ($sucesso): ?>
-            <h1> Reserva Confirmada!</h1>
-            <p>Sua reserva foi criada com sucesso no sistema.</p>
-        <?php else: ?>
-            <h1>Erro</h1>
-            <p>Não foi possível confirmar sua reserva.</p>
-        <?php endif; ?>
+        <div class="container">
+                <?php if ($sucesso): ?>
+                        <h1>Reserva Confirmada!</h1>
+                        <p>Sua reserva foi criada com sucesso no sistema.</p>
+                    <?php else: ?>
+                        <h1>Erro</h1>
+                        <p>Não foi possível confirmar sua reserva.</p>
+                    <?php endif; ?>
 
-        <a class="btn" href="agenda.html">Ver Agenda</a>
-        <br>
-        <a class="btn" href="index.php">Voltar ao Início</a>
-    </div>
+                <img src="img/cozinheiro feliz.png" alt="Cozinheiro Feliz">
+
+                <div class="button-group">
+                        <a class="btn" href="agenda.php">Ver Agenda</a>
+                        <a class="btn" href="index.php" style="background-color: #bf3100;">Voltar ao Início</a>
+                    </div>
+            </div>
 
 </body>
-
 </html>

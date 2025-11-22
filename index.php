@@ -25,11 +25,11 @@ if (isset($_SESSION['usuario_id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Início</title>
-
+  <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
   <link rel="stylesheet" href="src/css/padrão.css">
   <link rel="stylesheet" href="src/css/navbar.css">
   <link rel="stylesheet" href="src/css/index.css">
+  <title>Início - ReservAI</title>
 
 </head>
 
@@ -81,6 +81,8 @@ if (isset($_SESSION['usuario_id'])) {
     <?php endwhile; ?>
   </div>
 
+  <!-- NAVBAR -->
+
   <div class="overlay" id="overlay"></div>
 
   <div class="search-container" id="searchBar">
@@ -94,7 +96,7 @@ if (isset($_SESSION['usuario_id'])) {
 
   <nav class="navbar">
     <a href="index.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-    <a href="agenda.php" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+    <a href="<?php echo isset($_SESSION['usuario_id']) ? 'agenda.php' : 'cadastroClientePt1.html'; ?>" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
     <a href="#" class="search-btn" id="openSearch">
       <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
@@ -112,9 +114,9 @@ if (isset($_SESSION['usuario_id'])) {
 
 </body>
 <script>
-  /*  ==============================================================
+  /* ==============================================================
     SCRIPT NAVBAR
-    ==============================================================  */
+    ==============================================================  */
   const openSearch = document.getElementById("openSearch");
   const searchBar = document.getElementById("searchBar");
   const searchInput = document.getElementById("searchInput");
@@ -184,9 +186,9 @@ if (isset($_SESSION['usuario_id'])) {
 
   // Fecha ao clicar no overlay
   overlay.addEventListener("click", fecharPesquisa);
-  /*  ==============================================================
+  /* ==============================================================
   FIM SCRIPT NAVBAR
-  ==============================================================  */
+  ==============================================================  */
 </script>
 
 

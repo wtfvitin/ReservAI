@@ -22,11 +22,24 @@
     margin-right: 8px;
 }
 
-/* --- CONTAINER DO CARD --- */
-.card-agenda {
-    width: 500px;
+/* ======================================== */
+/* CONTAINER DA LISTA DE RESERVAS */
+/* Centraliza o conteúdo e limita a largura */
+/* ======================================== */
+.lista-reservas {
+    width: 90%; /* Para telas pequenas, ocupa 90% */
+    max-width: 55%; /* Limita a largura máxima para desktop (55% como solicitado) */
+    margin: 30px auto; /* Centraliza o bloco na tela e adiciona margem */
+    padding-bottom: 100px; /* Espaçamento para a navbar */
+}
+
+/* --- CARD INDIVIDUAL --- */
+.card-reserva {
+    /* Ocupa a largura máxima do container .lista-reservas */
+    width: 100%; 
+    max-width: 500px; /* Mantém um limite de largura para o card para não ficar muito largo */
     background: #ffffff;
-    margin: 30px auto;
+    margin: 30px auto; /* Espaçamento entre os cards e centralização */
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
@@ -40,12 +53,14 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    background-color: transparent; 
 }
 
 .card-header h2 {
     font-size: 20px;
     color: #653400;
     font-weight: 600;
+    background-color: transparent; 
 }
 
 .card-logo {
@@ -94,8 +109,29 @@
     margin: 10px 0;
 }
 
-.modal {
-    display: none;
+/* ======================================== */
+/* ESTILOS PARA "NENHUMA RESERVA ENCONTRADA" */
+/* ======================================== */
+.sem-reserva {
+    text-align: center;
+    font-size: 18px;
+    color: #653400;
+    margin-top: 50px;
+}
+
+.sem-reserva-img {
+    display: block;
+    margin: 20px auto;
+    max-width: 450px;
+    height: auto;
+}
+
+/* ======================================== */
+/* ESTILOS DO MODAL DE CONFIRMAÇÃO */
+/* Classes adaptadas para corresponder ao agenda.php (modal-confirmacao) */
+/* ======================================== */
+.modal-confirmacao {
+    display: none; /* Escondido por padrão */
     position: fixed;
     top: 0;
     left: 0;
@@ -107,33 +143,71 @@
     z-index: 999999;
 }
 
+.modal-confirmacao.show {
+    display: flex;
+}
+
 .modal-content {
     background: white;
     padding: 25px;
     border-radius: 12px;
     width: 90%;
-    max-width: 380px;
+    max-width: 600px;
     text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .modal-botoes {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    gap: 10px
 }
 
-.btn-sim, .btn-nao {
-    padding: 10px 20px;
-    border-radius: 8px;
+.btn-sim-confirmar {
+    padding: 15px 20px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
-}
-
-.btn-sim {
-    background: #ff4444;
+    font-weight: bold;
+    background: #bf3100;
     color: white;
+    flex-grow: 1;
+}
+.btn-sim-confirmar:hover {
+    background: #922501;
 }
 
-.btn-nao {
+
+.btn-nao-cancelar {
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
     background: #cccccc;
+    color: #333;
+    flex-grow: 1;
+}
+.btn-nao-cancelar:hover {
+    background: #b8b8b8;
+}
+
+h2 {
+    background: transparent;
+}
+
+.modal-content p {
+    background: transparent;
+}
+
+.modal-content h3 {
+    background: transparent;
+}
+
+.modal-content img {
+    width: 400px;
+    height: auto;
+    margin-top: 15px;
+    background: transparent;
 }

@@ -37,12 +37,13 @@ function servir_imagem_estatica($caminho_arquivo) {
 
 
 // Verifica se o ID do item do cardápio foi passado na URL
-if (!isset($_GET['idcardapio'])) {
-    // Se faltar o ID, serve o placeholder como fallback
+// Verifica se o ID do item do cardápio (que está vindo como 'id') foi passado na URL
+if (!isset($_GET['id'])) { // <-- CORREÇÃO: Busca por 'id'
     servir_imagem_estatica($placeholder_path);
 }
 
-$idcardapio = (int)$_GET['idcardapio'];
+$idcardapio = (int)$_GET['id']; // <-- CORREÇÃO: Atribui o valor de 'id'
+// O restante do script (a query SQL) pode usar $idcardapio, que agora tem o valor correto.
 
 try {
     // Prepara a consulta para selecionar o BLOB da imagem específica na tabela 'cardapio'

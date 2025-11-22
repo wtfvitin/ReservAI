@@ -1,10 +1,13 @@
+/* ======================================== */
+/* ESTILOS DA BARRA DE TOPO (Header) - Mantido do código base */
+/* ======================================== */
 .barra-topo {
     display: flex;
-    justify-content: space-between; /* Deixa esquerda e direita separadas */
+    justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
     margin-top: 40px;
-    background-color: #FFF5EA;
+    background-color: #FFF5EA; /* Cor de fundo principal */
 }
 
 .esquerda {
@@ -35,4 +38,161 @@
     height: 32px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+/* ======================================== */
+/* CONTEÚDO PRINCIPAL (Profile) */
+/* ======================================== */
+.perfil-container {
+    width: 90%;
+    max-width: 500px; /* Limita a largura do conteúdo principal */
+    margin: 30px auto 100px auto; /* Centraliza e adiciona espaço para a navbar */
+    padding: 0;
+}
+
+/* --- HEADER DO PERFIL (Foto, Nome, Botão Gerenciar) --- */
+.perfil-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-picture-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D76A03; /* Borda laranja */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #D76A03;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.camera-icon img {
+    width: 18px;
+    height: 18px;
+}
+
+.nome-cliente {
+    font-size: 24px;
+    color: #3f2100;
+    margin-bottom: 20px;
+}
+
+/* --- BOTÃO GERENCIAR CONTA --- */
+.btn-gerenciar {
+    display: inline-flex;
+    align-items: center;
+    background-color: #fff;
+    color: #D76A03;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #D76A03;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-gerenciar:hover {
+    background-color: #f7e6d5;
+}
+
+.btn-gerenciar img {
+    width: 18px;
+    height: 18px;
+    /* Filtro para converter a cor do ícone de Configurações para Laranja (#D76A03) */
+    filter: invert(47%) sepia(35%) saturate(3062%) hue-rotate(345deg) brightness(85%) contrast(85%); 
+}
+
+/* ======================================== */
+/* SEÇÕES DE INFORMAÇÃO */
+/* ======================================== */
+.info-section {
+    margin-bottom: 30px;
+}
+
+.info-section h3 {
+    text-align: left;
+    font-size: 20px;
+    color: #D76A03;
+    margin-bottom: 15px;
+    padding-left: 5px; /* Alinhamento visual */
+}
+
+.info-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0; /* Separador sutil */
+}
+
+.info-item:last-child {
+    border-bottom: none; /* Remove separador do último item */
+    padding-bottom: 0;
+}
+
+.label {
+    font-size: 12px;
+    color: #653400; /* Marrom escuro */
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.valor {
+    font-size: 16px;
+    color: #3f2100;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* --- BOTÃO SAIR --- */
+.btn-sair {
+    display: block;
+    width: 100%;
+    background-color: #C94920; /* Vermelho para sair */
+    color: white;
+    padding: 12px 0;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 30px;
+    transition: background-color 0.2s;
+}
+
+.btn-sair:hover {
+    background-color: #a33c1a;
 }

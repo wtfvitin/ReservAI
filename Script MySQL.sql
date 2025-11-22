@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS reservas (
   numero_clientes INT NOT NULL,
   mesa_id INT NULL,
   restaurante_id INT NULL,
-  foto_restaurante MEDIUMBLOB,
   data_reserva DATE NOT NULL,
   horario_inicio TIME NOT NULL,
   horario_fim TIME NOT NULL,
@@ -112,8 +111,13 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+USE reservai;
+
 select * from restaurantes;
 
 select * from cardapio;
 
+select * from reservas;
+
+select * from clientes;
 
