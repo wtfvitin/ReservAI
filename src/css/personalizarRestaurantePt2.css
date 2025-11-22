@@ -1,0 +1,265 @@
+/* ------------------------------------------------------------------- */
+/* CSS Corrigido e Consolidado */
+/* ------------------------------------------------------------------- */
+
+img {
+    width: 200px;
+    margin-bottom: 1px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1px;
+    width: 200px;
+    height: auto;
+    transform: none !important;
+}
+
+/* zera margens do h1 e centraliza */
+.logo h1 {
+    color: #D76A03;
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+    transform: none !important;
+}
+
+h2 {
+    color: #D76A03;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------------- */
+/* 1. Estilos para o Container de Upload (CUSTOM-FILE-UPLOAD) */
+/* ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+/* CSS Corrigido e Consolidado */
+/* ------------------------------------------------------------------- */
+
+/* ... (Mantenha o CSS da logo, h1, h2, etc., sem alterações) ... */
+
+/* ------------------------------------------------------------------- */
+/* 1. Estilos para o Container de Upload (CUSTOM-FILE-UPLOAD) */
+/* ------------------------------------------------------------------- */
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+
+    /* AUMENTAR A LARGURA GERAL DO BLOCO: 
+       Aumentei a porcentagem para ocupar mais espaço na tela e 
+       aumentei o max-width para telas maiores. */
+    width: 100%;
+    /* Ocupa quase toda a largura disponível */
+    max-width: 600px;
+    /* Aumentei o limite para uma largura mais confortável */
+
+    height: 64px;
+    padding: 12px 20px;
+    /* Mantém o padding interno */
+
+    margin: 16px auto 8px auto;
+    /* Centraliza o bloco e ajusta as margens */
+
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF6EC;
+    box-shadow: 0 0 0 4px #F6C7A0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Oculta o input type="file" original */
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+/* Estiliza o botão (label) */
+.custom-file-upload label {
+    background-color: #D76A03;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 20px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+
+    /* GARANTE QUE O BOTÃO NÃO ENCOLHA SE O TEXTO FOR GRANDE */
+    flex-shrink: 0;
+    /* Impede que o botão encolha */
+    /* REMOVIDO: qualquer largura fixa aqui */
+}
+
+.custom-file-upload label:hover {
+    background-color: #c05d00;
+}
+
+/* Estiliza o placeholder/nome do arquivo (span) */
+.custom-file-upload span {
+    margin-left: 10px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* GARANTE QUE O SPAN OCUPE O ESPAÇO RESTANTE */
+    flex-grow: 1;
+    /* Permite que o span cresça e ocupe todo o espaço disponível */
+    min-width: 0;
+    /* Importante para que o overflow: hidden funcione dentro do flex item */
+}
+
+
+/* ------------------------------------------------------------------- */
+/* 2. Estilos para os Inputs de Contagem e Preço (input-preco) */
+/* ------------------------------------------------------------------- */
+
+.input-preco {
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF;
+    box-shadow: 0 0 0 2px #F6C7A0;
+
+    /* AUMENTAR A LARGURA GERAL DOS INPUTS: para combinar com o custom-file-upload */
+    width: 100%;
+    max-width: 600px;
+    /* Aumentei para combinar com o custom-file-upload */
+
+    height: 60px;
+    padding: 15px 20px;
+    font-size: 16px;
+
+    margin: 8px auto 16px auto;
+    /* Centraliza e ajusta as margens */
+}
+
+
+
+/* Garante que o campo de contagem #total-pratos também seja estilizado */
+#total-pratos {
+    margin: 0 auto 24px auto;
+    /* Centraliza e ajusta margem inferior */
+    height: 60px;
+    padding: 15px 20px;
+    /* Ajusta o padding para o texto 'Quantos pratos...' */
+}
+
+/* Remove as setas do input type="number" */
+#total-pratos::-webkit-outer-spin-button,
+#total-pratos::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estiliza a textarea */
+textarea {
+    width: 95%;
+    max-width: 600px;
+    /* Aumentei para combinar com o custom-file-upload */
+    min-height: 120px;
+    padding: 15px 20px;
+    margin: 20px auto;
+    /* Centraliza a textarea */
+
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF6EC;
+    box-shadow: 0 0 0 4px #F6C7A0;
+    font-size: 16px;
+    font-weight: 400;
+    resize: vertical;
+}
+
+/* ------------------------------------------------------------------- */
+/* 3. Estilos de Contêineres e Botão */
+/* ------------------------------------------------------------------- */
+
+.btnCadastrar {
+    width: 95%;
+    max-width: 600px;
+    /* Aumentei para combinar com os outros campos */
+    height: 56px;
+    background-color: #D76A03;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px auto;
+    /* Centraliza o botão */
+    font-size: 18px;
+}
+
+.btnCadastrar:hover {
+    background-color: #c05d00;
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 200px;
+}
+
+.fundo {
+    background-color: #FFE5B1;
+    border-radius: 58px 58px 0 0;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+/* Media Query ajustada para telas muito pequenas */
+@media (max-width: 650px) {
+
+    /* Ajustei o breakpoint para mobile */
+    .fundo {
+        border-radius: 40px 40px 0 0;
+        padding: 15px;
+    }
+
+    /* Faz os campos ocuparem quase toda a largura em telas pequenas */
+    .custom-file-upload,
+    .input-preco,
+    .btnCadastrar,
+    textarea {
+        width: 95%;
+        max-width: 95%;
+        /* Garante que não ultrapasse a largura da tela */
+    }
+}

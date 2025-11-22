@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/padrão.css">
+    <link rel="stylesheet" href="src/css/personalizarRestaurantePt1.css">
+    <title>Cadastro - ReservAI</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="formulario">
+            <div class="logo">
+                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
+                <h1>Vamos personalizar seu restaurante!</h1>
+            </div>
+
+            <!-- CORREÇÃO: O action deve apontar para o arquivo de processamento final -->
+            <!-- CORREÇÃO: Os nomes dos campos (name) foram ajustados para corresponder ao PHP -->
+            <form action="backend/processamento_cadastro_restaurante.php" method="POST" enctype="multipart/form-data">
+
+                <!-- LOGO -->
+                <div class="custom-file-upload">
+                    <label for="arquivo-upload-logo" id="label-botao-logo">
+                        Escolher Imagem
+                    </label>
+                    <input type="file" id="arquivo-upload-logo" name="logo_upload" accept="image/*" required>
+                    <span id="nome-arquivo-logo">Logo do Restaurante</span>
+                </div>
+
+                <!-- FOTO PRINCIPAL -->
+                <div class="custom-file-upload">
+                    <label for="arquivo-upload-1" id="label-botao-1">
+                        Escolher Imagem
+                    </label>
+                    <input type="file" id="arquivo-upload-1" name="fotoPrincipal_upload" accept="image/*" required>
+                    <span id="nome-arquivo-1">Foto do Ambiente Principal</span>
+                </div>
+
+                <!-- FOTO 1 -->
+                <div class="custom-file-upload">
+                    <label for="arquivo-upload-2" id="label-botao-2">
+                        Escolher Imagem
+                    </label>
+                    <input type="file" id="arquivo-upload-2" name="foto1_upload" accept="image/*" required>
+                    <span id="nome-arquivo-2">Foto do Ambiente 1</span>
+                </div>
+
+                <!-- FOTO 2 -->
+                <div class="custom-file-upload">
+                    <label for="arquivo-upload-3" id="label-botao-3">
+                        Escolher Imagem
+                    </label>
+                    <input type="file" id="arquivo-upload-3" name="foto2_upload" accept="image/*" required>
+                    <span id="nome-arquivo-3">Foto do Ambiente 2</span>
+                </div>
+
+                <!-- FOTO 3 -->
+                <div class="custom-file-upload">
+                    <label for="arquivo-upload-4" id="label-botao-4">
+                        Escolher Imagem
+                    </label>
+                    <input type="file" id="arquivo-upload-4" name="foto3_upload" accept="image/*" required>
+                    <span id="nome-arquivo-4">Foto do Ambiente 3</span>
+                </div>
+
+                <textarea name="descricao" id="descricao" required placeholder="Descrição do Restaurante"
+                    maxlength="500"></textarea>
+        </div>
+        <div class="fundo">
+            <button type="submit" class="btnCadastrar">PRÓXIMO</button>
+        </div>
+        </form>
+    </div>
+
+
+</body>
+<script>
+    /**
+         * Função para atualizar o texto do <span> com o nome do arquivo selecionado.
+             * @param {HTMLElement} inputElement O input file.
+             * @param {HTMLElement} spanElement O span onde o nome do arquivo será exibido.
+             */
+    function configurarUpload(inputElement, spanElement, textoPadrao) {
+        inputElement.addEventListener('change', function () {
+            // Verifica se algum arquivo foi selecionado
+            if (this.files && this.files.length > 0) {
+                // Exibe o nome do primeiro arquivo selecionado
+                spanElement.textContent = this.files[0].name;
+            } else {
+                // Se a seleção for cancelada, volta ao texto padrão
+                spanElement.textContent = textoPadrao;
+            }
+        });
+    }
+
+    // Mapeamento dos IDs do Input e do Span e o texto padrão de cada um
+    const uploads = [
+        { inputId: 'arquivo-upload-logo', spanId: 'nome-arquivo-logo', defaultText: 'Logo do Restaurante' },
+        { inputId: 'arquivo-upload-1', spanId: 'nome-arquivo-1', defaultText: 'Foto do Ambiente Principal' }, // Texto ajustado
+        { inputId: 'arquivo-upload-2', spanId: 'nome-arquivo-2', defaultText: 'Foto do Ambiente 1' },
+        { inputId: 'arquivo-upload-3', spanId: 'nome-arquivo-3', defaultText: 'Foto do Ambiente 2' },
+        { inputId: 'arquivo-upload-4', spanId: 'nome-arquivo-4', defaultText: 'Foto do Ambiente 3' }
+    ];
+
+    // Itera sobre o array e configura cada input/span
+    uploads.forEach(item => {
+        const inputArquivo = document.getElementById(item.inputId);
+        const nomeArquivoSpan = document.getElementById(item.spanId);
+
+        // Só configura se ambos os elementos existirem
+        if (inputArquivo && nomeArquivoSpan) {
+            configurarUpload(inputArquivo, nomeArquivoSpan, item.defaultText);
+        }
+    });
+
+</script>
+
+</html>

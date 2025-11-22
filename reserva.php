@@ -1,10 +1,63 @@
+<?php
+// Inclui a conexão (ajuste o caminho se necessário)
+require_once 'backend/conexao.php'; 
+
+// Verifica se o ID do restaurante foi passado na URL (Query String)
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("Erro: ID do restaurante inválido ou não fornecido.");
+}
+
+$id_restaurante = (int)$_GET['id'];
+$dados_restaurante = null;
+$cardapio = [];
+
+try {
+    // 1. BUSCAR DADOS DO RESTAURANTE
+    $stmt_res = $pdo->prepare("SELECT 
+        nome_restaurante, 
+        descricao, 
+        logo_res, 
+        fotoPrincipal_res, 
+        foto1_res, 
+        foto2_res, 
+        foto3_res,
+        endereco_rua_res, 
+        endereco_num_res, 
+        endereco_bairro_res, 
+        endereco_cidade_res, 
+        endereco_estado_res
+        FROM restaurantes WHERE idrestaurante = ?");
+    $stmt_res->execute([$id_restaurante]);
+    $dados_restaurante = $stmt_res->fetch();
+
+    if (!$dados_restaurante) {
+        die("Restaurante não encontrado.");
+    }
+    
+    // Constrói o endereço completo
+    $dados_restaurante['endereco_completo'] = $dados_restaurante['endereco_rua_res'] . ', ' 
+                                            . $dados_restaurante['endereco_num_res'] . ', ' 
+                                            . $dados_restaurante['endereco_bairro_res'] . ', ' 
+                                            . $dados_restaurante['endereco_cidade_res'] . '/' 
+                                            . $dados_restaurante['endereco_estado_res'];
+
+
+    // 2. BUSCAR DADOS DO CARDÁPIO
+    $stmt_card = $pdo->prepare("SELECT idcardapio, nome_alimento, preco FROM cardapio WHERE restaurante_id = ?");
+    $stmt_card->execute([$id_restaurante]);
+    $cardapio = $stmt_card->fetchAll();
+
+} catch (PDOException $e) {
+    die("Erro ao carregar dados do restaurante: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReservAI</title>
+    <title>ReservAI - <?php echo htmlspecialchars($dados_restaurante['nome_restaurante']); ?></title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
 
@@ -14,152 +67,89 @@
 
 </head>
 
-
-
 <body>
-    <!-- =============================== -->
-    <!-- TÍTULO DA PÁGINA -->
-    <!-- =============================== -->
     <div class="titulo">
         <img src="img/Icone Voltar.png" alt="Voltar" id="voltar">
         <h1>Criar Reserva</h1>
     </div>
 
-    <!-- =============================== -->
-    <!-- CABEÇALHO -->
-    <!-- =============================== -->
     <div class="cabecalho">
-        <img src="img/Logo Restaurante.png" alt="Logo do Restaurante" class="logo-restaurante">
+        <img src="backend/exibir_imagem.php?id=<?php echo $id_restaurante; ?>&tipo=logo" alt="Logo do Restaurante" class="logo-restaurante">
         <div class="info-restaurante">
-            <h2>JERONIMO</h2>
-            <p>Rua das Paineiras, 398, Bairro Jardim, Santo André/SP</p>
+            <h2><?php echo htmlspecialchars($dados_restaurante['nome_restaurante']); ?></h2>
+            <p><?php echo htmlspecialchars($dados_restaurante['endereco_completo']); ?></p>
         </div>
     </div>
 
-    <!-- =============================== -->
-    <!-- APRESENTAÇÃO DE IMAGENS -->
-    <!-- =============================== -->
     <div class="container-slideshow">
+        <?php
+        $fotos = [];
+        // Define as fotos disponíveis
+        if (!empty($dados_restaurante['fotoPrincipal_res'])) $fotos[] = 'fotoPrincipal';
+        if (!empty($dados_restaurante['foto1_res'])) $fotos[] = 'foto1';
+        if (!empty($dados_restaurante['foto2_res'])) $fotos[] = 'foto2';
+        if (!empty($dados_restaurante['foto3_res'])) $fotos[] = 'foto3';
 
-        <div class="slide fade">
-            <img src="img/Jeronimo1.jpeg">
-        </div>
+        if (empty($fotos)) $fotos[] = 'placeholder'; 
 
-        <div class="slide fade">
-            <img src="img/Jeronimo2.jpg">
-        </div>
+        $contador_slides = 0;
+        foreach ($fotos as $tipo_foto) {
+            $contador_slides++;
+            $url_imagem = ($tipo_foto === 'placeholder') 
+                          ? 'img/placeholder.jpg' 
+                          : 'backend/exibir_imagem.php?id=' . $id_restaurante . '&tipo=' . $tipo_foto;
+            ?>
+            <div class="slide fade" style="display: <?php echo $contador_slides === 1 ? 'block' : 'none'; ?>;">
+                <img src="<?php echo $url_imagem; ?>">
+            </div>
+        <?php } ?>
 
-        <div class="slide fade">
-            <img src="img/Jeronimo3.jpg">
-        </div>
-
-        <!-- Botões anterior / próximo -->
         <a class="anterior" onclick="mudarSlide(-1)">&#10094;</a>
         <a class="proximo" onclick="mudarSlide(1)">&#10095;</a>
     </div>
 
     <br>
 
-    <!-- Indicadores -->
     <div style="text-align:center">
-        <span class="bolinha" onclick="slideAtual(1)"></span>
-        <span class="bolinha" onclick="slideAtual(2)"></span>
-        <span class="bolinha" onclick="slideAtual(3)"></span>
+        <?php for ($i = 1; $i <= $contador_slides; $i++) { ?>
+            <span class="bolinha" onclick="slideAtual(<?php echo $i; ?>)"></span>
+        <?php } ?>
     </div>
 
-    <!-- =============================== -->
-    <!-- SOBRE O RESTAURANTE -->
-    <!-- =============================== -->
     <div class="infoRestaurante">
         <h2>Sobre o Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos molestias facere odit reprehenderit dolores
-            excepturi sunt nihil exercitationem voluptatem debitis. Beatae inventore a quaerat praesentium, commodi
-            provident pariatur mollitia officia deleniti dolorum, sapiente tempora unde molestiae quae maiores corrupti
-            optio voluptas voluptatem? Eveniet ipsa ipsam facere culpa, quae minus consequatur maiores eaque aut
-            pariatur magnam quaerat eius at, nemo nam recusandae sunt? Sit, distinctio repellendus earum molestiae
-            provident consequatur labore sequi qui neque quae eum, repellat aperiam commodi alias. Sapiente sint,
-            temporibus, similique aut iste aliquam veniam perspiciatis consequatur sunt dolorum dignissimos vero
-            voluptas quidem quam mollitia eaque culpa nisi?</p>
+        <p><?php echo nl2br(htmlspecialchars($dados_restaurante['descricao'] ?? 'Descrição não fornecida.')); ?></p>
     </div>
 
-    <!-- ============================================================== 
-        BOTÃO RESERVAR MESA
-        ============================================================== -->
     <div class="botao-reservar-mesa">
-        <a href="criarReserva.html"><button>Criar Reserva<img src="img/Icone Agenda Branco.png"></button></a>
+        <a href="criarReserva.html?restaurante_id=<?php echo $id_restaurante; ?>"><button>Criar Reserva<img src="img/Icone Agenda Branco.png"></button></a>
     </div>
 
-    <!-- =============================== -->
-    <!-- CARDÁPIO -->
-    <!-- =============================== -->
     <div class="container-carousel swiper">
         <h2>Cardápio</h2>
         <div class="card-wrapper">
             <ul class="card-list swiper-wrapper">
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
-                <li class="card-item swiper-slide">
-                    <div class="card-link">
-                        <img src="img/hamburguer.jpg" alt="Foto Teste" class="card-image">
-                        <h2 class="card-title">Nome do prato</h2>
-                        <br>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </li>
+                <?php foreach ($cardapio as $prato) { ?>
+                    <li class="card-item swiper-slide">
+                        <div class="card-link">
+                            <img src="backend/exibir_cardapio_imagem.php?id=<?php echo $prato['idcardapio']; ?>" 
+                                 alt="<?php echo htmlspecialchars($prato['nome_alimento']); ?>" 
+                                 class="card-image">
+                            
+                            <h2 class="card-title"><?php echo htmlspecialchars($prato['nome_alimento']); ?></h2>
+                            <br>
+                            <p>Preço: R$ <?php echo number_format($prato['preco'], 2, ',', '.'); ?></p>
+                        </div>
+                    </li>
+                <?php } 
+                // Se o cardápio estiver vazio, insere um placeholder para evitar erros no Swiper
+                if (empty($cardapio)) { ?>
+                    <li class="card-item swiper-slide">
+                        <div class="card-link">
+                            <p>Cardápio ainda não cadastrado para este restaurante.</p>
+                        </div>
+                    </li>
+                <?php } ?>
             </ul>
 
             <div class="swiper-pagination"></div>
@@ -167,13 +157,8 @@
             <div class="swiper-button-next"></div>
         </div>
     </div>
-    <br>
-    <br>
+    <br><br><br><br><br>
 
-
-    <!-- ============================================================== 
-    NAVBAR COMPLETA
-    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
     <div class="search-container" id="searchBar">
@@ -201,14 +186,11 @@
 
 </body>
 
-<!-- ============================================================== 
-    SCRIPTS
-    ============================================================== -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-        /*  ============================================================== 
+        /* ============================================================== 
         SCRIPT NAVBAR
         ==============================================================  */
         const openSearch = document.getElementById("openSearch");
@@ -261,14 +243,14 @@
 
         overlay.addEventListener("click", fecharPesquisa);
 
-        /*  ============================================================== 
+        /* ============================================================== 
         BOTÃO VOLTAR
         ==============================================================  */
         document.getElementById('voltar').addEventListener('click', function () {
             history.back();
         });
 
-        /*  ============================================================== 
+        /* ============================================================== 
         SCRIPT DO CARROSSEL
         ==============================================================  */
         let indiceSlide = 1;
@@ -283,6 +265,7 @@
         }
 
         function mostrarSlides(n) {
+            // Este script agora é dinâmico com base no PHP
             const slides = document.getElementsByClassName("slide");
             const bolinhas = document.getElementsByClassName("bolinha");
             if (slides.length === 0) return;
@@ -305,7 +288,7 @@
     });
 
 
-    /*  ============================================================== 
+    /* ============================================================== 
     CARDÁPIO
     ==============================================================  */
 

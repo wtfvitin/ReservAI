@@ -1,4 +1,23 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once "backend/conexao.php";
+
+$cidadeCliente = "Sua cidade";
+$estadoCliente = "UF";
+
+if (isset($_SESSION['usuario_id'])) {
+  $id = $_SESSION['usuario_id']; // Linha 8
+  $sql = "SELECT endereco_cidade_cli, endereco_estado_cli FROM clientes WHERE idcliente = :id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([':id' => $id]);
+  $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  if ($dados) {
+    $cidadeCliente = $dados['endereco_cidade_cli'];
+    $estadoCliente = $dados['endereco_estado_cli'];
+  }
+};
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,101 +43,46 @@
 
     <div class="localizacao">
       <img src="img/Icone Localizacao.png" alt="Localização" class="icone-localizacao">
-      <span class="texto-localizacao">Mauá, SP</span>
+      <span class="texto-localizacao"> <?php echo htmlspecialchars($cidadeCliente . ", " . $estadoCliente); ?></span>
     </div>
   </div>
   <div class="content">
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
+    <?php
+    // Busca todos os restaurantes cadastrados
+    $sql = $pdo->query("SELECT * FROM restaurantes ORDER BY idrestaurante DESC");
+
+    if ($sql->rowCount() == 0) {
+      echo "<p style='width:100%; text-align:center; margin-top:20px; font-size:18px;'>Nenhum restaurante cadastrado ainda.</p>";
+    }
+
+    while ($rest = $sql->fetch(PDO::FETCH_ASSOC)):
+    ?>
+
+      <div class="card">
+        <img src="backend/exibir_imagem.php?id=<?= $rest['idrestaurante'] ?>&tipo=fotoPrincipal" alt="Capa do Restaurante">
+
+        <div class="card-content">
+          <h2><?= htmlspecialchars($rest['nome_restaurante']) ?></h2>
+
+          <p>
+            <?= htmlspecialchars($rest['endereco_rua_res']) ?>,
+            <?= htmlspecialchars($rest['endereco_num_res']) ?> -
+            <?= htmlspecialchars($rest['endereco_bairro_res']) ?><br>
+            <?= htmlspecialchars($rest['endereco_cidade_res']) ?> -
+            <?= htmlspecialchars($rest['endereco_estado_res']) ?>
+          </p>
+
+          <a href="reserva.php?id=<?= $rest['idrestaurante'] ?>">
+            <button>Reserve já</button>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/Restaurante.jpg" alt="Restaurante">
-      <div class="card-content">
-        <h2>Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-          venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-        <a href="reserva.html"><button>Reserve já</button></a>
-      </div>
-    </div>
+
+    <?php endwhile; ?>
   </div>
 
-  <!-- ==============================================================
-    NAVBAR COMPLETA
-    ==============================================================  -->
-
-  <!-- Overlay escuro -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Barra de pesquisa -->
   <div class="search-container" id="searchBar">
     <form id="searchForm">
       <input type="search" id="searchInput" placeholder="Pesquisar...">
@@ -128,7 +92,6 @@
     </form>
   </div>
 
-  <!-- Navbar -->
   <nav class="navbar">
     <a href="index.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
     <a href="agenda.php" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
@@ -140,23 +103,18 @@
 
     <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
 
-    <!-- Botão de perfil com redirecionamento dinâmico -->
     <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
       <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
-      </a>
+    </a>
 
   </nav>
 
 
-  <!-- ==============================================================
-    FIM NAVBAR
-    ==============================================================  -->
-
 </body>
 <script>
-  /*  ==============================================================
-  SCRIPT NAVBAR
-  ==============================================================  */
+  /*  ==============================================================
+    SCRIPT NAVBAR
+    ==============================================================  */
   const openSearch = document.getElementById("openSearch");
   const searchBar = document.getElementById("searchBar");
   const searchInput = document.getElementById("searchInput");
@@ -226,9 +184,9 @@
 
   // Fecha ao clicar no overlay
   overlay.addEventListener("click", fecharPesquisa);
-  /*  ==============================================================
+  /*  ==============================================================
   FIM SCRIPT NAVBAR
-  ==============================================================  */
+  ==============================================================  */
 </script>
 
 
