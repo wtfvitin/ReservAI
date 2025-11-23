@@ -1,0 +1,216 @@
+/* IMPORTA O CSS DO perfilCliente.php/css AQUI */
+        /* ======================================== */
+        /* ESTILOS DA BARRA DE TOPO (Header) */
+        /* ======================================== */
+        .barra-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5vw;
+            margin-top: 40px;
+            background-color: #FFF5EA;
+        }
+
+        .esquerda {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .esquerda h1 {
+            font-size: clamp(24px, 4vw, 40px);
+            color: #D76A03;
+            margin: 0;
+        }
+
+        .icone-voltar {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .direita {
+            display: flex;
+            align-items: center;
+        }
+
+        .icone-editar {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* ======================================== */
+        /* CONTEÚDO PRINCIPAL (Profile) */
+        /* ======================================== */
+        .perfil-container {
+            width: 90%;
+            max-width: 500px;
+            margin: 10px auto 100px auto;
+            padding: 0;
+        }
+
+        /* --- HEADER DO PERFIL (Foto, Nome, Botão Gerenciar) --- */
+        .perfil-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-picture-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #D76A03;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .camera-icon {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #D76A03;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .camera-icon img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nome-cliente {
+            /* Renomeado para .nome-restaurante no PHP/HTML */
+            font-size: 24px;
+            color: #3f2100;
+            margin-bottom: 20px;
+        }
+
+        /* Adicionado estilo específico para a descrição, se necessário */
+        .descricao-texto {
+            white-space: pre-wrap;
+            /* Mantém quebras de linha e espaços no texto da descrição */
+            text-align: left;
+            padding: 15px;
+            background: #fdfaf5;
+            border-radius: 10px;
+            color: #3f2100;
+            font-size: 16px;
+            margin-top: 10px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- BOTÃO GERENCIAR CONTA (Não usado aqui, mas mantido para consistência) --- */
+        .btn-gerenciar {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fff;
+            color: #D76A03;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #D76A03;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-gerenciar:hover {
+            background-color: #f7e6d5;
+        }
+
+        .btn-gerenciar img {
+            width: 18px;
+            height: 18px;
+            filter: invert(47%) sepia(35%) saturate(3062%) hue-rotate(345deg) brightness(85%) contrast(85%);
+        }
+
+        /* ======================================== */
+        /* SEÇÕES DE INFORMAÇÃO */
+        /* ======================================== */
+        .info-section {
+            margin-bottom: 10px;
+        }
+
+        .info-section h3 {
+            text-align: left;
+            font-size: 20px;
+            color: #D76A03;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            background: transparent;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #653400;
+            font-weight: 500;
+            margin-bottom: 4px;
+            background: transparent;
+        }
+
+        .valor {
+            font-size: 16px;
+            color: #3f2100;
+            background: transparent;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* --- BOTÃO SAIR --- */
+        .btn-sair {
+            display: block;
+            width: 100%;
+            background-color: #bf3100;
+            color: white;
+            padding: 12px 0;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 17px;
+            margin-top: 30px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-sair:hover {
+            background-color: #942500ff;
+        }

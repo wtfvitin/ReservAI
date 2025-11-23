@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
+
+    <link rel="stylesheet" href="src/css/padrão.css">
+    <link rel="stylesheet" href="src/css/navbar.css">
+    <link rel="stylesheet" href="src/css/configuracoesRestaurante.css"> 
+    
+    <title>Configurações - ReservAI</title>
+</head>
+
+<body>
+    <div class="barra-topo">
+        <div class="esquerda">
+            <img src="img/Icone Voltar.png" alt="Voltar" id="voltar" class="icone-voltar">
+            <h1>Configurações</h1>
+        </div>
+    </div>
+
+    <main class="config-container">
+        
+        <section class="config-section">
+            <div class="config-item" onclick="window.location.href='editarPerfilGestor.php';">
+                <span>Editar Perfil</span>
+                <img src="img/Icone Voltar.png" alt="Abrir" class="icone-proximo">
+            </div>
+            <div class="config-item" onclick="window.location.href='alterarSenhaRestaurante.php';">
+                <span>Alterar Senha</span>
+                <img src="img/Icone Voltar.png" alt="Abrir" class="icone-proximo">
+            </div>
+            
+            <div class="config-item" onclick="window.location.href='gerenciarCardapio.php';">
+                <span>Gerenciar Cardápio</span>
+                <img src="img/Icone Voltar.png" alt="Abrir" class="icone-proximo">
+            </div>
+            
+        </section>
+
+        <section class="config-section">
+            <div class="config-item logout" onclick="window.location.href='backend/logoutGestor.php';">
+                Sair da Conta
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="navbar">
+        <a href="indexRestaurante.php" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home/Dashboard"></a>
+
+        <a href="configuracoesRestaurante.html" class="ativo-hover">
+            <img src="img/Icone Configurações.png" class="img-nav" alt="Configurações">
+        </a>
+
+        <a href="perfilGestor.php" class="desativo-hover">
+            <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
+        </a>
+    </nav>
+
+</body>
+<script>
+    /*============================================================== 
+ BOTÃO VOLTAR
+ ==============================================================*/
+    document.getElementById('voltar').addEventListener('click', function() {
+        history.back();
+    });
+</script>
+
+</html>

@@ -1,6 +1,10 @@
 <?php
 // Inclui a conexão (ajuste o caminho se necessário)
-require_once 'backend/conexao.php'; 
+require_once 'backend/conexao.php';
+// =======================================================
+// ADICIONADO: Inicia a sessão para verificar o login
+// =======================================================
+session_start();
 
 // Verifica se o ID do restaurante foi passado na URL (Query String)
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -14,43 +18,56 @@ $cardapio = [];
 try {
     // 1. BUSCAR DADOS DO RESTAURANTE
     $stmt_res = $pdo->prepare("SELECT 
-        nome_restaurante, 
-        descricao, 
-        logo_res, 
-        fotoPrincipal_res, 
-        foto1_res, 
-        foto2_res, 
-        foto3_res,
-        endereco_rua_res, 
-        endereco_num_res, 
-        endereco_bairro_res, 
-        endereco_cidade_res, 
-        endereco_estado_res
-        FROM restaurantes WHERE idrestaurante = ?");
+    nome_restaurante, 
+    descricao, 
+    logo_res, 
+    fotoPrincipal_res, 
+    foto1_res, 
+    foto2_res, 
+    foto3_res,
+    endereco_rua_res, 
+    endereco_num_res, 
+    endereco_bairro_res, 
+    endereco_cidade_res, 
+    endereco_estado_res
+    FROM restaurantes WHERE idrestaurante = ?");
     $stmt_res->execute([$id_restaurante]);
     $dados_restaurante = $stmt_res->fetch();
 
     if (!$dados_restaurante) {
         die("Restaurante não encontrado.");
     }
-    
+
     // Constrói o endereço completo
-    $dados_restaurante['endereco_completo'] = $dados_restaurante['endereco_rua_res'] . ', ' 
-                                            . $dados_restaurante['endereco_num_res'] . ', ' 
-                                            . $dados_restaurante['endereco_bairro_res'] . ', ' 
-                                            . $dados_restaurante['endereco_cidade_res'] . '/' 
-                                            . $dados_restaurante['endereco_estado_res'];
+    $dados_restaurante['endereco_completo'] = $dados_restaurante['endereco_rua_res'] . ', '
+        . $dados_restaurante['endereco_num_res'] . ', '
+        . $dados_restaurante['endereco_bairro_res'] . ', '
+        . $dados_restaurante['endereco_cidade_res'] . '/'
+        . $dados_restaurante['endereco_estado_res'];
 
 
     // 2. BUSCAR DADOS DO CARDÁPIO
     $stmt_card = $pdo->prepare("SELECT idcardapio, nome_alimento, preco FROM cardapio WHERE restaurante_id = ?");
     $stmt_card->execute([$id_restaurante]);
     $cardapio = $stmt_card->fetchAll();
-
 } catch (PDOException $e) {
     die("Erro ao carregar dados do restaurante: " . $e->getMessage());
 }
+
+// ======================================================
+// LÓGICA DO BOTÃO DE RESERVA
+// ======================================================
+$esta_logado = isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id']);
+
+if ($esta_logado) {
+    // Se estiver logado, leva para a página de criação de reserva
+    $url_destino = 'criarReserva.php?restaurante_id=' . $id_restaurante;
+} else {
+    // Se NÃO estiver logado, leva para a página de cadastro/login (CORRIGIDO PARA .html)
+    $url_destino = 'cadastroClientePt1.html';
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -90,15 +107,15 @@ try {
         if (!empty($dados_restaurante['foto2_res'])) $fotos[] = 'foto2';
         if (!empty($dados_restaurante['foto3_res'])) $fotos[] = 'foto3';
 
-        if (empty($fotos)) $fotos[] = 'placeholder'; 
+        if (empty($fotos)) $fotos[] = 'placeholder';
 
         $contador_slides = 0;
         foreach ($fotos as $tipo_foto) {
             $contador_slides++;
-            $url_imagem = ($tipo_foto === 'placeholder') 
-                          ? 'img/placeholder.jpg' 
-                          : 'backend/exibir_imagem.php?id=' . $id_restaurante . '&tipo=' . $tipo_foto;
-            ?>
+            $url_imagem = ($tipo_foto === 'placeholder')
+                ? 'img/placeholder.jpg'
+                : 'backend/exibir_imagem.php?id=' . $id_restaurante . '&tipo=' . $tipo_foto;
+        ?>
             <div class="slide fade" style="display: <?php echo $contador_slides === 1 ? 'block' : 'none'; ?>;">
                 <img src="<?php echo $url_imagem; ?>">
             </div>
@@ -122,7 +139,7 @@ try {
     </div>
 
     <div class="botao-reservar-mesa">
-        <a href="criarReserva.php?restaurante_id=<?php echo $id_restaurante; ?>"><button>Criar Reserva<img src="img/Icone Agenda Branco.png"></button></a>
+        <a href="<?php echo $url_destino; ?>"><button>Criar Reserva<img src="img/Icone Agenda Branco.png"></button></a>
     </div>
 
     <div class="container-carousel swiper">
@@ -132,16 +149,16 @@ try {
                 <?php foreach ($cardapio as $prato) { ?>
                     <li class="card-item swiper-slide">
                         <div class="card-link">
-                            <img src="backend/exibir_cardapio_imagem.php?id=<?php echo $prato['idcardapio']; ?>" 
-                                 alt="<?php echo htmlspecialchars($prato['nome_alimento']); ?>" 
-                                 class="card-image">
-                            
+                            <img src="backend/exibir_cardapio_imagem.php?id=<?php echo $prato['idcardapio']; ?>"
+                                alt="<?php echo htmlspecialchars($prato['nome_alimento']); ?>"
+                                class="card-image">
+
                             <h2 class="card-title"><?php echo htmlspecialchars($prato['nome_alimento']); ?></h2>
                             <br>
                             <p>Preço: R$ <?php echo number_format($prato['preco'], 2, ',', '.'); ?></p>
                         </div>
                     </li>
-                <?php } 
+                <?php }
                 // Se o cardápio estiver vazio, insere um placeholder para evitar erros no Swiper
                 if (empty($cardapio)) { ?>
                     <li class="card-item swiper-slide">
@@ -159,6 +176,9 @@ try {
     </div>
     <br><br><br><br><br>
 
+    <!-- ============================================================== 
+    NAVBAR COMPLETA
+    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
     <div class="search-container" id="searchBar">
@@ -172,16 +192,19 @@ try {
 
     <nav class="navbar">
         <a href="index.php" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-        <a href="agenda.html" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'agenda.php' : 'cadastroClientePt1.html'; ?>" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
         <a href="#" class="search-btn" id="openSearch">
             <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
             <img src="img/Icone X.png" class="close-icon" alt="Fechar">
         </a>
 
-        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav"
-                alt="Configurações"></a>
-        <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
+        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
+
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+            <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
+        </a>
+
     </nav>
 
 </body>
@@ -192,7 +215,7 @@ try {
 
         /* ============================================================== 
         SCRIPT NAVBAR
-        ==============================================================  */
+        ============================================================== */
         const openSearch = document.getElementById("openSearch");
         const searchBar = document.getElementById("searchBar");
         const searchInput = document.getElementById("searchInput");
@@ -245,14 +268,14 @@ try {
 
         /* ============================================================== 
         BOTÃO VOLTAR
-        ==============================================================  */
-        document.getElementById('voltar').addEventListener('click', function () {
+        ============================================================== */
+        document.getElementById('voltar').addEventListener('click', function() {
             history.back();
         });
 
         /* ============================================================== 
         SCRIPT DO CARROSSEL
-        ==============================================================  */
+        ============================================================== */
         let indiceSlide = 1;
         mostrarSlides(indiceSlide);
 
@@ -270,8 +293,12 @@ try {
             const bolinhas = document.getElementsByClassName("bolinha");
             if (slides.length === 0) return;
 
-            if (n > slides.length) { indiceSlide = 1 }
-            if (n < 1) { indiceSlide = slides.length }
+            if (n > slides.length) {
+                indiceSlide = 1
+            }
+            if (n < 1) {
+                indiceSlide = slides.length
+            }
             for (let i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }
@@ -290,7 +317,7 @@ try {
 
     /* ============================================================== 
     CARDÁPIO
-    ==============================================================  */
+    ============================================================== */
 
 
     new Swiper('.card-wrapper', {

@@ -97,6 +97,9 @@ try {
     </div>
 
 
+    <!-- ============================================================== 
+    NAVBAR COMPLETA
+    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
     <div class="search-container" id="searchBar">
@@ -110,16 +113,19 @@ try {
 
     <nav class="navbar">
         <a href="index.php" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-        <a href="agenda.html" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'agenda.php' : 'cadastroClientePt1.html'; ?>" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
         <a href="#" class="search-btn" id="openSearch">
             <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
             <img src="img/Icone X.png" class="close-icon" alt="Fechar">
         </a>
 
-        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav"
-                alt="Configurações"></a>
-        <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
+        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
+
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+            <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
+        </a>
+
     </nav>
 </body>
 <script>
@@ -188,7 +194,7 @@ try {
     ==============================================================  */
     const inputData = document.getElementById('data');
     const hoje = new Date();
-    hoje.setDate(hoje.getDate() + 1); // Amanhã
+    hoje.setDate(hoje.getDate()); // Amanhã
     const ano = hoje.getFullYear();
     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
     const dia = String(hoje.getDate()).padStart(2, '0');

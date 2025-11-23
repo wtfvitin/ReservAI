@@ -1,6 +1,44 @@
+/* Arquivo: src/css/cadastroRestaurantePt3.css */
+
+/* --- RESET BÁSICO E OTIMIZAÇÃO GLOBAL DE ESPAÇO VERTICAL --- */
+body {
+    margin: 0; 
+    padding: 0;
+    min-height: 100vh;
+    overflow-y: hidden; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #FFF6EC; 
+}
+
+.container {
+    width: 100%;
+    /* Permite rolagem no container se o conteúdo for grande */
+    overflow-y: auto; 
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0; 
+    /* Padding para o conteúdo não ficar atrás do rodapé fixo (.fundo) */
+    padding-bottom: 120px; 
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- LOGO E TÍTULOS (Harmonizados e Compactados) --- */
+
 img {
-    width: 200px;
-    margin-bottom: 1px;
+    width: 180px;
+    margin-bottom: 0;
 }
 
 .logo {
@@ -8,23 +46,23 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 5px; 
+    margin-top: 5px; 
 }
 
 .logo img {
     display: block;
     margin: 0 auto;
-    margin-bottom: 1px;
-    width: 200px;
+    margin-bottom: 0;
+    width: 180px;
     height: auto;
     transform: none !important;
 }
 
-/* zera margens do h1 e centraliza */
 .logo h1 {
     color: #D76A03;
-    margin-bottom: 10px;
-    font-size: 40px;
+    margin-bottom: 5px; 
+    font-size: 36px;
     font-weight: 800;
     margin: 0;
     text-align: center;
@@ -34,17 +72,114 @@ img {
 
 h2 {
     color: #D76A03;
-    margin-top: 16px;
-    margin-bottom: 20px;
+    margin-top: 5px; 
+    margin-bottom: 10px; 
     font-size: 24px;
     font-weight: 700;
 }
 
-input {
-    width: 55%;
-    height: 64px;
-    padding: 12px 20px;
-    margin: 16px 0;
+/* --- ESTILOS DO PROGRESS BAR (3/5 ATIVA) --- */
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; 
+    max-width: 900px; 
+    margin: 10px auto 15px auto; 
+    gap: 0; 
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 50px; 
+}
+
+.circle {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ccc; 
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    border: 3px solid #ccc;
+    transition: background-color 0.3s, border-color 0.3s;
+    z-index: 2; 
+}
+
+/* Cor do Step Ativo */
+.circle.active {
+    background-color: #D76A03; 
+    border-color: #BF3100; 
+}
+
+.label {
+    margin-top: 5px;
+    font-size: 12px; 
+    color: #888;
+    font-weight: 500;
+}
+
+.label.active {
+    color: #D76A03; 
+    font-weight: bold;
+}
+
+/* Estilo da Linha de Conexão */
+.progress-bar {
+    flex-grow: 1;
+    height: 3px;
+    background-color: #ccc;
+    position: relative;
+    margin-top: -20px; 
+    border-radius: 1.5px;
+}
+
+.progress-line {
+    height: 100%;
+    width: 0%; 
+    background-color: #D76A03;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1.5px;
+}
+.progress-line.active {
+    background-color: #D76A03;
+}
+
+
+/* --- FORMULÁRIO E INPUTS (OTIMIZAÇÃO DE ESPAÇO) --- */
+
+form {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0; 
+    /* Margem inferior removida, pois o padding-bottom do .container já cuida disso */
+    margin-bottom: 0; 
+}
+
+input, select {
+    width: 80%;
+    max-width: 400px; 
+    /* Reduzido de 64px para 50px para caber mais itens */
+    height: 50px; 
+    /* Reduzido padding */
+    padding: 10px 20px; 
+    /* Reduzido a margem vertical drasticamente */
+    margin: 6px 0; 
     display: inline-block;
     border: 1px solid #D76A03;
     border-radius: 15px;
@@ -55,42 +190,38 @@ input {
     font-weight: 400;
 }
 
-select {
-    width: 55%;
-    height: 64px;
-    padding: 12px 20px;
-    margin: 16px 0;
-    display: inline-block;
-    border: 1px solid #D76A03;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #FFF6EC;
-    box-shadow: 0 0 0 4px #F6C7A0;
-    font-size: 16px;
-    font-weight: 400;
-}
+
+/* --- BOTÃO CADASTRO/PRÓXIMO --- */
 
 .btnCadastrar {
-    width: 45%;
-    height: 64px;
-    max-width: 700px;
-    height: 56px;
+    width: 60%; 
+    max-width: 300px;
+    height: 56px; 
     background-color: #D76A03;
     color: white;
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px; 
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-top: 5px; 
+    margin-bottom: 5px; 
 }
 
 .btnCadastrar:hover {
     background-color: #c05d00;
     transition: all 0.3s ease;
     transform: translateY(-2px);
+}
+
+/* --- LINK ENTRAR E PARÁGRAFO --- */
+
+p {
+    color: #D76A03;
+    background: transparent;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 5px 0;
 }
 
 .entrar {
@@ -105,35 +236,12 @@ select {
     text-decoration: underline;
 }
 
-p {
-    color: #D76A03;
-    background: transparent;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.formulario {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-form {
-    width: 100%;
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 200px;
-}
+/* --- RODAPÉ FIXO (.fundo) --- */
 
 .fundo {
     background-color: #FFE5B1;
     border-radius: 58px 58px 0 0;
-    padding: 20px;
+    padding: 15px 20px; 
     text-align: center;
     width: 100%;
     box-sizing: border-box;
@@ -141,17 +249,20 @@ form {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 1000;
 }
+
+/* --- BOTÃO SUPERIOR (.btnCliente) --- */
 
 .btnCliente {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 15px; 
+    left: 15px; 
     background-color: #D76A03;
     color: white;
-    padding: 17px 22px;
-    border-radius: 10px;
-    font-size: 16px;
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    font-size: 14px; 
     font-weight: bold;
     text-decoration: none;
     z-index: 9999;
@@ -163,17 +274,56 @@ form {
     transition: 0.2s;
 }
 
-
+/* --- MEDIA QUERIES (Responsividade Mobile) --- */
 
 @media (max-width: 400px) {
-    .fundo {
-        width: 100%;
-        border-radius: 40px 40px 0 0;
-        padding: 15px;
+    body {
+        /* Permite a rolagem em mobile, já que há muitos campos */
+        overflow-y: auto; 
+    }
+    
+    .container {
+        padding-top: 0;
+        padding-bottom: 90px; 
     }
 
-    .input {
-        width: 100%;
-        max-width: 280px;
+    .logo {
+        margin-top: 5px;
+    }
+    
+    .logo img {
+        width: 130px; 
+    }
+
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        margin-top: 5px;
+    }
+
+    .progress-container {
+        margin: 5px auto 10px auto;
+        width: 98%;
+    }
+    
+    .fundo {
+        border-radius: 30px 30px 0 0;
+        padding: 10px;
+    }
+
+    input, select {
+        width: 90%; 
+        height: 45px;
+        /* Margem vertical ainda mais reduzida para caber os 6 campos */
+        margin: 4px 0; 
+        font-size: 15px;
+    }
+    
+    .btnCadastrar {
+        width: 90%;
+        height: 50px;
+        font-size: 16px;
     }
 }

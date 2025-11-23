@@ -1,0 +1,246 @@
+.barra-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw;
+    margin-top: 40px;
+    background-color: #FFF5EA;
+}
+
+.esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.esquerda h1 {
+    font-size: clamp(24px, 4vw, 40px);
+    color: #D76A03;
+    margin: 0;
+}
+
+.icone-voltar {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.perfil-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 10px auto 100px auto;
+    padding: 0;
+}
+
+.perfil-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-picture-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D76A03;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0f0;
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #D76A03;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.camera-icon img {
+    width: 18px;
+    height: 18px;
+}
+
+.nome-cliente {
+    font-size: 24px;
+    color: #3f2100;
+    margin-bottom: 20px;
+}
+
+/* ======================================== */
+/* ESTILOS DE FORMULÁRIO (Campos de Input) */
+/* ======================================== */
+.info-section h3 {
+    text-align: left;
+    font-size: 20px;
+    color: #D76A03;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.info-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    background: transparent;
+}
+
+.form-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #653400;
+    font-weight: 500;
+    margin-bottom: 4px;
+    background: transparent;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+    font-size: 16px;
+    color: #3f2100;
+    font-weight: bold;
+    background: transparent;
+    transition: border-bottom-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-bottom-color: #D76A03;
+}
+
+/* Estilos para campos de dois em linha */
+.inline-group {
+    display: flex;
+    gap: 15px;
+    background: transparent;
+}
+
+.inline-group .form-group {
+    flex: 1;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+
+/* Mensagens de Status */
+.mensagem-status {
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mensagem-sucesso {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.mensagem-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Botão Salvar */
+.btn-salvar {
+    display: block;
+    width: 100%;
+    background-color: #D76A03;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-salvar:hover {
+    background-color: #bf5c02;
+}
+
+/* Esconde o input file padrão */
+#foto_perfil_input {
+    display: none;
+}
+
+/* Corrigindo input CPF desabilitado */
+.form-group input:disabled {
+    background-color: #f7f7f7;
+    font-weight: normal;
+    color: #888;
+}
+
+.btn-remover-foto {
+    display: inline-block;
+    /* Permite que o botão se ajuste ao conteúdo */
+    padding: 8px 15px;
+    /* Preenchimento interno */
+    margin-top: 15px;
+    /* Espaçamento superior */
+    background-color: #bf3100;
+    /* Vermelho vibrante */
+    color: white;
+    /* Texto branco */
+    border: none;
+    /* Remove a borda padrão do botão */
+    border-radius: 5px;
+    /* Cantos arredondados */
+    cursor: pointer;
+    /* Indica que é clicável */
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    /* Remove sublinhado se for um <a> */
+    transition: background-color 0.3s ease;
+    /* Transição suave na cor de fundo */
+    text-align: center;
+    /* Centraliza o texto */
+}
+
+.btn-remover-foto:hover {
+    background-color: #962601;
+    /* Um vermelho um pouco mais escuro ao passar o mouse */
+    text-decoration: none;
+    /* Garante que não sublinhe no hover */
+}

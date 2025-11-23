@@ -1,4 +1,53 @@
-<?php session_start(); ?>
+<?php 
+session_start();
+require_once "backend/conexao.php"; 
+
+if (empty($_SESSION['restaurante_id'])) {
+    header("Location: loginRestaurante.html"); 
+    exit;
+}
+
+$restaurante_id = $_SESSION['restaurante_id'];
+$reservas_do_dia = [];
+$hoje = date('Y-m-d'); 
+
+$sql_reservas = "
+    SELECT 
+        r.idreserva,
+        c.nome_cli,
+        c.sobrenome_cli,
+        c.foto_perfil,
+        r.horario_inicio,
+        r.horario_fim,
+        m.numero AS numero_mesa,
+        r.numero_clientes,
+        r.status
+    FROM 
+        reservas r
+    JOIN 
+        clientes c ON r.cliente_id = c.idcliente
+    LEFT JOIN 
+        mesas m ON r.mesa_id = m.idmesa
+    WHERE 
+        r.restaurante_id = :restaurante_id AND 
+        r.data_reserva = :hoje AND
+        r.status = 'confirmada' 
+    ORDER BY 
+        r.horario_inicio ASC
+";
+
+try {
+    $stmt = $pdo->prepare($sql_reservas);
+    $stmt->bindParam(':restaurante_id', $restaurante_id, PDO::PARAM_INT);
+    $stmt->bindParam(':hoje', $hoje);
+    $stmt->execute();
+    $reservas_do_dia = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    error_log("Erro ao buscar reservas: " . $e->getMessage());
+    $mensagem_erro = "Não foi possível carregar as reservas do dia. Erro de banco de dados.";
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -9,226 +58,187 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
     <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/navbar.css">
-    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/css/reservasDia.css"> 
     
-    <title>Início Gestores- ReservAI</title>
+    <title>Reservas do Dia - ReservAI</title>
+    
 </head>
 
 <body>
-
     <div class="titulo">
         <div class="titulo-esquerda">
-            <h1>Reserve Aí!</h1>
-            <img src="img/Table.png" alt="Mesa de Restaurante">
-        </div>
-
-        <div class="localizacao">
-            <img src="img/Icone Localizacao.png" alt="Localização" class="icone-localizacao">
-            <span class="texto-localizacao">Mauá, SP</span>
+            <h1>Reservas do Dia</h1>
+            <img src="img/Icone Check.png" alt="Check" class="icone-check">
         </div>
     </div>
+    
     <div class="content">
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
+
+        <?php if (!empty($mensagem_erro)) : ?>
+            <div class="nenhuma-reserva"><?php echo $mensagem_erro; ?></div>
+        <?php elseif (empty($reservas_do_dia)) : ?>
+            <div class="nenhuma-reserva">
+                <h1 style="color: #d76a03; font-size: 30px; text-align: center; margin-top: 100px; margin-bottom: 0px;">Nenhuma reserva confirmada para o dia de hoje.</h1>
+                <img class="sem-reserva-img" src="img/cozinheiro.png" alt="Cozinheiro Sugerindo Reserva">
             </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="img/Restaurante.jpg" alt="Restaurante">
-            <div class="card-content">
-                <h2>Restaurante</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis ipsum, dignissim at tempus eget,
-                    venenatis vitae mi. Sed id ligula mauris. Phasellus egestas lobortis nisi non consequat.</p>
-                <a href="reserva.html"><button>Reserve já</button></a>
+        <?php else : ?>
+            
+            <?php foreach ($reservas_do_dia as $reserva) : 
+                
+                $nome_completo = $reserva['nome_cli'] . ' ' . $reserva['sobrenome_cli'];
+                $inicial_nome = strtoupper(substr($reserva['nome_cli'], 0, 1));
+                $has_foto = !empty($reserva['foto_perfil']);
+
+                $foto_src = $has_foto
+                    ? 'data:image/jpeg;base64,' . base64_encode($reserva['foto_perfil'])
+                    : 'https://placehold.co/120x120/d76a03/ffffff?text=' . $inicial_nome;
+            ?>
+
+                <div class="reserva-card" id="reserva-<?php echo $reserva['idreserva']; ?>">
+                    <div class="reserva-header">
+                        
+                        <img src="<?php echo $foto_src; ?>" alt="Foto de <?php echo htmlspecialchars($reserva['nome_cli']); ?>">
+                        
+                        <strong><?php echo htmlspecialchars($nome_completo); ?></strong>
+                    </div>
+
+                    <div class="reserva-info-linha">
+                        <span>Horário:</span> 
+                        <strong><?php echo (new DateTime($reserva['horario_inicio']))->format('H\hi'); ?> às <?php echo (new DateTime($reserva['horario_fim']))->format('H\hi'); ?></strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="reserva-info-linha">
+                        <span>Mesa:</span> 
+                        <strong><?php echo $reserva['numero_mesa'] ? 'Mesa ' . htmlspecialchars($reserva['numero_mesa']) : 'Não Definida'; ?></strong>
+                    </div>
+
+                    <hr>
+                    
+                    <div class="reserva-info-linha">
+                        <span>Pessoas:</span> 
+                        <strong><?php echo htmlspecialchars($reserva['numero_clientes']); ?> Pessoas</strong>
+                    </div>
+                    
+                    <button type="button" class="btn-cancelar" data-reserva-id="<?php echo $reserva['idreserva']; ?>">
+                        CANCELAR
+                    </button>
+
+                    <form id="form-cancelar-<?php echo $reserva['idreserva']; ?>" method="POST" action="backend/cancelarReservaGestor.php" style="display: none;">
+                        <input type="hidden" name="id_reserva" value="<?php echo $reserva['idreserva']; ?>">
+                    </form>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        <?php endif; ?>
+
+    </div>
+
+    <br><br><br>
+    
+    <div class="modal-confirmacao" id="modalCancelamento">
+        <div class="modal-content">
+            <h3>Confirmar Cancelamento</h3>
+            <p>Tem certeza que deseja cancelar esta reserva? Esta ação não pode ser desfeita.</p>
+            <img src="img/cozinheiro triste.png" alt="Cozinheiro Triste">
+            <div class="modal-botoes">
+                <button class="btn-sim-confirmar" id="btnConfirmarCancelamento">Sim, Cancelar</button>
+                <button class="btn-nao-cancelar" id="btnFecharModal">Não, Manter</button>
             </div>
         </div>
     </div>
-
-    <!-- ==============================================================
-    NAVBAR COMPLETA
-    ==============================================================  -->
-
-    <!-- Overlay escuro -->
+    
     <div class="overlay" id="overlay"></div>
 
-    <!-- Barra de pesquisa -->
-    <div class="search-container" id="searchBar">
-        <form id="searchForm">
-            <input type="search" id="searchInput" placeholder="Pesquisar...">
-            <button type="submit">
-                <img src="img/Icone Lupa.png" alt="Pesquisar">
-            </button>
-        </form>
-    </div>
-
-    <!-- Navbar -->
     <nav class="navbar">
-        <a href="index.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-        <a href="#" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+        <a href="indexRestaurante.php" class="ativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
 
-        <a href="#" class="search-btn" id="openSearch">
-            <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
-            <img src="img/Icone X.png" class="close-icon" alt="Fechar">
-        </a>
+        <a href="configuracoesRestaurante.html" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
 
-        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
-
-        <!-- Botão de perfil com redirecionamento dinâmico -->
-        <a href="<?php echo isset($_SESSION['cliente_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+        <a href="perfilGestor.php" class="desativo-hover">
             <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
         </a>
 
     </nav>
 
 
-    <!-- ==============================================================
-    FIM NAVBAR
-    ==============================================================  -->
-
-</body>
+    </body>
 <script>
-    /*  ==============================================================
-  SCRIPT NAVBAR
-  ==============================================================  */
+    /* Variável global para armazenar o ID da reserva a ser cancelada */
+    let reservaIdParaCancelar = null;
+
+    /* Elementos do Modal */
+    const modal = document.getElementById('modalCancelamento');
+    const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
+    const btnFecharModal = document.getElementById('btnFecharModal');
+    const overlay = document.getElementById("overlay"); // O overlay agora é compartilhado
     const openSearch = document.getElementById("openSearch");
     const searchBar = document.getElementById("searchBar");
     const searchInput = document.getElementById("searchInput");
-    const searchForm = document.getElementById("searchForm");
 
-    // Cria overlay escuro (se ainda não existir)
-    let overlay = document.getElementById("overlay");
-    if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.id = "overlay";
-        overlay.style.position = "fixed";
-        overlay.style.inset = "0";
-        overlay.style.background = "rgba(0, 0, 0, 0.6)";
-        overlay.style.zIndex = "9";
-        overlay.style.display = "none";
-        overlay.style.opacity = "0";
-        overlay.style.transition = "opacity 0.3s ease";
-        document.body.appendChild(overlay);
-    }
-
-    // Função para abrir a pesquisa
-    function abrirPesquisa() {
-        openSearch.classList.add("active");
-        searchBar.style.display = "block";
-        overlay.style.display = "block";
+    // ============================================================== 
+    // FUNÇÕES DO MODAL DE CANCELAMENTO
+    // ============================================================== 
+    function abrirModal(reservaId) {
+        reservaIdParaCancelar = reservaId;
+        modal.classList.add('show');
+        overlay.style.display = 'block';
         setTimeout(() => {
-            overlay.style.opacity = "1";
-            searchInput.focus();
+            overlay.style.opacity = '1';
         }, 10);
     }
 
-    // Função para fechar a pesquisa
-    function fecharPesquisa() {
-        openSearch.classList.remove("active");
-        searchBar.style.display = "none";
-        overlay.style.opacity = "0";
-        setTimeout(() => (overlay.style.display = "none"), 300);
+    function fecharModal() {
+        modal.classList.remove('show');
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            // Apenas esconde o overlay se a barra de pesquisa não estiver ativa
+            if (!openSearch.classList.contains("active")) {
+                 overlay.style.display = 'none';
+            }
+            reservaIdParaCancelar = null;
+        }, 300);
     }
 
-    // Alterna visibilidade da barra
-    openSearch.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (openSearch.classList.contains("active")) {
-            fecharPesquisa();
-        } else {
-            abrirPesquisa();
+    // 1. Adiciona listener a todos os botões Cancelar
+    document.querySelectorAll('.btn-cancelar').forEach(button => {
+        button.addEventListener('click', function() {
+            // Captura o ID da reserva do atributo data-reserva-id
+            const reservaId = this.getAttribute('data-reserva-id');
+            if (reservaId) {
+                abrirModal(reservaId);
+            }
+        });
+    });
+
+    // 2. Listener para o botão "Não, Manter" no modal
+    btnFecharModal.addEventListener('click', fecharModal);
+
+    // 3. Listener para o botão "Sim, Cancelar" no modal
+    btnConfirmar.addEventListener('click', function() {
+        if (reservaIdParaCancelar) {
+            // Encontra o formulário escondido correspondente e o submete
+            const form = document.getElementById(`form-cancelar-${reservaIdParaCancelar}`);
+            if (form) {
+                form.submit();
+                // A navegação ocorre após o submit, então fecharModal não é estritamente necessário
+                // mas é mantido para garantir que o modal suma se a submissão falhar por algum motivo
+                // e o usuário permanecer na página.
+                fecharModal(); 
+            }
+        }
+    });
+    
+    // 4. Fechar o modal clicando no overlay
+    overlay.addEventListener("click", (e) => {
+        if (modal.classList.contains('show')) {
+            fecharModal();
         }
     });
 
-    // Fecha se clicar fora
-    document.addEventListener("click", (e) => {
-        if (
-            !searchBar.contains(e.target) &&
-            !openSearch.contains(e.target) &&
-            searchBar.style.display === "block"
-        ) {
-            fecharPesquisa();
-        }
-    });
-
-    // Fecha com ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && searchBar.style.display === "block") {
-            fecharPesquisa();
-        }
-    });
-
-    // Fecha ao clicar no overlay
-    overlay.addEventListener("click", fecharPesquisa);
-    /*  ==============================================================
-    FIM SCRIPT NAVBAR
-    ==============================================================  */
 </script>
 
 

@@ -1,0 +1,165 @@
+/* Estrutura de barra de topo (Adaptado do .titulo) */
+.barra-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    margin-top: 50px;
+    background-color: #FFF5EA;
+}
+
+.barra-topo .esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-topo .icone-voltar {
+    width: 40px;
+    height: 40px;
+    margin-left: 11px;
+    cursor: pointer;
+}
+
+.barra-topo h1 {
+    font-size: 40px;
+    color: #D76A03;
+}
+
+.form-container h2 {
+    color: #D76A03;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.form-container p {
+    color: #555;
+    /* Texto mais neutro para descrição */
+    background: transparent;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Estilo para cada grupo de label + input */
+.form-group {
+    position: relative;
+    /* Necessário para posicionar o ícone do olho */
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+/* Estilo da Label */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #D76A03;
+}
+
+
+/* Estilo base do Input (adaptado do seu input) */
+.form-group input {
+    width: 100%;
+    /* Ocupa a largura total do .form-group */
+    height: 56px;
+    /* Ajustei a altura para ser padrão */
+    padding: 12px 20px;
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF6EC;
+    box-shadow: 0 0 0 4px #F6C7A0;
+    font-size: 16px;
+    font-weight: 400;
+    /* Espaço extra à direita para o ícone do olho */
+    padding-right: 50px;
+}
+
+/* Estilo do Botão Principal (btn-primary ou similar) */
+.btn-primary {
+    width: 100%;
+    height: 56px;
+    background-color: #D76A03;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c05d00;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   ESTILO PARA MOSTRAR/ESCONDER SENHA (PASSWORD TOGGLE)
+   ========================================================= */
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    /* Centraliza verticalmente */
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+    padding: 5px;
+    /* Área de clique maior */
+}
+
+.password-toggle img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.6;
+    margin: 0;
+    transform: none !important;
+    box-shadow: none;
+    background: none;
+}
+
+form {
+    width: 100%;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-top: 50px;
+}
+
+/* =========================================================
+   RESPONSIVIDADE (Ajusta inputs em telas menores)
+   ========================================================= */
+
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-group input {
+        height: 50px;
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+
+    .btn-primary {
+        height: 50px;
+        font-size: 16px;
+    }
+}

@@ -1,10 +1,44 @@
-/* ------------------------------------------------------------------- */
-/* CSS Corrigido e Consolidado */
-/* ------------------------------------------------------------------- */
+/* Arquivo: src/css/personalizarRestaurantePt2.css */
+
+/* --- RESET BÁSICO E OTIMIZAÇÃO GLOBAL DE ESPAÇO VERTICAL --- */
+body {
+    margin: 0; 
+    padding: 0;
+    min-height: 100vh;
+    /* Permite rolagem no body */
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #FFF6EC; 
+}
+
+.container {
+    width: 100%;
+    overflow-y: visible; 
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0; 
+    /* Padding para o conteúdo não ficar atrás do rodapé fixo (.fundo) */
+    padding-bottom: 120px; 
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- LOGO, TÍTULOS e PROGRESS BAR --- */
 
 img {
-    width: 200px;
-    margin-bottom: 1px;
+    width: 180px;
+    margin-bottom: 0;
 }
 
 .logo {
@@ -12,23 +46,23 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 5px; 
+    margin-top: 5px; 
 }
 
 .logo img {
     display: block;
     margin: 0 auto;
-    margin-bottom: 1px;
-    width: 200px;
+    margin-bottom: 0;
+    width: 180px;
     height: auto;
     transform: none !important;
 }
 
-/* zera margens do h1 e centraliza */
 .logo h1 {
     color: #D76A03;
-    margin-bottom: 10px;
-    font-size: 40px;
+    margin-bottom: 5px; 
+    font-size: 36px;
     font-weight: 800;
     margin: 0;
     text-align: center;
@@ -38,42 +72,163 @@ img {
 
 h2 {
     color: #D76A03;
-    margin-top: 16px;
-    margin-bottom: 20px;
+    margin-top: 5px; 
+    margin-bottom: 10px; 
     font-size: 24px;
     font-weight: 700;
 }
 
-/* ------------------------------------------------------------------- */
-/* 1. Estilos para o Container de Upload (CUSTOM-FILE-UPLOAD) */
-/* ------------------------------------------------------------------- */
-/* ------------------------------------------------------------------- */
-/* CSS Corrigido e Consolidado */
-/* ------------------------------------------------------------------- */
+.instrucao {
+    color: #D76A03;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 0px; 
+    margin-top: 0px;
+}
 
-/* ... (Mantenha o CSS da logo, h1, h2, etc., sem alterações) ... */
+/* --- ESTILOS DO PROGRESS BAR (Copiados da Etapa Anterior) --- */
 
-/* ------------------------------------------------------------------- */
-/* 1. Estilos para o Container de Upload (CUSTOM-FILE-UPLOAD) */
-/* ------------------------------------------------------------------- */
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; 
+    max-width: 900px; 
+    margin: 10px auto 15px auto; 
+    gap: 0; 
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 50px; 
+}
+
+.circle {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ccc; 
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    border: 3px solid #ccc;
+    transition: background-color 0.3s, border-color 0.3s;
+    z-index: 2; 
+}
+
+/* Cor do Step Ativo/Completo */
+.circle.active {
+    background-color: #D76A03; 
+    border-color: #BF3100; 
+}
+
+.label {
+    margin-top: 5px;
+    font-size: 12px; 
+    color: #888;
+    font-weight: 500;
+}
+
+.label.active {
+    color: #D76A03; 
+    font-weight: bold;
+}
+
+/* Estilo da Linha de Conexão */
+.progress-bar {
+    flex-grow: 1;
+    height: 3px;
+    background-color: #ccc;
+    position: relative;
+    margin-top: -20px; 
+    border-radius: 1.5px;
+}
+
+.progress-line {
+    height: 100%;
+    width: 0%; 
+    background-color: #D76A03;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1.5px;
+}
+.progress-line.active {
+    background-color: #D76A03;
+}
+
+/* --- FORMULÁRIO GERAL --- */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px; 
+    margin-bottom: 0;
+}
+
+/* --- CONTAINER DINÂMICO DE CADA PRATO --- */
+.prato-campo {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px 0;
+    padding-top: 10px;
+    /* Opcional: Borda para destacar cada item de cardápio */
+    border-top: 1px dashed #F6C7A0; 
+}
+
+/* Remove a borda superior do primeiro item */
+.prato-campo:first-child {
+    border-top: 111px;
+    padding-top: 0;
+}
+
+/* --- INPUT PRINCIPAL DE CONTAGEM --- */
+#total-pratos {
+    margin: 0 auto 15px auto;
+    width: 100%;
+    max-width: 600px;
+    height: 60px;
+    padding: 15px 20px;
+}
+
+/* --- ESTILOS DE INPUT PADRÃO (Nome e Preço) --- */
+
+/* Estilo unificado para inputs de Nome e Preço */
+.input-prato, .input-preco {
+    border: 1px solid #D76A03;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: #FFF5EA;
+    box-shadow: 0 0 0 2px #F6C7A0;
+    width: 100%;
+    height: 50px; /* Compactado para 50px */
+    padding: 10px 20px; /* Padding ajustado */
+    font-size: 16px;
+    margin: 5px auto; /* Compactado para 5px */
+    display: block;
+}
+
+/* --- INPUT DE UPLOAD (CUSTOM-FILE-UPLOAD) --- */
+
 .custom-file-upload {
     display: flex;
     align-items: center;
-
-    /* AUMENTAR A LARGURA GERAL DO BLOCO: 
-       Aumentei a porcentagem para ocupar mais espaço na tela e 
-       aumentei o max-width para telas maiores. */
-    width: 100%;
-    /* Ocupa quase toda a largura disponível */
-    max-width: 600px;
-    /* Aumentei o limite para uma largura mais confortável */
-
-    height: 64px;
-    padding: 12px 20px;
-    /* Mantém o padding interno */
-
-    margin: 16px auto 8px auto;
-    /* Centraliza o bloco e ajusta as margens */
+    justify-content: space-between; 
+    position: relative;
+    
+    width: 100%; /* Ocupa a largura total do .prato-campo (max-width: 600px) */
+    height: 50px; 
+    padding: 0 20px; 
+    margin: 5px auto; 
 
     border: 1px solid #D76A03;
     border-radius: 15px;
@@ -84,118 +239,57 @@ h2 {
     font-weight: 400;
 }
 
-/* Oculta o input type="file" original */
 .custom-file-upload input[type="file"] {
     display: none;
 }
 
-/* Estiliza o botão (label) */
 .custom-file-upload label {
+    order: 3;
     background-color: #D76A03;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #fff;
     cursor: pointer;
-    padding: 8px 20px;
+    padding: 6px 15px; /* Padding menor */
+    font-size: 14px;
     display: inline-block;
     transition: background-color 0.3s;
     white-space: nowrap;
-
-    /* GARANTE QUE O BOTÃO NÃO ENCOLHA SE O TEXTO FOR GRANDE */
     flex-shrink: 0;
-    /* Impede que o botão encolha */
-    /* REMOVIDO: qualquer largura fixa aqui */
 }
 
 .custom-file-upload label:hover {
     background-color: #c05d00;
 }
 
-/* Estiliza o placeholder/nome do arquivo (span) */
-.custom-file-upload span {
+.custom-file-upload span[id^="nome-arquivo"] {
+    order: 2;
+    font-size: 14px;
+    color: #2a2a2a;
+    flex-grow: 1; 
+    text-align: right; 
     margin-left: 10px;
-    color: #555;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    /* GARANTE QUE O SPAN OCUPE O ESPAÇO RESTANTE */
-    flex-grow: 1;
-    /* Permite que o span cresça e ocupe todo o espaço disponível */
-    min-width: 0;
-    /* Importante para que o overflow: hidden funcione dentro do flex item */
 }
 
-
-/* ------------------------------------------------------------------- */
-/* 2. Estilos para os Inputs de Contagem e Preço (input-preco) */
-/* ------------------------------------------------------------------- */
-
-.input-preco {
-    border: 1px solid #D76A03;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #FFF;
-    box-shadow: 0 0 0 2px #F6C7A0;
-
-    /* AUMENTAR A LARGURA GERAL DOS INPUTS: para combinar com o custom-file-upload */
-    width: 100%;
-    max-width: 600px;
-    /* Aumentei para combinar com o custom-file-upload */
-
-    height: 60px;
-    padding: 15px 20px;
+.custom-file-upload .placeholder-text {
+    order: 1;
+    color: #7f7f7f;
     font-size: 16px;
-
-    margin: 8px auto 16px auto;
-    /* Centraliza e ajusta as margens */
+    flex-grow: 1; 
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
-
-
-/* Garante que o campo de contagem #total-pratos também seja estilizado */
-#total-pratos {
-    margin: 0 auto 24px auto;
-    /* Centraliza e ajusta margem inferior */
-    height: 60px;
-    padding: 15px 20px;
-    /* Ajusta o padding para o texto 'Quantos pratos...' */
-}
-
-/* Remove as setas do input type="number" */
-#total-pratos::-webkit-outer-spin-button,
-#total-pratos::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Estiliza a textarea */
-textarea {
-    width: 95%;
-    max-width: 600px;
-    /* Aumentei para combinar com o custom-file-upload */
-    min-height: 120px;
-    padding: 15px 20px;
-    margin: 20px auto;
-    /* Centraliza a textarea */
-
-    border: 1px solid #D76A03;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #FFF6EC;
-    box-shadow: 0 0 0 4px #F6C7A0;
-    font-size: 16px;
-    font-weight: 400;
-    resize: vertical;
-}
-
-/* ------------------------------------------------------------------- */
-/* 3. Estilos de Contêineres e Botão */
-/* ------------------------------------------------------------------- */
+/* --- BOTÃO, RODAPÉ e RESPONSIVIDADE --- */
 
 .btnCadastrar {
     width: 95%;
     max-width: 600px;
-    /* Aumentei para combinar com os outros campos */
     height: 56px;
     background-color: #D76A03;
     color: white;
@@ -204,7 +298,6 @@ textarea {
     cursor: pointer;
     font-weight: bold;
     margin: 10px auto;
-    /* Centraliza o botão */
     font-size: 18px;
 }
 
@@ -212,23 +305,6 @@ textarea {
     background-color: #c05d00;
     transition: all 0.3s ease;
     transform: translateY(-2px);
-}
-
-.formulario {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 200px;
 }
 
 .fundo {
@@ -242,24 +318,77 @@ form {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 1000;
+}
+
+.btnCliente {
+    position: fixed;
+    top: 15px; 
+    left: 15px; 
+    background-color: #D76A03;
+    color: white;
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    font-size: 14px; 
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
 }
 
 /* Media Query ajustada para telas muito pequenas */
 @media (max-width: 650px) {
+    .container {
+        padding-bottom: 90px; 
+    }
 
-    /* Ajustei o breakpoint para mobile */
     .fundo {
-        border-radius: 40px 40px 0 0;
+        border-radius: 30px 30px 0 0;
         padding: 15px;
+    }
+    
+    .logo img {
+        width: 130px; 
+    }
+
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    /* Reduz o padding dos inputs principais */
+    #total-pratos, .input-prato, .input-preco {
+        height: 45px;
+        padding: 8px 15px;
+        font-size: 15px;
+    }
+
+    /* Reduz o padding e a altura do upload */
+    .custom-file-upload {
+        height: 45px;
+        padding: 0 15px;
+        margin: 5px auto;
+    }
+    
+    .custom-file-upload label {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .custom-file-upload .placeholder-text, 
+    .custom-file-upload span[id^="nome-arquivo"] {
+        font-size: 13px;
     }
 
     /* Faz os campos ocuparem quase toda a largura em telas pequenas */
     .custom-file-upload,
+    .input-prato,
     .input-preco,
     .btnCadastrar,
-    textarea {
+    #total-pratos {
         width: 95%;
         max-width: 95%;
-        /* Garante que não ultrapasse a largura da tela */
+    }
+
+    .prato-campo {
+        margin: 5px 0;
     }
 }

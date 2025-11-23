@@ -300,6 +300,8 @@
     list-style: none;
 }
 
+
+
 .card-list .card-item .card-link {
     user-select: none;
     display: block;
@@ -313,7 +315,7 @@
 }
 
 .card-list .card-link .card-image {
-    width: 100%;
+    width: 300px;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 10px;
@@ -326,7 +328,6 @@
     margin: 16px 0 18px;
     background: #DDE4FF;
     width: fit-content;
-    max-width: 380px;
     border-radius: 50px;
 }
 
@@ -347,14 +348,7 @@
     transition: 0.4s ease;
 }
 
-.container-carousel h2 {
-    color: #000;
-    font-size: clamp(22px, 3vw, 26px);
-    font-weight: 700;
-}
-
-.card-link h2,
-p {
+.card-link h2, p {
     background: transparent;
 }
 
@@ -380,19 +374,19 @@ p {
 /* Botões de navegação */
 .swiper-button-next,
 .swiper-button-prev {
-    color: white !important;
+    color: #D76A03 !important;
     /* cor das setas */
     transition: color 0.3s;
-    background: #717171 !important;
+    background: rgba(221, 221, 221, 0.459) !important;
     border-radius: 12px;
     padding: 5px;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    color: white !important;
+    color: #d36601 !important;
     /* cor ao passar o mouse */
-    background-color: rgba(0, 0, 0, 0.8) !important;
+    background-color: rgba(223, 223, 223, 0.623)  !important;
     /* fundo suave (laranja translúcido) */
     border-radius: 12px;
     padding: 5px;

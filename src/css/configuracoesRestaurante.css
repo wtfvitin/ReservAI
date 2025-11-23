@@ -1,0 +1,224 @@
+
+h1 {
+    font-size: 40px;
+    color: #D76A03;
+    /* Cor Laranja/Marrom principal (Sua cor de destaque) */
+    font-weight: 700;
+}
+
+/* Título de Seção H2 */
+h2 {
+    font-size: 24px;
+    color: #333;
+    /* Cor escura padrão */
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Parágrafos e texto básico */
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* =========================================================
+   3. UTILS E CLASSES GERAIS DE LAYOUT
+   ========================================================= */
+
+/* Botão de cor primária (Baseado no card-content button) */
+.btn-primary {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D76A03;
+    /* Cor primária */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background-color: #b0651f;
+}
+
+/* Estrutura de barra de topo (Adaptado do .titulo) */
+.barra-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    margin-top: 50px;
+    background-color: #FFF5EA;
+}
+
+.barra-topo .esquerda {
+   display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-topo .icone-voltar {
+    width: 40px;
+    height: 40px;
+    margin-left: 11px;
+    cursor: pointer;
+}
+
+.barra-topo h1 {
+    font-size: 40px;
+    color: #D76A03;
+}
+
+/* Estilo para ícones pequenos dentro de texto ou labels */
+.icone-pequeno {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* =========================================================
+   4. Estilos de Cards/Listas (Transferidos para cá para centralizar)
+   ========================================================= */
+
+.content {
+    /* Centraliza o conteúdo (grid de cards) */
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.card {
+    /* Estilo de sombra e canto arredondado base */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.config-container {
+    /* Padding e largura máxima para alinhar com o conteúdo principal */
+    padding: 20px;
+    max-width: 800px;
+    /* Largura razoável para formulários/listas de opções */
+    margin: 20px auto 80px auto;
+    /* Centraliza e deixa espaço para a navbar */
+}
+
+/* Título de Seção (Reaproveitando h3 ou adaptando) */
+.info-section h3 {
+    font-size: 24px;
+    color: #D76A03;
+    /* Cor principal de destaque */
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid #D76A03;
+}
+
+/* =========================================================
+   ESTRUTURA DAS SEÇÕES/CARDS DE CONFIGURAÇÃO
+   Adaptado do estilo .card para listas de opções
+   ========================================================= */
+.config-section {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    /* Sombra suave, similar ao .card */
+    margin-bottom: 30px;
+    overflow: hidden;
+    /* Garante que os border-radius sejam aplicados corretamente */
+}
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    /* Linha divisória mais sutil */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    background-color: white;
+    color: inherit;
+}
+
+.config-item:last-child {
+    border-bottom: none;
+    /* Remove a borda do último item da seção */
+}
+
+.config-item:hover {
+    background-color: #fff8f0;
+    /* Cor de destaque suave ao passar o mouse */
+}
+
+.config-item span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    flex-grow: 1;
+    /* Permite que o texto ocupe o espaço */
+}
+
+.config-item img.icone-proximo {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    margin-left: 10px;
+    rotate: 180deg;
+    background: transparent;
+}
+
+/* =========================================================
+   ESTILO ESPECÍFICO DE LOGOUT
+   ========================================================= */
+
+.config-item.logout {
+    /* Estilo de botão de ação */
+    justify-content: center;
+    font-weight: bold;
+    background-color: #bf3100;
+    /* Fundo levemente alaranjado/bege para Sair */
+    color: #fff;
+    border-bottom: none;
+    font-size: 17px;
+    padding: 20px;
+}
+
+.config-item.logout:hover {
+    background-color: #992701;
+}
+
+/* =========================================================
+   RESPONSIVIDADE (Ajuste para telas menores)
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .config-container {
+        padding: 10px;
+        margin-left: auto;
+        /* Garante que o padding lateral não quebre a visualização */
+        margin-right: auto;
+    }
+
+    .config-item {
+        padding: 15px 15px;
+        font-size: 15px;
+    }
+
+    .config-section h3 {
+        font-size: 20px;
+    }
+}
+
+span {
+    background: transparent;
+}

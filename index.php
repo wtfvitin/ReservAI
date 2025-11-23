@@ -81,6 +81,9 @@ if (isset($_SESSION['usuario_id'])) {
     <?php endwhile; ?>
   </div>
 
+  <br><br><br>
+  <br><br><br>
+
   <!-- NAVBAR -->
 
   <div class="overlay" id="overlay"></div>

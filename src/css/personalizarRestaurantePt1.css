@@ -1,6 +1,44 @@
+/* Arquivo: src/css/personalizarRestaurantePt1.css */
+
+/* --- RESET BÁSICO E OTIMIZAÇÃO GLOBAL DE ESPAÇO VERTICAL --- */
+body {
+    margin: 0; 
+    padding: 0;
+    min-height: 100vh;
+    /* Permite rolagem no body, pois há 6 campos + textarea */
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #FFF6EC; 
+}
+
+.container {
+    width: 100%;
+    overflow-y: visible; 
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0; 
+    /* Padding para o conteúdo não ficar atrás do rodapé fixo (.fundo) */
+    padding-bottom: 120px; 
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- LOGO E TÍTULOS (Harmonização e Compactação) --- */
+
 img {
-    width: 200px;
-    margin-bottom: 1px;
+    width: 180px;
+    margin-bottom: 0;
 }
 
 .logo {
@@ -8,23 +46,23 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 5px; 
+    margin-top: 5px; 
 }
 
 .logo img {
     display: block;
     margin: 0 auto;
-    margin-bottom: 1px;
-    width: 200px;
+    margin-bottom: 0;
+    width: 180px;
     height: auto;
     transform: none !important;
 }
 
-/* zera margens do h1 e centraliza */
 .logo h1 {
     color: #D76A03;
-    margin-bottom: 10px;
-    font-size: 40px;
+    margin-bottom: 5px; 
+    font-size: 36px;
     font-weight: 800;
     margin: 0;
     text-align: center;
@@ -34,25 +72,125 @@ img {
 
 h2 {
     color: #D76A03;
-    margin-top: 16px;
-    margin-bottom: 20px;
+    margin-top: 5px; 
+    margin-bottom: 10px; 
     font-size: 24px;
     font-weight: 700;
 }
 
-/* CONTAINER PRINCIPAL: custom-file-upload */
+.instrucao {
+    color: #D76A03;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 0px; 
+    margin-top: 0px;
+}
+
+/* --- ESTILOS DO PROGRESS BAR (Copiados da Etapa 3) --- */
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; 
+    max-width: 900px; 
+    margin: 10px auto 15px auto; 
+    gap: 0; 
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 50px; 
+}
+
+.circle {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ccc; 
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    border: 3px solid #ccc;
+    transition: background-color 0.3s, border-color 0.3s;
+    z-index: 2; 
+}
+
+/* Cor do Step Ativo/Completo */
+.circle.active {
+    background-color: #D76A03; 
+    border-color: #BF3100; 
+}
+
+.label {
+    margin-top: 5px;
+    font-size: 12px; 
+    color: #888;
+    font-weight: 500;
+}
+
+.label.active {
+    color: #D76A03; 
+    font-weight: bold;
+}
+
+/* Estilo da Linha de Conexão */
+.progress-bar {
+    flex-grow: 1;
+    height: 3px;
+    background-color: #ccc;
+    position: relative;
+    margin-top: -20px; 
+    border-radius: 1.5px;
+}
+
+.progress-line {
+    height: 100%;
+    width: 0%; 
+    background-color: #D76A03;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1.5px;
+}
+.progress-line.active {
+    background-color: #D76A03;
+}
+
+/* --- FORMULÁRIO E INPUTS DE UPLOAD (OTIMIZAÇÃO) --- */
+
+form {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0; 
+    margin-bottom: 0; 
+}
+
+/* CONTAINER PRINCIPAL: custom-file-upload (SIMULA O INPUT) */
 .custom-file-upload {
-    /* **CORREÇÃO:** Removido 'display: inline-block;' duplicado e conflitante. */
-    /* Mantido 'display: flex' para alinhar a label e o span horizontalmente. */
     display: flex;
     align-items: center;
-    /* Alinha o botão e o texto verticalmente no centro */
+    justify-content: space-between; 
+    position: relative; 
+    
+    width: 100%;
+    max-width: 600px;
 
-    width: 55%;
-    height: 64px;
-    padding: 12px 20px;
-    margin: 16px 0;
-    /* Aplicado apenas um margin para evitar conflito */
+    height: 60px; 
+    padding: 0 20px; 
+    /* Margem vertical compactada */
+    margin: 6px 0; 
 
     border: 1px solid #D76A03;
     border-radius: 15px;
@@ -64,44 +202,58 @@ h2 {
 }
 
 /* Oculta o input type="file" original */
-/* Usa o seletor de atributo para garantir que todos os inputs file sejam ocultados */
 input[type="file"] {
     display: none;
 }
 
 /* Estiliza o botão (label) */
-/* Usa o seletor de atributo para estilizar todas as labels dentro da div customizada */
 .custom-file-upload label {
+    order: 3; /* Move a label para a direita */
     background-color: #D76A03;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #fff;
     cursor: pointer;
-    padding: 8px 20px;
+    padding: 6px 15px; /* Padding menor */
+    font-size: 14px;
     display: inline-block;
     transition: background-color 0.3s;
-    /* Resetando IDs específicos para usar a classe/seletor mais geral */
+    white-space: nowrap;
 }
 
 .custom-file-upload label:hover {
     background-color: #c05d00;
 }
 
-/* Estiliza o placeholder/nome do arquivo (span) */
-/* Usa o seletor de tipo de elemento para estilizar todos os spans dentro da div customizada */
-.custom-file-upload span {
+/* Estiliza o nome do arquivo após o upload (span com ID) */
+.custom-file-upload span[id^="nome-arquivo"] {
+    text-align: left;
+    font-size: 14px;
+    color: #2a2a2a;
+    flex-grow: 1; 
     margin-left: 10px;
-    color: #555;
-    /* Permite que o texto do arquivo ocupe o espaço restante */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+/* Estiliza o Placeholder (span com classe) */
+.custom-file-upload .placeholder-text {
+    color: #7f7f7f;
+    font-size: 16px;
+    flex-grow: 1; 
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
 textarea {
-    width: 55%;
-    height: 150px;
-    padding: 12px 20px;
-    margin: 16px 0;
+    width: 100%;
+    max-width: 600px;
+    height: 100px; 
+    padding: 10px 20px;
+    margin: 10px 0; 
     display: inline-block;
     border: 1px solid #D76A03;
     border-radius: 15px;
@@ -113,52 +265,27 @@ textarea {
     resize: vertical;
 }
 
+/* --- BOTÃO, RODAPÉ e RESPONSIVIDADE --- */
+
 .btnCadastrar {
-    width: 45%;
-    height: 64px;
-    max-width: 700px;
-    height: 56px;
+    width: 60%; 
+    max-width: 300px;
+    height: 56px; 
     background-color: #D76A03;
     color: white;
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px; 
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.btnCadastrar:hover {
-    background-color: #c05d00;
-    transition: all 0.3s ease;
-    transform: translateY(-2px);
-}
-
-
-.formulario {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-form {
-    width: 100%;
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 200px;
+    margin-top: 5px; 
+    margin-bottom: 5px; 
 }
 
 .fundo {
     background-color: #FFE5B1;
     border-radius: 58px 58px 0 0;
-    padding: 20px;
+    padding: 15px 20px; 
     text-align: center;
     width: 100%;
     box-sizing: border-box;
@@ -166,17 +293,73 @@ form {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 1000;
 }
 
+.btnCliente {
+    position: fixed;
+    top: 15px; 
+    left: 15px; 
+    background-color: #D76A03;
+    color: white;
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    font-size: 14px; 
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+}
+
+/* Media Query para Mobile */
 @media (max-width: 400px) {
-    .fundo {
-        width: 100%;
-        border-radius: 40px 40px 0 0;
-        padding: 15px;
+    .container {
+        padding-bottom: 90px; 
+    }
+    
+    .logo img {
+        width: 130px; 
     }
 
-    .input {
-        width: 100%;
-        max-width: 280px;
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    .custom-file-upload {
+        width: 90%; 
+        height: 45px;
+        margin: 4px 0; 
+        padding: 0 15px;
+    }
+    
+    .custom-file-upload label {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .custom-file-upload .placeholder-text {
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .custom-file-upload span[id^="nome-arquivo"] {
+        font-size: 13px;
+        margin-left: 5px;
+    }
+
+    textarea {
+        width: 90%;
+        height: 80px;
+        margin: 6px 0;
+    }
+
+    .fundo {
+        border-radius: 30px 30px 0 0;
+        padding: 10px;
+    }
+
+    .btnCadastrar {
+        width: 90%;
+        height: 50px;
+        font-size: 16px;
     }
 }

@@ -19,7 +19,7 @@
             position: relative;
             z-index: 2;
             background-color: transparent;
-            margin-left: 225px;
+            margin-left: 300px;
             width: 55%;
             padding: 20px;
             font-size: 18px;
@@ -29,15 +29,11 @@
         .time-wrapper::before {
             content: attr(data-placeholder);
             position: absolute;
-            left: 245px;
-            /* Ajusta posição horizontal */
+            left: 300px;
             top: 50%;
-            /* Centraliza vertical */
             transform: translateY(-50%);
             color: #7f7f7f;
-            /* Tom semelhante ao placeholder */
             font-size: 16px;
-            /* Deixa igual aos outros inputs */
             pointer-events: none;
             transition: 0.2s ease;
         }
@@ -63,7 +59,6 @@
 </head>
 
 <body>
-    <!-- BOTÃO SUPERIOR ESQUERDO -->
     <a href="cadastroClientePt1.html" class="btnCliente">SOU CLIENTE</a>
 
     <div class="container">
@@ -73,24 +68,75 @@
                 <h1>Vamos personalizar sua experiência</h1>
             </div>
 
+            <h2>Informações do Restaurante</h2>
+
+            <div class="progress-container">
+                <div class="progress-step complete">
+                    <span class="circle active">1</span>
+                    <span class="label active">Acesso</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step current">
+                    <span class="circle active">2</span>
+                    <span class="label active">Informações</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 50%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">3</span>
+                    <span class="label">Endereço</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 0%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">4</span>
+                    <span class="label">Horário</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 0%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">5</span>
+                    <span class="label">Cardápio</span>
+                </div>
+            </div>
+            <br><br>
             <form action="backend/salvarEtapa2Restaurante.php" method="POST">
 
                 <input type="text" name="nome_restaurante" placeholder="Nome do Restaurante" required>
                 <input type="tel" name="telefone" placeholder="Telefone" required>
 
-                <!-- Horário de abertura -->
                 <div class="time-wrapper" data-placeholder="Horário de Abertura">
-                    <input type="time" name="horario_a" required>
+                    <input type="time" name="horario_a" required style="
+                        border: 1px solid #D76A03; 
+                        border-radius: 15px;
+                        box-sizing: border-box;
+                        background-color: #FFF6EC;
+                        box-shadow: 0 0 0 4px #F6C7A0;
+                        ">
                 </div>
 
-                <!-- Horário de fechamento -->
                 <div class="time-wrapper" data-placeholder="Horário de Fechamento">
-                    <input type="time" name="horario_f" required>
+                    <input type="time" name="horario_f" required style="
+                        border: 1px solid #D76A03; 
+                        border-radius: 15px;
+                        box-sizing: border-box;
+                        background-color: #FFF6EC;
+                        box-shadow: 0 0 0 4px #F6C7A0;
+                        ">
                 </div>
 
                 <div class="fundo">
                     <button type="submit" class="btnCadastrar">PRÓXIMO</button>
-                    <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
+                    <p>Já tem uma conta? <a class="entrar" href="loginRestaurante.html">Entrar</a></p>
                 </div>
             </form>
         </div>
@@ -113,7 +159,6 @@
             atualizar();
         });
     </script>
-
 
 </body>
 

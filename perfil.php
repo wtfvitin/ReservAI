@@ -16,16 +16,17 @@ if (empty($_SESSION['usuario_id'])) {
 $cliente_id = $_SESSION['usuario_id'];
 $cliente_data = [];
 
-// 1.2. Busca os dados completos do cliente
+// 1.2. Busca os dados completos do cliente, incluindo a coluna foto_perfil
 $sql = "SELECT 
-            nome_cli, 
-            email_cli, 
-            telefone_cli,
-            endereco_rua_cli, 
-            endereco_cidade_cli, 
-            endereco_estado_cli
-        FROM clientes 
-        WHERE idcliente = :id";
+      nome_cli, 
+      email_cli, 
+      telefone_cli,
+      endereco_rua_cli, 
+      endereco_cidade_cli, 
+      endereco_estado_cli,
+      foto_perfil 
+    FROM clientes 
+    WHERE idcliente = :id";
 
 try {
     $stmt = $pdo->prepare($sql);
@@ -57,6 +58,25 @@ $bairro = 'N/A';
 $cidade = htmlspecialchars($cliente_data['endereco_cidade_cli'] ?? 'Cidade');
 $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 
+
+// =========================================================
+// 1.4. LÓGICA DA FOTO DE PERFIL
+// =========================================================
+$has_foto = !empty($cliente_data['foto_perfil']);
+$foto_base64 = '';
+
+// Se houver dados na coluna foto_perfil, converte para Base64 para exibir no HTML
+if ($has_foto) {
+    // Assumindo que a imagem é um JPEG. Se você salvar outros tipos, deve salvar o MIME type
+    $foto_base64 = 'data:image/jpeg;base64,' . base64_encode($cliente_data['foto_perfil']);
+}
+
+// Define o SRC final da imagem
+$src_foto = $has_foto
+    ? $foto_base64
+    // Se não houver foto, usa o placeholder com a primeira letra do nome
+    : 'https://placehold.co/120x120/d76a03/ffffff?text=' . substr($nome, 0, 1);
+
 ?>
 
 <!DOCTYPE html>
@@ -71,10 +91,6 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 
     <title>Perfil - ReservAI</title>
 
-    <!-- ======================================== -->
-    <!-- ESTILOS ESPECÍFICOS DO PERFIL (Inline) -->
-    <!-- Isso garante que o CSS funcione sem problemas de caminho de arquivo -->
-    <!-- ======================================== -->
     <style>
         /* ======================================== */
         /* ESTILOS DA BARRA DE TOPO (Header) - Mantido do código base */
@@ -289,19 +305,14 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 </head>
 
 <body>
-    <!-- =============================== -->
-    <!-- TÍTULO DA PÁGINA (Barra Topo) -->
-    <!-- =============================== -->
     <div class="barra-topo">
 
         <div class="esquerda">
-            <!-- Funcionalidade de voltar via JS no final do arquivo -->
             <img src="img/Icone Voltar.png" alt="Voltar" id="voltar" class="icone-voltar">
             <h1>Perfil</h1>
         </div>
 
         <div class="direita">
-            <!-- O ícone de lápis para editar, redirecionando para uma página de edição -->
             <a href="editarPerfil.php">
                 <img src="img/Lapis.png" alt="Editar" class="icone-editar">
             </a>
@@ -309,17 +320,13 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 
     </div>
 
-    <!-- =============================== -->
-    <!-- CONTEÚDO PRINCIPAL DO PERFIL -->
-    <!-- =============================== -->
     <main class="perfil-container">
 
-        <!-- Foto de Perfil e Nome -->
         <div class="perfil-header">
             <div class="profile-picture-wrapper">
-                <!-- Placeholder: Exibe a primeira letra do nome (com sanitização) -->
-                <img src="https://placehold.co/120x120/d76a03/ffffff?text=<?php echo substr($nome, 0, 1); ?>" alt="Foto de Perfil" class="profile-picture">
-                <!-- Ícone da Câmera (para upload/edição) -->
+
+                <img src="<?php echo $src_foto; ?>" alt="Foto de Perfil" class="profile-picture">
+
                 <a href="editarPerfil.php" class="camera-icon">
                     <img src="img/Icone Camera.png" alt="Trocar Foto">
                 </a>
@@ -328,24 +335,20 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 
         </div>
 
-        <!-- Informações Pessoais -->
         <section class="info-section">
             <h3>Informações Pessoais</h3>
 
             <div class="info-card">
-                <!-- Campo NOME -->
                 <div class="info-item">
                     <span class="label">Nome</span>
                     <p class="valor"><?php echo $nome; ?></p>
                 </div>
 
-                <!-- Campo E-MAIL -->
                 <div class="info-item">
                     <span class="label">E-mail</span>
                     <p class="valor"><?php echo $email; ?></p>
                 </div>
 
-                <!-- Campo TELEFONE -->
                 <div class="info-item">
                     <span class="label">Telefone</span>
                     <p class="valor"><?php echo $telefone; ?></p>
@@ -353,18 +356,15 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
             </div>
         </section>
 
-        <!-- Informações de Endereço -->
         <section class="info-section">
             <h3>Endereço</h3>
 
             <div class="info-card">
-                <!-- Campo RUA e NÚMERO (Número como 'N/A' pois não está no DDL) -->
                 <div class="info-item">
                     <span class="label">Rua / Número</span>
                     <p class="valor"><?php echo $rua; ?></p>
                 </div>
 
-                <!-- Campo CIDADE e ESTADO -->
                 <div class="info-item">
                     <span class="label">Cidade / Estado</span>
                     <p class="valor"><?php echo $cidade . " - " . $estado; ?></p>
@@ -372,20 +372,16 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
             </div>
         </section>
 
-        <!-- Botão Sair - Assumindo que backend/logout.php existe -->
         <a href="backend/logout.php" class="btn-sair">Sair</a>
 
     </main>
 
 
-    <!-- ==============================================================
+    <!-- ============================================================== 
     NAVBAR COMPLETA
-    ==============================================================-->
-
-    <!-- Overlay escuro -->
+    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Barra de pesquisa -->
     <div class="search-container" id="searchBar">
         <form id="searchForm">
             <input type="search" id="searchInput" placeholder="Pesquisar...">
@@ -395,21 +391,18 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
         </form>
     </div>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <a href="index.php" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-        <a href="agenda.php" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'agenda.php' : 'cadastroClientePt1.html'; ?>" class="desativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
         <a href="#" class="search-btn" id="openSearch">
             <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
             <img src="img/Icone X.png" class="close-icon" alt="Fechar">
         </a>
 
-        <a href="configuracoes.php" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav"
-                alt="Configurações"></a>
+        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
 
-        <!-- Botão de perfil ativo -->
-        <a href="perfil.php" class="ativo-hover">
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="ativo-hover">
             <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
         </a>
 
@@ -418,8 +411,8 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
 </body>
 <script>
     /*============================================================== 
-    BOTÃO VOLTAR
-    ==============================================================*/
+  BOTÃO VOLTAR
+  ==============================================================*/
     document.getElementById('voltar').addEventListener('click', function() {
         history.back();
     });
@@ -431,7 +424,7 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
     const searchBar = document.getElementById("searchBar");
     const searchInput = document.getElementById("searchInput");
     const searchForm = document.getElementById("searchForm");
-    const overlay = document.getElementById("overlay"); // Já existe no HTML
+    const overlay = document.getElementById("overlay");
 
     // Função para abrir a pesquisa
     function abrirPesquisa() {
@@ -453,7 +446,7 @@ $estado = htmlspecialchars($cliente_data['endereco_estado_cli'] ?? 'UF');
         setTimeout(() => {
             overlay.style.display = "none";
             searchBar.style.display = "none";
-        }, 300); // 300ms deve corresponder à duração da transição CSS
+        }, 300);
     }
 
     // Alterna visibilidade da barra

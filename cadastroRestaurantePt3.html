@@ -2,25 +2,70 @@
 <html lang="pt-br">
 
 <head>
+       
     <meta charset="UTF-8">
+       
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
     <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
+       
     <link rel="stylesheet" href="src/css/padrão.css">
+       
     <link rel="stylesheet" href="src/css/cadastroRestaurantePt3.css">
-    <title>Cadastro - ReservAI</title>
+        <title>Cadastro - ReservAI</title>
 </head>
 
 <body>
-    <!-- BOTÃO SUPERIOR ESQUERDO -->
-    <a href="cadastroClientePt1.html" class="btnCliente">SOU CLIENTE</a>
+            <a href="cadastroClientePt1.html" class="btnCliente">SOU CLIENTE</a>
 
-    <div class="container">
-        <div class="formulario">
-            <div class="logo">
-                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
-                <h1>Vamos personalizar sua experiência</h1>
+        <div class="container">
+                <div class="formulario">
+                        <div class="logo">
+                                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
+                                <h1>Vamos personalizar sua experiência</h1>
+                            </div>
+
+            <h2>Endereço</h2>
+
+            <div class="progress-container">
+                <div class="progress-step complete">
+                    <span class="circle active">1</span>
+                    <span class="label active">Acesso</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step complete">
+                    <span class="circle active">2</span>
+                    <span class="label active">Informações</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step current">
+                    <span class="circle active">3</span>
+                    <span class="label active">Endereço</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 50%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">4</span>
+                    <span class="label">Horário</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 0%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">5</span>
+                    <span class="label">Confirmação</span>
+                </div>
             </div>
-
+                       
             <form action="backend/salvarEtapa3Restaurante.php" method="POST">
 
                 <input type="text" id="cep" name="cep" placeholder="CEP" required>
@@ -58,14 +103,20 @@
                     <option value="SE">Sergipe</option>
                     <option value="TO">Tocantins</option>
                 </select>
+                           
+                       
         </div>
-        <div class="fundo">
-            <button type="submit" class="btnCadastrar">PRÓXIMO</button>
-            <p>Já tem uma conta? <a class="entrar" href="login.html">Entrar</a></p>
-        </div>
-        </form>
     </div>
+
+    <br>
+    <br>
+
+    <div class="fundo">
+        <button type="submit" class="btnCadastrar">PRÓXIMO</button>
+        <p>Já tem uma conta? <a class="entrar" href="loginRestaurante.html">Entrar</a></p>
     </div>
+    </form>
+</body>
 
 
 </body>

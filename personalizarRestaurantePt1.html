@@ -1,119 +1,170 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
-    <link rel="stylesheet" href="src/css/padrão.css">
+    <link rel="stylesheet" href="src/css/padrão.css">       
     <link rel="stylesheet" href="src/css/personalizarRestaurantePt1.css">
     <title>Cadastro - ReservAI</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="formulario">
-            <div class="logo">
-                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
-                <h1>Vamos personalizar seu restaurante!</h1>
+            <a href="cadastroClientePt1.html" class="btnCliente">SOU CLIENTE</a>
+
+        <div class="container">
+                <div class="formulario">
+                        <div class="logo">
+                                <img src="img/Logo.png" class="logo" alt="Logo do ReservAI">
+                                <h1>Vamos personalizar seu restaurante!</h1>
+                            </div>
+
+            <h2>Mídia e Descrição</h2>
+
+            <div class="progress-container">
+                <div class="progress-step complete">
+                    <span class="circle active">1</span>
+                    <span class="label active">Acesso</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step complete">
+                    <span class="circle active">2</span>
+                    <span class="label active">Informações</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step complete">
+                    <span class="circle active">3</span>
+                    <span class="label active">Endereço</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line active" style="width: 100%;"></div>
+                </div>
+
+                <div class="progress-step current">
+                    <span class="circle active">4</span>
+                    <span class="label active">Mídia</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-line" style="width: 50%;"></div>
+                </div>
+
+                <div class="progress-step">
+                    <span class="circle">5</span>
+                    <span class="label">Cardápio</span>
+                </div>
             </div>
+                        <form action="backend/processamento_cadastro_restaurante.php" method="POST"
+                enctype="multipart/form-data">
 
-            <!-- CORREÇÃO: O action deve apontar para o arquivo de processamento final -->
-            <!-- CORREÇÃO: Os nomes dos campos (name) foram ajustados para corresponder ao PHP -->
-            <form action="backend/processamento_cadastro_restaurante.php" method="POST" enctype="multipart/form-data">
+                <p class="instrucao">Selecione as imagens do seu restaurante:</p>
 
-                <!-- LOGO -->
-                <div class="custom-file-upload">
+                 <div class="custom-file-upload">
+                    <span class="placeholder-text">Logo do Restaurante</span>
                     <label for="arquivo-upload-logo" id="label-botao-logo">
                         Escolher Imagem
                     </label>
                     <input type="file" id="arquivo-upload-logo" name="logo_upload" accept="image/*" required>
-                    <span id="nome-arquivo-logo">Logo do Restaurante</span>
+                    <span id="nome-arquivo-logo"></span>
+                                   
                 </div>
 
-                <!-- FOTO PRINCIPAL -->
                 <div class="custom-file-upload">
+                    <span class="placeholder-text">Foto do Ambiente Principal</span>
                     <label for="arquivo-upload-1" id="label-botao-1">
                         Escolher Imagem
                     </label>
                     <input type="file" id="arquivo-upload-1" name="fotoPrincipal_upload" accept="image/*" required>
-                    <span id="nome-arquivo-1">Foto do Ambiente Principal</span>
+                    <span id="nome-arquivo-1"></span>
+                                   
                 </div>
 
-                <!-- FOTO 1 -->
                 <div class="custom-file-upload">
+                    <span class="placeholder-text">Foto do Ambiente 1</span>
                     <label for="arquivo-upload-2" id="label-botao-2">
                         Escolher Imagem
                     </label>
                     <input type="file" id="arquivo-upload-2" name="foto1_upload" accept="image/*" required>
-                    <span id="nome-arquivo-2">Foto do Ambiente 1</span>
+                    <span id="nome-arquivo-2"></span>
+                                   
                 </div>
 
-                <!-- FOTO 2 -->
                 <div class="custom-file-upload">
+                    <span class="placeholder-text">Foto do Ambiente 2</span>
                     <label for="arquivo-upload-3" id="label-botao-3">
                         Escolher Imagem
                     </label>
                     <input type="file" id="arquivo-upload-3" name="foto2_upload" accept="image/*" required>
-                    <span id="nome-arquivo-3">Foto do Ambiente 2</span>
+                    <span id="nome-arquivo-3"></span>
+                                   
                 </div>
-
-                <!-- FOTO 3 -->
                 <div class="custom-file-upload">
+                    <span class="placeholder-text">Foto do Ambiente 3</span>
                     <label for="arquivo-upload-4" id="label-botao-4">
                         Escolher Imagem
                     </label>
                     <input type="file" id="arquivo-upload-4" name="foto3_upload" accept="image/*" required>
-                    <span id="nome-arquivo-4">Foto do Ambiente 3</span>
+                    <span id="nome-arquivo-4"></span>
+                                   
                 </div>
 
                 <textarea name="descricao" id="descricao" required placeholder="Descrição do Restaurante"
                     maxlength="500"></textarea>
+                <div style="height: 10px;"></div>          
         </div>
-        <div class="fundo">
-            <button type="submit" class="btnCadastrar">PRÓXIMO</button>
-        </div>
-        </form>
+            </div>
+    <div class="fundo">
+        <button type="submit" class="btnCadastrar">PRÓXIMO</button>
+           
     </div>
-
+    </form>
 
 </body>
 <script>
     /**
          * Função para atualizar o texto do <span> com o nome do arquivo selecionado.
-             * @param {HTMLElement} inputElement O input file.
-             * @param {HTMLElement} spanElement O span onde o nome do arquivo será exibido.
-             */
-    function configurarUpload(inputElement, spanElement, textoPadrao) {
+         * @param {HTMLElement} inputElement O input file.
+         * @param {HTMLElement} nomeArquivoSpan O span onde o nome do arquivo será exibido.
+           * @param {HTMLElement} placeholderElement O span com o texto placeholder.
+         */
+    function configurarUpload(inputElement, nomeArquivoSpan, placeholderElement) {
         inputElement.addEventListener('change', function () {
-            // Verifica se algum arquivo foi selecionado
             if (this.files && this.files.length > 0) {
-                // Exibe o nome do primeiro arquivo selecionado
-                spanElement.textContent = this.files[0].name;
+                // Exibe o nome do arquivo e oculta o placeholder
+                nomeArquivoSpan.textContent = this.files[0].name;
+                placeholderElement.style.display = 'none';
             } else {
-                // Se a seleção for cancelada, volta ao texto padrão
-                spanElement.textContent = textoPadrao;
+                // Limpa o nome do arquivo e exibe o placeholder
+                nomeArquivoSpan.textContent = '';
+                placeholderElement.style.display = 'block';
             }
         });
     }
 
-    // Mapeamento dos IDs do Input e do Span e o texto padrão de cada um
+    // Mapeamento dos IDs
     const uploads = [
-        { inputId: 'arquivo-upload-logo', spanId: 'nome-arquivo-logo', defaultText: 'Logo do Restaurante' },
-        { inputId: 'arquivo-upload-1', spanId: 'nome-arquivo-1', defaultText: 'Foto do Ambiente Principal' }, // Texto ajustado
-        { inputId: 'arquivo-upload-2', spanId: 'nome-arquivo-2', defaultText: 'Foto do Ambiente 1' },
-        { inputId: 'arquivo-upload-3', spanId: 'nome-arquivo-3', defaultText: 'Foto do Ambiente 2' },
-        { inputId: 'arquivo-upload-4', spanId: 'nome-arquivo-4', defaultText: 'Foto do Ambiente 3' }
+        { inputId: 'arquivo-upload-logo', spanId: 'nome-arquivo-logo' },
+        { inputId: 'arquivo-upload-1', spanId: 'nome-arquivo-1' },
+        { inputId: 'arquivo-upload-2', spanId: 'nome-arquivo-2' },
+        { inputId: 'arquivo-upload-3', spanId: 'nome-arquivo-3' },
+        { inputId: 'arquivo-upload-4', spanId: 'nome-arquivo-4' }
     ];
 
     // Itera sobre o array e configura cada input/span
     uploads.forEach(item => {
         const inputArquivo = document.getElementById(item.inputId);
         const nomeArquivoSpan = document.getElementById(item.spanId);
+        // Encontra o placeholder-text correspondente
+        const placeholder = inputArquivo.closest('.custom-file-upload').querySelector('.placeholder-text');
 
-        // Só configura se ambos os elementos existirem
-        if (inputArquivo && nomeArquivoSpan) {
-            configurarUpload(inputArquivo, nomeArquivoSpan, item.defaultText);
+        if (inputArquivo && nomeArquivoSpan && placeholder) {
+            configurarUpload(inputArquivo, nomeArquivoSpan, placeholder);
         }
     });
 

@@ -1,4 +1,3 @@
--- Script reorganizado e com lógica corrigida
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -26,23 +25,9 @@ CREATE TABLE IF NOT EXISTS restaurantes (
   fotoPrincipal_res LONGBLOB NULL,
   foto1_res LONGBLOB NULL,
   foto2_res LONGBLOB NULL,
-  foto3_res LONGBLOB	 NULL,
+  foto3_res LONGBLOB NULL,
   PRIMARY KEY (idrestaurante)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Mesas
-CREATE TABLE IF NOT EXISTS mesas (
-  idmesa INT NOT NULL AUTO_INCREMENT,
-  restaurante_id INT NOT NULL,
-  numero INT NOT NULL,
-  lugares INT NOT NULL,
-  PRIMARY KEY (idmesa),
-  INDEX idx_mesas_restaurante (restaurante_id),
-  CONSTRAINT fk_mesas_restaurante FOREIGN KEY (restaurante_id)
-    REFERENCES restaurantes (idrestaurante)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE
-) ENGINE=InnoDB;
 
 -- Clientes
 CREATE TABLE IF NOT EXISTS clientes (
@@ -53,7 +38,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   telefone_cli CHAR(11) NOT NULL,
   email_cli VARCHAR(100) NOT NULL UNIQUE,
   senha VARCHAR(255) NOT NULL,
-  foto_perfil MEDIUMBLOB,
+  foto_perfil LONGBLOB,
   dtNasc_cli DATE NOT NULL,
   cep_cli VARCHAR(9) NOT NULL,
   endereco_rua_cli VARCHAR(100) NOT NULL,
@@ -67,7 +52,6 @@ CREATE TABLE IF NOT EXISTS reservas (
   idreserva INT NOT NULL AUTO_INCREMENT,
   cliente_id INT NOT NULL,
   numero_clientes INT NOT NULL,
-  mesa_id INT NULL,
   restaurante_id INT NULL,
   data_reserva DATE NOT NULL,
   horario_inicio TIME NOT NULL,
@@ -75,15 +59,10 @@ CREATE TABLE IF NOT EXISTS reservas (
   status VARCHAR(30) DEFAULT 'confirmada',
   PRIMARY KEY (idreserva),
   INDEX idx_reserva_cliente (cliente_id),
-  INDEX idx_reserva_mesa (mesa_id),
   INDEX idx_reserva_restaurante (restaurante_id),
   CONSTRAINT fk_reserva_cliente FOREIGN KEY (cliente_id)
     REFERENCES clientes (idcliente)
     ON DELETE RESTRICT
-    ON UPDATE CASCADE,
-  CONSTRAINT fk_reserva_mesa FOREIGN KEY (mesa_id)
-    REFERENCES mesas (idmesa)
-    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT fk_reserva_restaurante FOREIGN KEY (restaurante_id)
     REFERENCES restaurantes (idrestaurante)
@@ -113,11 +92,27 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 USE reservai;
 
+-- Consultas de Verificação
 select * from restaurantes;
-
 select * from cardapio;
-
 select * from reservas;
-
 select * from clientes;
 
+INSERT INTO reservas (
+    cliente_id,
+    numero_clientes,
+    restaurante_id,
+    data_reserva,
+    horario_inicio,
+    horario_fim,
+    status
+) 
+VALUES (
+    1, 
+    3, 
+    1, 
+    CURDATE(), 
+    '19:45:00', 
+    '21:15:00', 
+    'confirmada'
+);

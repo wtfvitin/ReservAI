@@ -1,0 +1,78 @@
+.barra-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    margin-top: 50px;
+    background-color: #FFF5EA;
+}
+
+.barra-topo .esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-topo .icone-voltar {
+    width: 40px;
+    height: 40px;
+    margin-left: 11px;
+    cursor: pointer;
+}
+
+.barra-topo h1 {
+    font-size: 40px;
+    color: #D76A03;
+}
+
+main {
+    padding-top: 20px;
+    padding-bottom: 80px;
+}
+
+/* Reutiliza o estilo de contêiner e centralização dos inputs do CSS fornecido */
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Mensagens de erro/sucesso */
+.mensagem {
+    max-width: 600px;
+    width: 95%;
+    padding: 15px;
+    margin: 10px auto 20px auto;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.mensagem.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Ajuste do botão, adaptado para não usar o .fundo fixo */
+.btn-salvar {
+    /* Mantém a largura máxima do input-preco/custom-file-upload */
+    width: 95%;
+    max-width: 600px;
+    height: 56px;
+    background-color: #D76A03;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 20px auto;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.btn-salvar:hover {
+    background-color: #c05d00;
+    transform: translateY(-2px);
+}

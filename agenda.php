@@ -9,14 +9,14 @@ require_once "backend/conexao.php";
 // 2. VERIFICAÇÃO DE LOGIN E OBTENÇÃO DO ID
 // =========================================================
 // Verifica se o ID do usuário (cliente) está na sessão. Se não estiver, redireciona.
-if (empty($_SESSION['usuario_id'])) { 
+if (empty($_SESSION['usuario_id'])) {
     // Redireciona para a página de cadastro/login
     header("Location: cadastroClientePt1.php");
     exit;
 }
 
 // OBTENÇÃO DO ID DO CLIENTE (AGORA VEM DA SESSÃO)
-$cliente_id = $_SESSION['usuario_id']; 
+$cliente_id = $_SESSION['usuario_id'];
 // =========================================================
 
 
@@ -73,12 +73,12 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Conteúdo quando não há reservas -->
             <h2 class="sem-reserva" style="color: #d76a03; font-size: 30px; text-align: center; margin-top: 100px; margin-bottom: 0px;">Que tal fazer a primeira?</h2>
             <!-- IMAGEM DO COZINHEIRO QUANDO NÃO HÁ RESERVAS -->
-            <img class="sem-reserva-img" src="img/cozinheiro.png" alt="Cozinheiro Sugerindo Reserva">
+            <img class="sem-reserva-img" src="img/cozinheiro.png" alt="Cozinheiro Sugerindo Reserva" >
         <?php else: ?>
-            <?php foreach ($reservas as $r): 
+            <?php foreach ($reservas as $r):
                 // Monta a URL da imagem usando o ID do restaurante
                 $url_logo = 'backend/exibir_imagem.php?id=' . $r['restaurante_id'] . '&tipo=logo';
-                ?>
+            ?>
                 <div class="card-reserva">
 
                     <!-- Cabeçalho do card com logo + nome -->
@@ -108,11 +108,10 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Botão Cancelar com o ID da Reserva no atributo data- -->
-                    <button 
-                        class="btn-cancelar" 
-                        type="button" 
-                        data-reserva-id="<?= $r['idreserva'] ?>"
-                    >
+                    <button
+                        class="btn-cancelar"
+                        type="button"
+                        data-reserva-id="<?= $r['idreserva'] ?>">
                         Cancelar
                     </button>
 
@@ -155,28 +154,31 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <nav class="navbar">
         <a href="index.php" class="desativo-hover"><img src="img/Icone Casa.png" class="img-nav" alt="Home"></a>
-        <a href="agenda.php" class="ativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'agenda.php' : 'cadastroClientePt1.html'; ?>" class="ativo-hover"><img src="img/Icone Agenda.png" class="img-nav" alt="Agenda"></a>
 
         <a href="#" class="search-btn" id="openSearch">
             <img src="img/Icone Lupa.png" class="img-lupa-nav" alt="Pesquisar">
             <img src="img/Icone X.png" class="close-icon" alt="Fechar">
         </a>
 
-        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav"
-                alt="Configurações"></a>
-        <a href="#" class="desativo-hover"><img src="img/Icone Perfil.png" class="img-nav" alt="Perfil"></a>
+        <a href="#" class="desativo-hover"><img src="img/Icone Configurações.png" class="img-nav" alt="Configurações"></a>
+
+        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil.php' : 'gestor-cliente.html'; ?>" class="desativo-hover">
+            <img src="img/Icone Perfil.png" class="img-nav" alt="Perfil">
+        </a>
+
     </nav>
 
 </body>
 <script>
     /* Variável global para armazenar o ID da reserva a ser cancelada */
-    let reservaIdParaCancelar = null; 
+    let reservaIdParaCancelar = null;
 
     /* Elementos do Modal */
     const modal = document.getElementById('modalCancelamento');
     const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
     const btnFecharModal = document.getElementById('btnFecharModal');
-    
+
     // ============================================================== 
     // FUNÇÕES DO MODAL DE CANCELAMENTO
     // ============================================================== 
@@ -284,7 +286,6 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     document.getElementById('voltar').addEventListener('click', function() {
         history.back();
     });
-
 </script>
 
 </html>
