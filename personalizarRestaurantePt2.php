@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>  
-    <meta charset="UTF-8"> 
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png"> 
-    <link rel="stylesheet" href="src/css/padrão.css">     
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png">
+    <link rel="stylesheet" href="src/css/padrão.css">
     <link rel="stylesheet" href="src/css/personalizarRestaurantePt2.css">
     <title>Cadastro - ReservAI</title>
 </head>
@@ -60,7 +60,7 @@
                     <span class="label active">Cardápio</span>
                 </div>
             </div>
-                        <form id="form-cardapio" action="backend/processamento_cardapio.php" method="POST" enctype="multipart/form-data">
+            <form id="form-cardapio" action="backend/processamento_cardapio.php" method="POST" enctype="multipart/form-data">
 
                 <p class="instrucao">Defina a quantidade de pratos e preencha os campos.</p>
 
@@ -73,7 +73,7 @@
                 <div style="height: 10px;"></div>
             </form>
         </div>
-               
+
         <div class="fundo">
             <button type="submit" form="form-cardapio" class="btnCadastrar">CONCLUIR</button>
         </div>
@@ -132,7 +132,7 @@
                 placeholder="Preço (Ex: 35.90)" required
                 pattern="[0-9]+([,\.][0-9]{1,2})?">
             </div>
-        `;
+    `;
     }
 
     // Função principal que gera todos os campos dinamicamente

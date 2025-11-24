@@ -38,31 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Erro: Preencha todos os campos obrigatórios e o ID do restaurante.");
     }
 
-    // Garante que o ID do restaurante seja um número inteiro seguro
     $restaurante_id = (int)$restaurante_id;
 
-    // Converte a quantidade de pessoas para inteiro
     $numero_clientes = intval($numero_clientes);
 
-    // ================================
-    // 🚨 ATUALIZAÇÃO 1: CALCULAR HORÁRIO FINAL (2 horas de duração)
-    // ================================
-    // Assumindo que a duração da reserva é de 2 horas.
     $horario_fim = date("H:i:s", strtotime($horario_inicio . " + 2 hours"));
 
-
-    // ================================
-    // ❌ REMOVIDO: Lógica para gerar $mesa_id aleatória foi removida
-    // ================================
-    // A coluna 'mesa_id' não existe na tabela 'reservas', então removemos
-    // a variável e seu uso.
-
-    // ================================
-    // INSERIR NO BANCO DE DADOS
-    // ================================
     $sql = "INSERT INTO reservas 
-      (cliente_id, numero_clientes, restaurante_id, data_reserva, horario_inicio, horario_fim, status)
-      VALUES (:cliente_id, :numero_clientes, :restaurante_id, :data_reserva, :horario_inicio, :horario_fim, 'confirmada')";
+    (cliente_id, numero_clientes, restaurante_id, data_reserva, horario_inicio, horario_fim, status)
+    VALUES (:cliente_id, :numero_clientes, :restaurante_id, :data_reserva, :horario_inicio, :horario_fim, 'confirmada')";
 
     try {
         $stmt = $pdo->prepare($sql);
@@ -77,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ]);
 
         // Redirecionar para a agenda (ou página de confirmação)
-        header("Location: ../reserva_confirmada.php?sucesso=reserva_criada");
+        header("Location: ../reserva_confirmada.php?sucesso=1");
         exit;
     } catch (PDOException $e) {
         // Se houver um erro, imprime a mensagem para debug.
