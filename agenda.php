@@ -20,26 +20,24 @@ $cliente_id = $_SESSION['usuario_id'];
 // =========================================================
 
 
-// Consulta com JOIN para trazer dados úteis
+// Consulta SQL CORRIGIDA (SEM REFERÊNCIA À TABELA 'mesas')
 $sql = "
-    SELECT 
-        r.idreserva,
-        r.numero_clientes,
-        r.data_reserva,
-        r.horario_inicio,
-        r.horario_fim,
-        r.status,
-        r.restaurante_id,
-        res.nome_restaurante,
-        res.logo_res,
-        m.numero AS mesa_numero
-    FROM reservas r
-    LEFT JOIN restaurantes res ON r.restaurante_id = res.idrestaurante
-    LEFT JOIN mesas m ON r.mesa_id = m.idmesa
-    WHERE r.cliente_id = :cliente_id  -- FILTRA as reservas apenas do cliente logado
-    -- Exclui reservas canceladas ou finalizadas para exibir apenas as ativas
-    AND r.status = 'confirmada' 
-    ORDER BY r.data_reserva ASC, r.horario_inicio ASC
+  SELECT 
+    r.idreserva,
+    r.numero_clientes,
+    r.data_reserva,
+    r.horario_inicio,
+    r.horario_fim,
+    r.status,
+    r.restaurante_id,
+    res.nome_restaurante,
+    res.logo_res
+  FROM reservas r
+  LEFT JOIN restaurantes res ON r.restaurante_id = res.idrestaurante
+  WHERE r.cliente_id = :cliente_id -- FILTRA as reservas apenas do cliente logado
+  -- Exclui reservas canceladas ou finalizadas para exibir apenas as ativas
+  AND r.status = 'confirmada' 
+  ORDER BY r.data_reserva ASC, r.horario_inicio ASC
 ";
 
 $stmt = $pdo->prepare($sql);
@@ -70,10 +68,8 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="lista-reservas">
         <?php if (count($reservas) === 0): ?>
-            <!-- Conteúdo quando não há reservas -->
             <h2 class="sem-reserva" style="color: #d76a03; font-size: 30px; text-align: center; margin-top: 100px; margin-bottom: 0px;">Que tal fazer a primeira?</h2>
-            <!-- IMAGEM DO COZINHEIRO QUANDO NÃO HÁ RESERVAS -->
-            <img class="sem-reserva-img" src="img/cozinheiro.png" alt="Cozinheiro Sugerindo Reserva" >
+            <img class="sem-reserva-img" src="img/cozinheiro.png" alt="Cozinheiro Sugerindo Reserva">
         <?php else: ?>
             <?php foreach ($reservas as $r):
                 // Monta a URL da imagem usando o ID do restaurante
@@ -81,13 +77,11 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
                 <div class="card-reserva">
 
-                    <!-- Cabeçalho do card com logo + nome -->
                     <div class="card-header">
                         <img src="<?= $url_logo ?>" class="card-logo" alt="Logo do Restaurante">
                         <h2><?= htmlspecialchars($r['nome_restaurante']) ?></h2>
                     </div>
 
-                    <!-- Bloco de informações -->
                     <div class="card-info">
                         <p><strong>Data:</strong> <?= date("d/m/Y", strtotime($r['data_reserva'])) ?></p>
                         <hr>
@@ -102,12 +96,11 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p><strong>Clientes:</strong> <?= $r['numero_clientes'] ?></p>
                         <hr>
 
-                        <p><strong>Mesa:</strong>
-                            <?= $r['mesa_numero'] !== null ? $r['mesa_numero'] : "Não definida" ?>
+                        <p><strong>Status:</strong>
+                            Reserva Ativa
                         </p>
                     </div>
 
-                    <!-- Botão Cancelar com o ID da Reserva no atributo data- -->
                     <button
                         class="btn-cancelar"
                         type="button"
@@ -122,9 +115,6 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
 
-    <!-- ============================================================== 
-    POP UP DE CONFIRMAÇÃO DE CANCELAMENTO
-    ============================================================== -->
     <div class="modal-confirmacao" id="modalCancelamento">
         <div class="modal-content">
             <h3>Confirmar Cancelamento</h3>
@@ -138,9 +128,6 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
 
-    <!-- ============================================================== 
-    NAVBAR COMPLETA
-    ============================================================== -->
     <div class="overlay" id="overlay"></div>
 
     <div class="search-container" id="searchBar">
@@ -282,7 +269,7 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     /* ============================================================== 
     BOTÃO VOLTAR
-    ==============================================================  */
+    ============================================================== */
     document.getElementById('voltar').addEventListener('click', function() {
         history.back();
     });

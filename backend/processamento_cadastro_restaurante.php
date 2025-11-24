@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // ---------------------------------------------------------------------
     try {
         // Criptografa a senha antes de salvar
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $senhaHash = $senha;
         
         // Monta os nomes das colunas e os placeholders
         $colunas = [

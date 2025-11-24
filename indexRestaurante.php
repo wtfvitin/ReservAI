@@ -1,7 +1,14 @@
 <?php 
+// =================================================================
+// PÁGINA INICIAL DO GESTOR DE RESTAURANTE
+// Exibe as reservas confirmadas para o dia atual.
+// =================================================================
+
 session_start();
+// O caminho deve ser ajustado para onde o arquivo de conexão realmente está
 require_once "backend/conexao.php"; 
 
+// 1. Verificação de Autenticação
 if (empty($_SESSION['restaurante_id'])) {
     header("Location: loginRestaurante.html"); 
     exit;
@@ -10,7 +17,9 @@ if (empty($_SESSION['restaurante_id'])) {
 $restaurante_id = $_SESSION['restaurante_id'];
 $reservas_do_dia = [];
 $hoje = date('Y-m-d'); 
+$mensagem_erro = ""; // Inicializa a variável de erro
 
+// 2. Consulta SQL Corrigida (Removendo a referência à tabela 'mesas' e 'mesa_id')
 $sql_reservas = "
     SELECT 
         r.idreserva,
@@ -19,15 +28,13 @@ $sql_reservas = "
         c.foto_perfil,
         r.horario_inicio,
         r.horario_fim,
-        m.numero AS numero_mesa,
+        -- REMOVIDA: r.mesa_id, m.numero AS numero_mesa,
         r.numero_clientes,
         r.status
     FROM 
         reservas r
     JOIN 
         clientes c ON r.cliente_id = c.idcliente
-    LEFT JOIN 
-        mesas m ON r.mesa_id = m.idmesa
     WHERE 
         r.restaurante_id = :restaurante_id AND 
         r.data_reserva = :hoje AND
@@ -44,8 +51,10 @@ try {
     $reservas_do_dia = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    error_log("Erro ao buscar reservas: " . $e->getMessage());
-    $mensagem_erro = "Não foi possível carregar as reservas do dia. Erro de banco de dados.";
+    // Loga o erro real no servidor para debug
+    error_log("Erro ao buscar reservas: " . $e->getMessage()); 
+    // Mensagem amigável para o usuário
+    $mensagem_erro = "Não foi possível carregar as reservas do dia. Erro de banco de dados."; 
 }
 ?>
 
@@ -87,6 +96,9 @@ try {
                 
                 $nome_completo = $reserva['nome_cli'] . ' ' . $reserva['sobrenome_cli'];
                 $inicial_nome = strtoupper(substr($reserva['nome_cli'], 0, 1));
+                
+                // Como não estamos mais buscando foto_perfil do banco, assumimos que é um placeholder.
+                // Contudo, a consulta acima ainda busca a foto, então mantemos a lógica de exibição.
                 $has_foto = !empty($reserva['foto_perfil']);
 
                 $foto_src = $has_foto
@@ -111,7 +123,8 @@ try {
 
                     <div class="reserva-info-linha">
                         <span>Mesa:</span> 
-                        <strong><?php echo $reserva['numero_mesa'] ? 'Mesa ' . htmlspecialchars($reserva['numero_mesa']) : 'Não Definida'; ?></strong>
+                        <!-- CORRIGIDO: Agora apenas exibe "Não Definida" ou "Em breve" -->
+                        <strong>Não Definida (A ser implementado)</strong> 
                     </div>
 
                     <hr>
@@ -175,9 +188,9 @@ try {
     const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
     const btnFecharModal = document.getElementById('btnFecharModal');
     const overlay = document.getElementById("overlay"); // O overlay agora é compartilhado
-    const openSearch = document.getElementById("openSearch");
-    const searchBar = document.getElementById("searchBar");
-    const searchInput = document.getElementById("searchInput");
+    // const openSearch = document.getElementById("openSearch"); // Variável não existe neste HTML
+    // const searchBar = document.getElementById("searchBar"); // Variável não existe neste HTML
+    // const searchInput = document.getElementById("searchInput"); // Variável não existe neste HTML
 
     // ============================================================== 
     // FUNÇÕES DO MODAL DE CANCELAMENTO
@@ -195,10 +208,8 @@ try {
         modal.classList.remove('show');
         overlay.style.opacity = '0';
         setTimeout(() => {
-            // Apenas esconde o overlay se a barra de pesquisa não estiver ativa
-            if (!openSearch.classList.contains("active")) {
-                 overlay.style.display = 'none';
-            }
+            // Como a barra de pesquisa e openSearch não existem, simplificamos o fecharModal
+            overlay.style.display = 'none';
             reservaIdParaCancelar = null;
         }, 300);
     }

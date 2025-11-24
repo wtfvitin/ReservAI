@@ -98,21 +98,6 @@ select * from cardapio;
 select * from reservas;
 select * from clientes;
 
-INSERT INTO reservas (
-    cliente_id,
-    numero_clientes,
-    restaurante_id,
-    data_reserva,
-    horario_inicio,
-    horario_fim,
-    status
-) 
-VALUES (
-    1, 
-    3, 
-    1, 
-    CURDATE(), 
-    '19:45:00', 
-    '21:15:00', 
-    'confirmada'
-);
+-- Adiciona a coluna mesa_id na tabela reservas.
+ALTER TABLE reservas
+DROP COLUMN mesa_id;
